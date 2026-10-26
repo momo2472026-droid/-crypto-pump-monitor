@@ -7,7 +7,7 @@ on:
       - ".github/workflows/scanner.yml"
       - "scanner.py"
   schedule:
-    - cron: "0 * * * *"
+    - cron: "*/5 * * * *"
 
 jobs:
   scan:
