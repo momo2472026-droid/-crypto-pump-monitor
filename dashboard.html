@@ -2,77 +2,252 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Crypto Pump Scanner</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b12">
+<title>Crypto Pulse | Scanner</title>
 <style>
+:root{
+  --bg:#080b12;
+  --panel:#101622;
+  --panel2:#151e2e;
+  --border:#263248;
+  --text:#f1f5ff;
+  --muted:#8997ad;
+  --green:#42edaa;
+  --blue:#668bff;
+  --red:#ff6b81;
+}
 *{box-sizing:border-box}
-body{margin:0;background:#080d18;color:#edf2ff;font-family:Arial,sans-serif}
-header{padding:22px 16px;background:#111a2d;border-bottom:1px solid #26334c}
-h1{font-size:25px;margin:0 0 8px}
-.sub{color:#9baac4;font-size:13px}
-main{max-width:1100px;margin:auto;padding:16px}
-.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:16px}
-.stat{background:#111a2d;border:1px solid #26334c;border-radius:12px;padding:14px 10px}
-.stat strong{display:block;font-size:23px;margin-bottom:5px;overflow-wrap:anywhere}
-.stat span{font-size:12px;color:#9baac4}
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
-button{background:#17233a;border:1px solid #34435e;color:#eaf0ff;padding:10px 13px;border-radius:9px;font-weight:bold}
-button.active{background:#245eea;border-color:#245eea}
-#status{font-size:13px;color:#9baac4;margin:12px 0}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.card{background:#111a2d;border:1px solid #26334c;border-radius:13px;padding:15px;min-width:0}
-.top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
-.token{font-size:19px;font-weight:bold;overflow-wrap:anywhere}
-.chain{font-size:11px;background:#263653;padding:5px 8px;border-radius:20px;white-space:nowrap}
-.change{font-size:21px;font-weight:bold;color:#48e0a0;margin:12px 0}
-.metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.metric span{display:block;color:#91a1bd;font-size:11px;margin-bottom:4px}
-.metric strong{font-size:14px;overflow-wrap:anywhere}
-.address{font-size:11px;color:#91a1bd;overflow-wrap:anywhere;margin-top:12px}
-a{color:#83b5ff;text-decoration:none}
-.link{display:block;margin-top:13px;background:#1b2d4c;text-align:center;padding:11px;border-radius:8px;font-weight:bold}
-.empty{grid-column:1/-1;text-align:center;padding:30px;color:#9baac4;background:#111a2d;border-radius:12px}
-footer{color:#7889a5;font-size:12px;text-align:center;padding:25px}
-@media(max-width:600px){
- header{padding:18px 13px}
- h1{font-size:22px}
- main{padding:12px}
- .grid{grid-template-columns:1fr}
- .stats{gap:7px}
- .stat{padding:12px 8px}
- .stat strong{font-size:20px}
- button{flex:1;padding:10px 6px;font-size:12px}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  font-size:14px
+}
+button,input{font:inherit}
+button{cursor:pointer}
+header{
+  border-bottom:1px solid var(--border);
+  background:rgba(13,18,29,.95);
+  padding:19px 16px;
+}
+.header-inner,.main{max-width:1180px;margin:auto}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{
+  width:43px;height:43px;border-radius:13px;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,#4d7cff,#8259ee);
+  font-size:23px;box-shadow:0 5px 25px #456dff30
+}
+h1{font-size:20px;margin:0;letter-spacing:-.5px}
+.subtitle{color:var(--muted);font-size:12px;margin-top:5px}
+.header-right{margin-left:auto;text-align:right}
+.live{color:var(--green);font-size:11px;font-weight:800}
+.live:before{
+  content:"";display:inline-block;width:7px;height:7px;
+  border-radius:50%;background:var(--green);margin-right:6px
+}
+.header-time{color:var(--muted);font-size:11px;margin-top:5px}
+.main{padding:20px 15px 35px}
+.eyebrow{
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);font-weight:800;margin:4px 0 13px
+}
+.stats{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px
+}
+.stat{
+  min-width:0;background:var(--panel);
+  border:1px solid var(--border);border-radius:15px;padding:16px
+}
+.stat-label{color:var(--muted);font-size:12px}
+.stat-number{
+  font-size:27px;font-weight:800;letter-spacing:-1px;
+  margin:11px 0 5px;overflow-wrap:anywhere
+}
+.stat-foot{font-size:11px;color:var(--muted)}
+.stat-accent{color:var(--green)}
+.stat-blue{color:#89a7ff}
+.toolbar{
+  display:flex;gap:10px;margin-top:25px;
+  align-items:center;flex-wrap:wrap
+}
+.search{
+  flex:1;min-width:180px;position:relative
+}
+.search input{
+  width:100%;background:var(--panel);
+  border:1px solid var(--border);border-radius:11px;
+  color:var(--text);padding:13px 14px;outline:none
+}
+.search input:focus{border-color:var(--blue)}
+.filters{display:flex;gap:7px;flex-wrap:wrap}
+.filter{
+  border:1px solid var(--border);border-radius:10px;
+  padding:11px 13px;background:var(--panel);
+  color:#aebbd0;font-weight:700;font-size:12px
+}
+.filter.active{
+  background:#2949a5;border-color:#5076ff;color:white
+}
+.section-head{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;margin:26px 0 13px
+}
+.section-title{font-size:17px;font-weight:800}
+.result-count{font-size:12px;color:var(--muted)}
+.grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px
+}
+.card{
+  min-width:0;background:linear-gradient(145deg,#121a29,#0e1420);
+  border:1px solid var(--border);border-radius:16px;
+  padding:17px;transition:border-color .2s
+}
+.card:hover{border-color:#465a7d}
+.card-top{display:flex;align-items:flex-start;gap:10px}
+.coin-icon{
+  width:43px;height:43px;flex:0 0 43px;
+  border:1px solid #35425a;border-radius:13px;
+  background:#1a263a;display:grid;place-items:center;
+  font-weight:900;font-size:15px;color:#c6d5ff
+}
+.coin-heading{min-width:0;flex:1}
+.coin-name{font-size:17px;font-weight:800;overflow-wrap:anywhere}
+.coin-network{font-size:11px;color:var(--muted);margin-top:5px}
+.badge{
+  font-size:10px;font-weight:800;padding:6px 8px;
+  border-radius:7px;background:#153b32;color:var(--green);
+  white-space:nowrap
+}
+.badge.risk{background:#3b202b;color:#ff9bab}
+.price-row{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;margin:19px 0 17px
+}
+.price{font-size:19px;font-weight:800;overflow-wrap:anywhere}
+.gain{color:var(--green);font-weight:800;font-size:16px;white-space:nowrap}
+.metrics{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:15px 10px;padding-top:15px;
+  border-top:1px solid #263146
+}
+.metric-label{font-size:11px;color:var(--muted);margin-bottom:6px}
+.metric-value{font-size:14px;font-weight:750;overflow-wrap:anywhere}
+.contract{
+  color:var(--muted);font-size:10px;margin-top:17px;
+  overflow-wrap:anywhere;line-height:1.6
+}
+.actions{display:flex;gap:8px;margin-top:15px}
+.action{
+  flex:1;text-align:center;text-decoration:none;
+  border-radius:9px;padding:12px 8px;font-size:12px;
+  font-weight:800;background:#1b2b49;color:#9dbbff;
+  border:1px solid #2a3c5d
+}
+.action.primary{background:#315be8;color:white;border-color:#315be8}
+.empty{
+  grid-column:1/-1;padding:45px 18px;text-align:center;
+  background:var(--panel);border:1px dashed #35435b;
+  border-radius:15px;color:var(--muted);line-height:1.8
+}
+.empty strong{display:block;color:var(--text);font-size:16px;margin-bottom:6px}
+.warning{
+  margin-top:20px;padding:13px 15px;border-radius:11px;
+  background:#241d18;border:1px solid #4b3825;
+  color:#d9b99a;font-size:11px;line-height:1.7
+}
+.footer{text-align:center;padding:26px 10px;color:#64728b;font-size:11px;line-height:1.8}
+@media(max-width:700px){
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .stat{padding:14px}
+  .stat-number{font-size:25px}
+  .grid{grid-template-columns:1fr}
+  .main{padding:16px 12px 28px}
+  .toolbar{margin-top:20px}
+  .search{flex-basis:100%}
+  .filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
+  .filter{padding:11px 4px;font-size:11px}
+  .card{padding:15px}
+  .section-head{margin-top:23px}
+}
+@media(min-width:1000px){
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 </style>
 </head>
 <body>
 <header>
-  <h1>🚀 Crypto Pump Scanner</h1>
-  <div class="sub">Ethereum · Solana · Robinhood Chain</div>
-</header>
-<main>
-  <section class="stats">
-    <div class="stat"><strong id="total">0</strong><span>Matching signals</span></div>
-    <div class="stat"><strong id="eth">0</strong><span>Ethereum</span></div>
-    <div class="stat"><strong id="robinhood">0</strong><span>Robinhood Chain</span></div>
-  </section>
-  <div class="filters">
-    <button class="active" data-filter="all">All networks</button>
-    <button data-filter="ethereum">Ethereum</button>
-    <button data-filter="solana">Solana</button>
-    <button data-filter="robinhood">Robinhood</button>
+  <div class="header-inner brand">
+    <div class="logo">ϟ</div>
+    <div>
+      <h1>Crypto Pulse</h1>
+      <div class="subtitle">Multi-chain momentum scanner</div>
+    </div>
+    <div class="header-right">
+      <div class="live">SCANNER DASHBOARD</div>
+      <div class="header-time" id="headerTime">Connecting…</div>
+    </div>
   </div>
-  <div id="status">Loading signals…</div>
-  <section class="grid" id="cards"></section>
+</header>
+<main class="main">
+  <div class="eyebrow">Market overview</div>
+  <section class="stats">
+    <div class="stat">
+      <div class="stat-label">Matching signals</div>
+      <div class="stat-number" id="total">—</div>
+      <div class="stat-foot">Across all networks</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Ethereum</div>
+      <div class="stat-number stat-blue" id="eth">—</div>
+      <div class="stat-foot">ETH mainnet pairs</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Solana</div>
+      <div class="stat-number" id="sol">—</div>
+      <div class="stat-foot">Solana pairs</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Robinhood Chain</div>
+      <div class="stat-number stat-accent" id="robinhood">—</div>
+      <div class="stat-foot">Robinhood network pairs</div>
+    </div>
+  </section>
+  <section class="toolbar">
+    <div class="search">
+      <input id="search" type="search" placeholder="⌕  Search token name or symbol…" autocomplete="off">
+    </div>
+    <div class="filters">
+      <button class="filter active" data-filter="all">All</button>
+      <button class="filter" data-filter="ethereum">ETH</button>
+      <button class="filter" data-filter="solana">SOL</button>
+      <button class="filter" data-filter="robinhood">Robinhood</button>
+    </div>
+  </section>
+  <div class="section-head">
+    <div class="section-title">⚡ Momentum signals</div>
+    <div class="result-count" id="resultCount">Loading…</div>
+  </div>
+  <section class="grid" id="cards">
+    <div class="empty">Loading scanner data…</div>
+  </section>
+  <div class="warning">
+    ⚠️ <strong>Risk notice:</strong> These are momentum signals, not buy recommendations.
+    Token contracts, holder concentration and liquidity locks are not verified by this dashboard.
+    New and low-cap tokens can be manipulated, difficult to sell or lose their entire value.
+  </div>
 </main>
-<footer>
-  Data from DexScreener · Refreshes every 5 minutes<br>
-  Momentum signals are not financial advice. Tokens can lose all their value.
+<footer class="footer">
+  CRYPTO PULSE · POWERED BY DEXSCREENER<br>
+  <span id="lastUpdate">Waiting for scanner data…</span><br>
+  Dashboard refreshes every five minutes.
 </footer>
 <script>
 let signals = [];
 let activeFilter = "all";
-const el = id => document.getElementById(id);
+const $ = id => document.getElementById(id);
 function money(value) {
   const n = Number(value);
   if (!Number.isFinite(n)) return "—";
@@ -81,74 +256,150 @@ function money(value) {
   if (n >= 1e3) return "$" + (n / 1e3).toFixed(1) + "K";
   return "$" + n.toFixed(2);
 }
-function safeText(value) {
+function safe(value) {
   return String(value ?? "—").replace(/[&<>"']/g, c => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+    "&":"&amp;", "<":"&lt;", ">":"&gt;",
+    '"':"&quot;", "'":"&#39;"
   })[c]);
 }
+function shortAddress(address) {
+  if (!address || address.length < 17) return address || "Unavailable";
+  return address.slice(0, 9) + "…" + address.slice(-6);
+}
+function validDexUrl(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" &&
+      (url.hostname === "dexscreener.com" ||
+       url.hostname.endsWith(".dexscreener.com"))
+      ? url.href : "";
+  } catch {
+    return "";
+  }
+}
 function render() {
-  el("total").textContent = signals.length;
-  el("eth").textContent =
-    signals.filter(s => s.chain === "ethereum").length;
-  el("robinhood").textContent =
-    signals.filter(s => s.chain === "robinhood").length;
-  const filtered = signals.filter(s =>
-    activeFilter === "all" || s.chain === activeFilter
-  );
-  el("cards").innerHTML = "";
+  $("total").textContent = signals.length;
+  $("eth").textContent = signals.filter(s => s.chain === "ethereum").length;
+  $("sol").textContent = signals.filter(s => s.chain === "solana").length;
+  $("robinhood").textContent = signals.filter(s => s.chain === "robinhood").length;
+  const query = $("search").value.trim().toLowerCase();
+  const filtered = signals.filter(s => {
+    const matchesChain = activeFilter === "all" || s.chain === activeFilter;
+    const matchesSearch = !query ||
+      String(s.token || "").toLowerCase().includes(query) ||
+      String(s.address || "").toLowerCase().includes(query);
+    return matchesChain && matchesSearch;
+  }).sort((a, b) => Number(b.change || 0) - Number(a.change || 0));
+  $("resultCount").textContent = filtered.length + " results";
   if (!filtered.length) {
-    el("cards").innerHTML =
-      '<div class="empty">No matching signals right now.<br>New qualifying tokens may appear on the next scan.</div>';
+    $("cards").innerHTML =
+      '<div class="empty"><strong>No matching signals</strong>Try another network or search term. The scanner only displays tokens that meet its current filters.</div>';
     return;
   }
-  filtered.forEach(s => {
-    const card = document.createElement("article");
-    card.className = "card";
-    const url = /^https:\/\/dexscreener\.com\//i.test(s.pairUrl || "")
-      ? s.pairUrl
-      : "";
-    card.innerHTML = `
-      <div class="top">
-        <div class="token">${safeText(s.token || "Unknown")}</div>
-        <span class="chain">${safeText(s.chain || "unknown")}</span>
-      </div>
-      <div class="change">+${Number(s.change || 0).toFixed(2)}%</div>
-      <div class="metrics">
-        <div class="metric"><span>Price</span><strong>${safeText(s.price || "—")}</strong></div>
-        <div class="metric"><span>24h Volume</span><strong>${money(s.volume)}</strong></div>
-        <div class="metric"><span>Liquidity</span><strong>${money(s.liquidity)}</strong></div>
-        <div class="metric"><span>Market Cap / FDV</span><strong>${money(s.marketCap)}</strong></div>
-      </div>
-      <div class="address">Token: ${safeText(s.address || "Unavailable")}</div>
-      ${url ? `<a class="link" href="${safeText(url)}" target="_blank" rel="noopener noreferrer">View on DexScreener ↗</a>` : ""}
+  $("cards").innerHTML = filtered.map(s => {
+    const change = Number(s.change || 0);
+    const positive = change >= 0;
+    const network = {
+      ethereum: "Ethereum",
+      solana: "Solana",
+      robinhood: "Robinhood Chain"
+    }[s.chain] || s.chain || "Unknown";
+    const url = validDexUrl(s.pairUrl);
+    const symbol = String(s.token || "?").slice(0, 2).toUpperCase();
+    return `
+      <article class="card">
+        <div class="card-top">
+          <div class="coin-icon">${safe(symbol)}</div>
+          <div class="coin-heading">
+            <div class="coin-name">${safe(s.token || "Unknown")}</div>
+            <div class="coin-network">${safe(network)}</div>
+          </div>
+          <span class="badge ${positive ? "" : "risk"}">
+            ${positive ? "MOMENTUM" : "DOWNTREND"}
+          </span>
+        </div>
+        <div class="price-row">
+          <div class="price">${safe(s.price || "—")}</div>
+          <div class="gain" style="color:${positive ? "var(--green)" : "var(--red)"}">
+            ${positive ? "+" : ""}${change.toFixed(2)}%
+          </div>
+        </div>
+        <div class="metrics">
+          <div>
+            <div class="metric-label">24H VOLUME</div>
+            <div class="metric-value">${money(s.volume)}</div>
+          </div>
+          <div>
+            <div class="metric-label">LIQUIDITY</div>
+            <div class="metric-value">${money(s.liquidity)}</div>
+          </div>
+          <div>
+            <div class="metric-label">MARKET CAP / FDV</div>
+            <div class="metric-value">${money(s.marketCap)}</div>
+          </div>
+          <div>
+            <div class="metric-label">1H CHANGE</div>
+            <div class="metric-value" style="color:${positive ? "var(--green)" : "var(--red)"}">
+              ${positive ? "+" : ""}${change.toFixed(2)}%
+            </div>
+          </div>
+        </div>
+        <div class="contract">TOKEN ADDRESS<br>${safe(shortAddress(s.address))}</div>
+        <div class="actions">
+          ${url
+            ? `<a class="action primary" href="${safe(url)}" target="_blank" rel="noopener noreferrer">View pair ↗</a>`
+            : ""}
+          ${s.address
+            ? `<button class="action copy" data-address="${safe(s.address)}">Copy address</button>`
+            : ""}
+        </div>
+      </article>
     `;
-    el("cards").appendChild(card);
-  });
+  }).join("");
 }
 async function loadSignals() {
+  $("headerTime").textContent = "Checking data…";
   try {
     const response = await fetch("./signals.json?t=" + Date.now(), {
       cache: "no-store"
     });
     if (!response.ok) throw new Error("HTTP " + response.status);
     const data = await response.json();
-    signals = Array.isArray(data.signals) ? data.signals : [];
-    el("status").textContent =
-      "Last scanner update: " + (data.updated || "Not available");
+    if (!Array.isArray(data.signals)) throw new Error("Invalid signals data");
+    signals = data.signals;
+    $("headerTime").textContent = "Connected";
+    $("lastUpdate").textContent =
+      "Last scanner update: " + (data.updated || "Unknown");
     render();
   } catch (error) {
-    el("status").textContent =
-      "Could not load signals.json. Check that the scanner workflow has run successfully.";
+    $("headerTime").textContent = "Data unavailable";
+    $("lastUpdate").textContent = "Could not load signals.json. Check GitHub Actions.";
+    $("cards").innerHTML =
+      '<div class="empty"><strong>Unable to load scanner data</strong>Check that the scanner workflow completed successfully and published signals.json.</div>';
+    $("resultCount").textContent = "Unavailable";
   }
 }
 document.querySelectorAll("[data-filter]").forEach(button => {
   button.addEventListener("click", () => {
     activeFilter = button.dataset.filter;
-    document.querySelectorAll("[data-filter]").forEach(b =>
-      b.classList.toggle("active", b === button)
+    document.querySelectorAll("[data-filter]").forEach(item =>
+      item.classList.toggle("active", item === button)
     );
     render();
   });
+});
+$("search").addEventListener("input", render);
+$("cards").addEventListener("click", async event => {
+  const button = event.target.closest("[data-address]");
+  if (!button) return;
+  try {
+    await navigator.clipboard.writeText(button.dataset.address);
+    const oldText = button.textContent;
+    button.textContent = "Copied ✓";
+    setTimeout(() => button.textContent = oldText, 1500);
+  } catch {
+    button.textContent = "Copy unavailable";
+  }
 });
 loadSignals();
 setInterval(loadSignals, 300000);
