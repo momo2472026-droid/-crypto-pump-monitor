@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10131c">
+  <title>Crypto Pump Scanner</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #10131c;
+      color: #f1f5f9;
+      font-family: Arial, sans-serif;
+    }
+    .container { max-width: 1000px; margin: auto; }
+    h1 { font-size: 25px; }
+    .status, .panel {
+      background: #1a2030;
+      border: 1px solid #30394d;
+      border-radius: 12px;
+      padding: 16px;
+      margin: 14px 0;
+    }
+    .status { color: #a7f3d0; }
+    .muted { color: #9ca9bd; font-size: 14px; }
+    .signals { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td {
+      text-align: left;
+      padding: 12px 8px;
+      border-bottom: 1px solid #30394d;
+      white-space: nowrap;
+    }
+    th { color: #9ca9bd; font-size: 13px; }
+    .empty { padding: 24px 8px; color: #9ca9bd; }
+    button {
+      background: #334155;
+      color: white;
+      border: 0;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>🚀 Crypto Pump Scanner</h1>
+    <p class="muted">Private scanner dashboard</p>
+<section class="status">
+  <strong>● Dashboard ready</strong>
+  <p id="last-update">Waiting for scanner data...</p>
+  <p id="next-update">Automatic refresh every 5 minutes</p>
+</section>
+<section class="panel">
+  <h2>Latest signals</h2>
+  <p class="muted">
+    Token signals will appear here once the dashboard is connected
+    to your scanner's authenticated data source.
+  </p>
+  <div class="signals">
+    <table>
+      <thead>
+        <tr>
+          <th>Token</th>
+          <th>Price</th>
+          <th>24h Change</th>
+          <th>Volume</th>
+          <th>Liquidity</th>
+        </tr>
+      </thead>
+      <tbody id="signals">
+        <tr>
+          <td colspan="5" class="empty">
+            No scanner data connected yet.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<button id="refresh">Refresh dashboard</button>
+<p class="muted">
+  Last checked: <span id="checked">Not checked yet</span>
+</p>
+  </main>
+  <script>
+    // Display only. Connect an authenticated data endpoint before use.
+    // Never put GitHub or exchange secrets in this file.
+    const REFRESH_MS = 5 * 60 * 1000;
+    function refreshDashboard() {
+      document.getElementById("checked").textContent =
+        new Date().toLocaleString();
+      document.getElementById("next-update").textContent =
+        "Next refresh in 5 minutes";
+      // Scanner data connection will be added in the next step.
+    }
+    document.getElementById("refresh").addEventListener(
+      "click", refreshDashboard
+    );
+    refreshDashboard();
+    setInterval(refreshDashboard, REFRESH_MS);
+  </script>
+</body>
+</html>
