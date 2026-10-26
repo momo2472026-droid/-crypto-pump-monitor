@@ -3,50 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#020b14">
 <title>Crypto Pump Monitor</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#020b14;color:#edf6ff;font-family:Arial,sans-serif}
-main{max-width:1500px;margin:auto;padding:16px}
-header,.panel,.network,.stat{background:#071725;border:1px solid #183246;border-radius:12px}
-header{padding:20px;margin-bottom:14px}
-h1{font-size:clamp(24px,4vw,38px);margin:0}
-h2{font-size:18px;margin:0}
-p{color:#91a7bc}
+body{margin:0;background:#020b14;color:#edf6ff;font-family:-apple-system,BlinkMacSystemFont,Arial,sans-serif;line-height:1.45}
+main{max-width:1100px;margin:auto;padding:14px}
+header,.panel,.network,.stat,.token-card{background:#071725;border:1px solid #183246;border-radius:14px}
+header{padding:19px;margin-bottom:14px;background:radial-gradient(ellipse at top right,#10314a,#071725 70%)}
+h1{font-size:clamp(23px,5vw,36px);line-height:1.2;margin:0}
+h2{font-size:17px;margin:0}
+p{color:#91a7bc;margin:8px 0}
 .green{color:#36e59a}
-.live{color:#36e59a;font-weight:bold}
+.live{display:inline-block;color:#36e59a;background:#05291f;border:1px solid #126b4b;border-radius:8px;padding:8px 12px;font-weight:800;margin-top:5px}
 .filters{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
-button{background:#10263a;border:1px solid #25465f;border-radius:8px;color:white;padding:12px;cursor:pointer}
+button{background:#10263a;border:1px solid #25465f;border-radius:9px;color:white;padding:11px 13px;font-size:14px;cursor:pointer}
 button.active{background:#16416a;border-color:#438bff}
-.stats,.networks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:14px 0}
-.stat,.network{padding:14px;min-width:0}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:14px 0}
+.stat{padding:13px;min-width:0}
 .stat strong{display:block;font-size:22px}
 .stat span,.muted{font-size:12px;color:#91a7bc}
-.networks{grid-template-columns:repeat(4,minmax(0,1fr))}
-.network h3{font-size:14px;margin:0 0 8px}
+.networks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:14px 0}
+.network{padding:13px;min-width:0}
+.network h3{font-size:13px;margin:0 0 6px}
+.network p{font-size:12px;margin:4px 0}
 .panel{margin-top:14px;overflow:hidden}
 .panelhead{padding:15px;border-bottom:1px solid #183246}
-.tablewrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:800px;font-size:13px}
-th,td{text-align:left;padding:12px 10px;border-bottom:1px solid #183246;white-space:nowrap}
-th{background:#0b1c2b;color:#a9bfd2;font-size:11px;text-transform:uppercase}
-.up{color:#36e59a;font-weight:bold}
-.pill{background:#103d30;color:#6ff0b7;padding:5px 8px;border-radius:7px;font-size:11px}
-.lower{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
-.content{padding:15px;overflow-wrap:anywhere}
-.content h3{margin-top:0}
-a{color:#80c5ff}
+.panelbody{padding:12px}
+.token-card{padding:15px;margin-bottom:11px;background:linear-gradient(145deg,#0a1c2b,#06131f)}
+.token-card:last-child{margin-bottom:0}
+.token-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.token-name{font-size:18px;font-weight:800;overflow-wrap:anywhere}
+.token-address{font-size:11px;color:#91a7bc;overflow-wrap:anywhere;margin-top:4px}
+.network-pill{display:inline-block;background:#102c40;border:1px solid #25465f;border-radius:7px;padding:5px 8px;font-size:11px;white-space:nowrap}
+.price-row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:15px 0}
+.price{font-size:22px;font-weight:800;overflow-wrap:anywhere}
+.change{color:#36e59a;font-weight:800;background:#08291f;border:1px solid #13523d;border-radius:8px;padding:7px 9px;white-space:nowrap}
+.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.metric{padding:10px;border-radius:9px;background:#06121d;border:1px solid #142d3e;min-width:0}
+.metric span{display:block;color:#91a7bc;font-size:11px;margin-bottom:4px}
+.metric strong{font-size:14px;overflow-wrap:anywhere}
+.actions{display:flex;gap:8px;margin-top:12px}
+.actions a{display:block;text-align:center;text-decoration:none;background:#103d30;border:1px solid #176849;color:#6ff0b7;border-radius:8px;padding:11px 8px;font-size:13px;font-weight:700;flex:1}
+.actions button{flex:1}
 .empty{padding:24px;text-align:center;color:#91a7bc}
 .notice{font-size:12px;color:#91a7bc;line-height:1.6}
-@media(max-width:700px){
- main{padding:10px}
- .networks{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
- .stats{gap:7px}
- .stat{padding:10px}
- .stat strong{font-size:18px}
- .stat span{font-size:10px}
- .lower{grid-template-columns:1fr}
- header{padding:15px}
+a{color:#80c5ff}
+.footer{font-size:11px;text-align:center;color:#71899c;padding:18px 4px}
+@media(min-width:760px){
+main{padding:22px}
+.networks{grid-template-columns:repeat(4,minmax(0,1fr))}
+.token-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.token-card{margin:0}
+}
+@media(max-width:380px){
+main{padding:9px}
+header{padding:14px}
+.stats{gap:6px}
+.stat{padding:9px}
+.stat strong{font-size:18px}
+.stat span{font-size:10px}
+.token-card{padding:12px}
+.price{font-size:19px}
+.change{font-size:12px;padding:6px}
 }
 </style>
 </head>
@@ -68,45 +87,59 @@ a{color:#80c5ff}
 <div class="stats">
 <div class="stat"><strong id="total">—</strong><span>Signals found</span></div>
 <div class="stat"><strong id="pumps">—</strong><span>Potential pumps</span></div>
-<div class="stat"><strong id="alerts">—</strong><span>Strong momentum signals</span></div>
+<div class="stat"><strong id="alerts">—</strong><span>Strong momentum</span></div>
 </div>
 <div class="networks">
-<div class="network"><h3>💎 ETHEREUM</h3><p id="eth">Loading signals…</p></div>
-<div class="network"><h3>🟣 SOLANA</h3><p id="sol">Loading signals…</p></div>
-<div class="network"><h3>🧪 PUMP.FUN</h3><p>Not separately scanned</p></div>
-<div class="network"><h3>🌿 ROBINHOOD CHAIN</h3><p>Not currently scanned</p></div>
+<div class="network"><h3>💎 ETHEREUM</h3><p id="eth">Loading…</p><p>Liquidity ≥ $10k</p></div>
+<div class="network"><h3>🟣 SOLANA</h3><p id="sol">Loading…</p><p>Liquidity ≥ $10k</p></div>
+<div class="network"><h3>🧪 PUMP.FUN</h3><p>Not separately scanned</p><p>Uses available Solana pairs</p></div>
+<div class="network"><h3>🌿 ROBINHOOD CHAIN</h3><p>Not currently scanned</p><p>Not included in live results</p></div>
 </div>
 <section class="panel">
-<div class="panelhead"><h2>🚀 LIVE OPPORTUNITIES</h2><p class="muted" id="summary">Waiting for scanner data</p></div>
-<div class="tablewrap">
-<table>
-<thead><tr><th>#</th><th>Token</th><th>Network</th><th>Price</th><th>1H Change</th><th>24H Volume</th><th>Market Cap / FDV</th><th>Liquidity</th><th>Signal</th><th>Pair</th></tr></thead>
-<tbody id="rows"><tr><td colspan="10" class="empty">Loading signals…</td></tr></tbody>
-</table>
+<div class="panelhead">
+<h2>🚀 LIVE OPPORTUNITIES</h2>
+<p class="muted" id="summary">Waiting for scanner data</p>
 </div>
-<div id="empty" class="empty" hidden>No tokens currently meet your scanner filters.</div>
+<div class="panelbody"><div id="cards"><div class="empty">Loading signals…</div></div></div>
 </section>
-<div class="lower">
-<section class="panel"><div class="panelhead"><h2>📈 TOKEN DETAILS</h2></div><div class="content" id="details">Select a token to view its details.</div></section>
-<section class="panel"><div class="panelhead"><h2>🧭 FILTERS & RISK NOTES</h2></div><div class="content">
-<p>Minimum liquidity: <strong>$10,000</strong></p>
-<p>Minimum 24-hour volume: <strong>$25,000</strong></p>
-<p>Minimum 1-hour price change: <strong>+10%</strong></p>
-<p>Holder concentration: <strong>Not checked</strong></p>
-<p class="notice">Momentum does not guarantee a safe or profitable trade. The current scanner does not check holder distribution, contract safety or creator wallets. Pump.fun and Robinhood Chain are not separately monitored.</p>
-</div></section>
+<section class="panel">
+<div class="panelhead"><h2>🧭 FILTERS & RISK NOTES</h2></div>
+<div class="panelbody">
+<div class="metrics">
+<div class="metric"><span>Minimum liquidity</span><strong>$10,000</strong></div>
+<div class="metric"><span>Minimum 24h volume</span><strong>$25,000</strong></div>
+<div class="metric"><span>Minimum 1h change</span><strong>+10%</strong></div>
+<div class="metric"><span>Holder concentration</span><strong>Not checked</strong></div>
 </div>
-<p class="notice">Data is loaded from your scanner's signals.json file. Dashboard refreshes every five minutes. Informational only, not financial advice.</p>
+<p class="notice">Momentum does not guarantee a safe or profitable trade. The scanner does not currently check holder distribution, contract safety or creator wallets. Pump.fun and Robinhood Chain are not separately monitored.</p>
+</div>
+</section>
+<div class="footer">Data: your scanner's signals.json · Refreshes every 5 minutes · Informational only, not financial advice.</div>
 </main>
 <script>
-let signals=[],filter="all",timer=300;
+let signals=[];
+let filter="all";
+let timer=300;
 const el=id=>document.getElementById(id);
 const esc=s=>String(s??"—").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function money(v){let n=Number(v);if(!Number.isFinite(n))return "—";if(n>=1e9)return "$"+(n/1e9).toFixed(2)+"B";if(n>=1e6)return "$"+(n/1e6).toFixed(2)+"M";if(n>=1e3)return "$"+(n/1e3).toFixed(1)+"K";return "$"+n.toLocaleString("en-US",{maximumFractionDigits:8})}
-function price(v){let n=Number(v);return Number.isFinite(n)?"$"+n.toLocaleString("en-US",{maximumFractionDigits:n<.01?10:6}):"—"}
-function net(c){return c==="ethereum"?"ETH":c==="solana"?"SOL":String(c||"—").toUpperCase()}
-function pairLink(u){try{let x=new URL(u);return ["https:","http:"].includes(x.protocol)?x.href:"#"}catch{return "#"}}
-function filtered(){return signals.filter(s=>filter==="all"||String(s.chain).toLowerCase()===filter)}
+function money(v){
+let n=Number(v);
+if(!Number.isFinite(n))return "—";
+if(n>=1e9)return "$"+(n/1e9).toFixed(2)+"B";
+if(n>=1e6)return "$"+(n/1e6).toFixed(2)+"M";
+if(n>=1e3)return "$"+(n/1e3).toFixed(1)+"K";
+return "$"+n.toLocaleString("en-US",{maximumFractionDigits:8});
+}
+function price(v){
+if(v===null||v===undefined||v==="")return "—";
+let n=Number(v);
+return Number.isFinite(n)?"$"+n.toLocaleString("en-US",{maximumFractionDigits:n<0.01?10:6}):"—";
+}
+function net(c){return c==="ethereum"?"Ethereum":c==="solana"?"Solana":String(c||"Unknown").toUpperCase()}
+function safeLink(u){
+try{let x=new URL(u);return ["https:","http:"].includes(x.protocol)?x.href:"#"}catch{return "#"}
+}
+function filtered(){return signals.filter(s=>filter==="all"||String(s.chain||"").toLowerCase()===filter)}
 function render(){
 let list=filtered();
 el("total").textContent=signals.length;
@@ -114,31 +147,52 @@ el("pumps").textContent=list.length;
 el("alerts").textContent=list.filter(s=>Number(s.change)>=20).length;
 el("eth").textContent=signals.filter(s=>s.chain==="ethereum").length+" active signals";
 el("sol").textContent=signals.filter(s=>s.chain==="solana").length+" active signals";
-el("summary").textContent=list.length+" signals matching selected network";
-el("empty").hidden=list.length!==0;
+el("summary").textContent=list.length+" signal(s) · selected network: "+(filter==="all"?"All":net(filter));
 if(!list.length){
-el("rows").innerHTML='<tr><td colspan="10" class="empty">No matching signals at the moment.</td></tr>';
-el("details").textContent="No token selected.";
+el("cards").innerHTML='<div class="empty">No tokens currently match this network filter. Try All Networks or check again after the next scan.</div>';
 return;
 }
-el("rows").innerHTML=list.map((s,i)=>'<tr><td>'+(i+1)+'</td><td><strong>'+esc(s.token)+'</strong><br><span class="muted">'+esc(s.address||"")+'</span></td><td>'+esc(net(s.chain))+'</td><td>'+price(s.price)+'</td><td class="up">+'+Number(s.change||0).toFixed(2)+'%</td><td>'+money(s.volume)+'</td><td>'+money(s.marketCap)+'</td><td>'+money(s.liquidity)+'</td><td><span class="pill">'+(Number(s.change)>=20?"Strong momentum":"Early momentum")+'</span></td><td><button onclick="showDetails('+i+')">Details</button> <a target="_blank" rel="noopener" href="'+esc(pairLink(s.pairUrl))+'">Open ↗</a></td></tr>').join("");
-showDetails(0);
+el("cards").innerHTML='<div class="token-grid">'+list.map((s,i)=>{
+let move=Number(s.change||0);
+return '<article class="token-card">'+
+'<div class="token-top"><div><div class="token-name">'+esc(s.token||"Unknown token")+'</div><div class="token-address">'+esc(s.address||"Contract address unavailable")+'</div></div><span class="network-pill">'+esc(net(s.chain))+'</span></div>'+
+'<div class="price-row"><div class="price">'+price(s.price)+'</div><div class="change">'+(move>=0?"+":"")+move.toFixed(2)+'% / 1h</div></div>'+
+'<div class="metrics">'+
+'<div class="metric"><span>24-hour volume</span><strong>'+money(s.volume)+'</strong></div>'+
+'<div class="metric"><span>Liquidity</span><strong>'+money(s.liquidity)+'</strong></div>'+
+'<div class="metric"><span>Market cap / FDV</span><strong>'+money(s.marketCap)+'</strong></div>'+
+'<div class="metric"><span>Signal</span><strong>'+(move>=20?"🔥 Strong momentum":"🚀 Early momentum")+'</strong></div>'+
+'</div>'+
+'<div class="actions"><a target="_blank" rel="noopener noreferrer" href="'+esc(safeLink(s.pairUrl))+'">View on DexScreener ↗</a></div>'+
+'</article>';
+}).join("")+'</div>';
 }
-window.showDetails=i=>{
-let s=filtered()[i];if(!s)return;
-el("details").innerHTML='<h3>'+esc(s.token)+' ('+esc(net(s.chain))+')</h3><p class="green">'+price(s.price)+' · +'+Number(s.change||0).toFixed(2)+'% in one hour</p><p>24-hour volume: <strong>'+money(s.volume)+'</strong></p><p>Liquidity: <strong>'+money(s.liquidity)+'</strong></p><p>Market cap / FDV: <strong>'+money(s.marketCap)+'</strong></p><p>Contract: <br><small>'+esc(s.address||"Not supplied")+'</small></p><p><a target="_blank" rel="noopener" href="'+esc(pairLink(s.pairUrl))+'">Open pair on DexScreener ↗</a></p><p class="notice">Holder counts, holder concentration and contract safety are not checked by the current scanner.</p>';
-};
 async function refresh(){
 try{
 let r=await fetch("./signals.json?t="+Date.now(),{cache:"no-store"});
 if(!r.ok)throw Error("HTTP "+r.status);
-let j=await r.json();signals=Array.isArray(j.signals)?j.signals:[];
-el("updated").textContent=j.updated||"No timestamp";
-render();timer=300;
-}catch(e){el("updated").textContent="Could not load signals.json";el("rows").innerHTML='<tr><td colspan="10" class="empty">Could not load live data. Check the published signals.json file.</td></tr>'}
+let j=await r.json();
+signals=Array.isArray(j.signals)?j.signals:[];
+el("updated").textContent=j.updated||"Timestamp unavailable";
+render();
+timer=300;
+}catch(e){
+el("updated").textContent="Could not load signals.json";
+el("cards").innerHTML='<div class="empty">Unable to load live data. Check that signals.json is published on GitHub Pages.</div>';
 }
-document.querySelectorAll("[data-chain]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-chain]").forEach(x=>x.classList.toggle("active",x===b));filter=b.dataset.chain;render()});
-setInterval(()=>{timer--;if(timer<=0){refresh();timer=300}let m=String(Math.floor(Math.max(0,timer)/60)).padStart(2,"0"),s=String(Math.max(0,timer)%60).padStart(2,"0");el("countdown").textContent="Dashboard refresh in "+m+":"+s},1000);
+}
+document.querySelectorAll("[data-chain]").forEach(b=>b.onclick=()=>{
+document.querySelectorAll("[data-chain]").forEach(x=>x.classList.toggle("active",x===b));
+filter=b.dataset.chain;
+render();
+});
+setInterval(()=>{
+timer--;
+if(timer<=0){refresh();timer=300}
+let m=String(Math.floor(Math.max(0,timer)/60)).padStart(2,"0");
+let s=String(Math.max(0,timer)%60).padStart(2,"0");
+el("countdown").textContent="Dashboard refresh in "+m+":"+s;
+},1000);
 refresh();
 </script>
 </body>
