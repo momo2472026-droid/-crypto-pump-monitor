@@ -1,45 +1,51 @@
-name: Crypto Pump Scanner
-
+name: Crypto Pulse Scanner
 on:
+  schedule:
+    - cron: "*/5 * * * *"
   workflow_dispatch:
   push:
     paths:
-      - ".github/workflows/scanner.yml"
       - "scanner.py"
-  schedule:
-    - cron: "*/5 * * * *"
-
+      - ".github/workflows/scanner.yml"
 permissions:
   contents: write
-
+concurrency:
+  group: crypto-pulse-scanner
+  cancel-in-progress: false
 jobs:
   scan:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 4
     steps:
-      - name: Check out repository
+      - name: Checkout repository
         uses: actions/checkout@v4
-
+        with:
+          ref: main
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-
       - name: Install dependencies
         run: pip install requests
-
-      - name: Run crypto scanner
+      - name: Run scanner
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          MIN_LIQUIDITY: "10000"
+          MIN_VOLUME_24H: "25000"
+          MIN_CHANGE_1H: "10"
+          MIN_SCORE: "45"
+          MAX_TOKENS_PER_SCAN: "100"
+          ALERT_COOLDOWN_HOURS: "6"
         run: python scanner.py
-
-      - name: Publish dashboard signals
+      - name: Save signals and history
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add signals.json
+          git add signals.json history.json scanner_state.json
           if ! git diff --cached --quiet; then
-            git commit -m "Update dashboard signals"
-            git push
+            git commit -m "Update Crypto Pulse scan data"
+            git push origin HEAD:main
+          else
+            echo "No file changes to save."
           fi
