@@ -2,407 +2,320 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080b12">
-<title>Crypto Pulse | Scanner</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080d18">
+<title>Crypto Pulse</title>
 <style>
-:root{
-  --bg:#080b12;
-  --panel:#101622;
-  --panel2:#151e2e;
-  --border:#263248;
-  --text:#f1f5ff;
-  --muted:#8997ad;
-  --green:#42edaa;
-  --blue:#668bff;
-  --red:#ff6b81;
-}
+:root{color-scheme:dark;--bg:#080d18;--panel:#111a2b;--line:#25334b;--text:#edf3ff;--muted:#91a2bd;--green:#36df9a;--red:#ff667d;--blue:#73a9ff;--orange:#ffbd69}
 *{box-sizing:border-box}
-body{
-  margin:0;background:var(--bg);color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  font-size:14px
-}
-button,input{font:inherit}
+body{margin:0;background:var(--bg);color:var(--text);font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{padding:24px 16px;background:linear-gradient(120deg,#142746,#101426);border-bottom:1px solid var(--line)}
+.wrap{max-width:1250px;margin:auto}
+.brand{font-size:27px;font-weight:850;letter-spacing:-1px}
+.brand span{color:var(--green)}
+.sub{color:var(--muted);margin-top:6px}
+main{max-width:1250px;margin:auto;padding:16px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.stat,.panel,.card{background:var(--panel);border:1px solid var(--line);border-radius:13px}
+.stat{padding:14px}
+.stat small{color:var(--muted);display:block;margin-bottom:8px}
+.stat strong{font-size:23px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
+button,input,select{background:#0b1322;border:1px solid var(--line);color:var(--text);padding:10px 12px;border-radius:9px}
 button{cursor:pointer}
-header{
-  border-bottom:1px solid var(--border);
-  background:rgba(13,18,29,.95);
-  padding:19px 16px;
-}
-.header-inner,.main{max-width:1180px;margin:auto}
-.brand{display:flex;align-items:center;gap:12px}
-.logo{
-  width:43px;height:43px;border-radius:13px;
-  display:grid;place-items:center;
-  background:linear-gradient(135deg,#4d7cff,#8259ee);
-  font-size:23px;box-shadow:0 5px 25px #456dff30
-}
-h1{font-size:20px;margin:0;letter-spacing:-.5px}
-.subtitle{color:var(--muted);font-size:12px;margin-top:5px}
-.header-right{margin-left:auto;text-align:right}
-.live{color:var(--green);font-size:11px;font-weight:800}
-.live:before{
-  content:"";display:inline-block;width:7px;height:7px;
-  border-radius:50%;background:var(--green);margin-right:6px
-}
-.header-time{color:var(--muted);font-size:11px;margin-top:5px}
-.main{padding:20px 15px 35px}
-.eyebrow{
-  font-size:10px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--muted);font-weight:800;margin:4px 0 13px
-}
-.stats{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:12px
-}
-.stat{
-  min-width:0;background:var(--panel);
-  border:1px solid var(--border);border-radius:15px;padding:16px
-}
-.stat-label{color:var(--muted);font-size:12px}
-.stat-number{
-  font-size:27px;font-weight:800;letter-spacing:-1px;
-  margin:11px 0 5px;overflow-wrap:anywhere
-}
-.stat-foot{font-size:11px;color:var(--muted)}
-.stat-accent{color:var(--green)}
-.stat-blue{color:#89a7ff}
-.toolbar{
-  display:flex;gap:10px;margin-top:25px;
-  align-items:center;flex-wrap:wrap
-}
-.search{
-  flex:1;min-width:180px;position:relative
-}
-.search input{
-  width:100%;background:var(--panel);
-  border:1px solid var(--border);border-radius:11px;
-  color:var(--text);padding:13px 14px;outline:none
-}
-.search input:focus{border-color:var(--blue)}
-.filters{display:flex;gap:7px;flex-wrap:wrap}
-.filter{
-  border:1px solid var(--border);border-radius:10px;
-  padding:11px 13px;background:var(--panel);
-  color:#aebbd0;font-weight:700;font-size:12px
-}
-.filter.active{
-  background:#2949a5;border-color:#5076ff;color:white
-}
-.section-head{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:12px;margin:26px 0 13px
-}
-.section-title{font-size:17px;font-weight:800}
-.result-count{font-size:12px;color:var(--muted)}
-.grid{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:13px
-}
-.card{
-  min-width:0;background:linear-gradient(145deg,#121a29,#0e1420);
-  border:1px solid var(--border);border-radius:16px;
-  padding:17px;transition:border-color .2s
-}
-.card:hover{border-color:#465a7d}
-.card-top{display:flex;align-items:flex-start;gap:10px}
-.coin-icon{
-  width:43px;height:43px;flex:0 0 43px;
-  border:1px solid #35425a;border-radius:13px;
-  background:#1a263a;display:grid;place-items:center;
-  font-weight:900;font-size:15px;color:#c6d5ff
-}
-.coin-heading{min-width:0;flex:1}
-.coin-name{font-size:17px;font-weight:800;overflow-wrap:anywhere}
-.coin-network{font-size:11px;color:var(--muted);margin-top:5px}
-.badge{
-  font-size:10px;font-weight:800;padding:6px 8px;
-  border-radius:7px;background:#153b32;color:var(--green);
-  white-space:nowrap
-}
-.badge.risk{background:#3b202b;color:#ff9bab}
-.price-row{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:10px;margin:19px 0 17px
-}
-.price{font-size:19px;font-weight:800;overflow-wrap:anywhere}
-.gain{color:var(--green);font-weight:800;font-size:16px;white-space:nowrap}
-.metrics{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:15px 10px;padding-top:15px;
-  border-top:1px solid #263146
-}
-.metric-label{font-size:11px;color:var(--muted);margin-bottom:6px}
-.metric-value{font-size:14px;font-weight:750;overflow-wrap:anywhere}
-.contract{
-  color:var(--muted);font-size:10px;margin-top:17px;
-  overflow-wrap:anywhere;line-height:1.6
-}
-.actions{display:flex;gap:8px;margin-top:15px}
-.action{
-  flex:1;text-align:center;text-decoration:none;
-  border-radius:9px;padding:12px 8px;font-size:12px;
-  font-weight:800;background:#1b2b49;color:#9dbbff;
-  border:1px solid #2a3c5d
-}
-.action.primary{background:#315be8;color:white;border-color:#315be8}
-.empty{
-  grid-column:1/-1;padding:45px 18px;text-align:center;
-  background:var(--panel);border:1px dashed #35435b;
-  border-radius:15px;color:var(--muted);line-height:1.8
-}
-.empty strong{display:block;color:var(--text);font-size:16px;margin-bottom:6px}
-.warning{
-  margin-top:20px;padding:13px 15px;border-radius:11px;
-  background:#241d18;border:1px solid #4b3825;
-  color:#d9b99a;font-size:11px;line-height:1.7
-}
-.footer{text-align:center;padding:26px 10px;color:#64728b;font-size:11px;line-height:1.8}
-@media(max-width:700px){
-  .stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-  .stat{padding:14px}
-  .stat-number{font-size:25px}
-  .grid{grid-template-columns:1fr}
-  .main{padding:16px 12px 28px}
-  .toolbar{margin-top:20px}
-  .search{flex-basis:100%}
-  .filters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}
-  .filter{padding:11px 4px;font-size:11px}
-  .card{padding:15px}
-  .section-head{margin-top:23px}
-}
-@media(min-width:1000px){
-  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-}
+button.active{border-color:var(--green);color:var(--green)}
+input{flex:1;min-width:140px}
+.panel{padding:14px;margin-bottom:16px}
+.section-title{font-size:17px;font-weight:750;margin-bottom:12px}
+.status{color:var(--muted);font-size:12px;line-height:1.7}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{padding:15px;min-width:0}
+.cardhead{display:flex;justify-content:space-between;gap:10px;align-items:start}
+.name{font-size:17px;font-weight:800;overflow-wrap:anywhere}
+.symbol{color:var(--muted);font-size:12px;margin-top:4px}
+.score{border:1px solid var(--line);padding:7px 9px;border-radius:9px;white-space:nowrap;font-weight:800}
+.score.high{color:var(--green)}.score.mid{color:var(--orange)}.score.low{color:var(--muted)}
+.price{font-size:22px;font-weight:800;margin:17px 0 5px;overflow-wrap:anywhere}
+.positive{color:var(--green)}.negative{color:var(--red)}
+.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:14px 0}
+.metric{background:#0b1322;border-radius:8px;padding:9px;min-width:0}
+.metric small{display:block;color:var(--muted);margin-bottom:5px}
+.metric strong{overflow-wrap:anywhere}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.badge{font-size:11px;padding:5px 7px;border-radius:6px;background:#202d43;color:#c6d7f2}
+.badge.warn{background:#42272a;color:#ffb1bc}
+.badge.good{background:#15382e;color:#86f0c4}
+.details{font-size:12px;color:var(--muted);line-height:1.65;margin:10px 0;overflow-wrap:anywhere}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.actions a,.actions button{text-decoration:none;font-size:12px;padding:9px 10px}
+.actions a{border:1px solid var(--line);border-radius:8px;color:var(--blue)}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+footer{padding:20px;text-align:center;color:var(--muted);font-size:12px}
+@media(max-width:700px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.grid{grid-template-columns:1fr}main{padding:11px}.brand{font-size:24px}.stat strong{font-size:20px}}
 </style>
 </head>
 <body>
 <header>
-  <div class="header-inner brand">
-    <div class="logo">ϟ</div>
-    <div>
-      <h1>Crypto Pulse</h1>
-      <div class="subtitle">Multi-chain momentum scanner</div>
-    </div>
-    <div class="header-right">
-      <div class="live">SCANNER DASHBOARD</div>
-      <div class="header-time" id="headerTime">Connecting…</div>
-    </div>
-  </div>
+ <div class="wrap">
+  <div class="brand">CRYPTO <span>PULSE</span></div>
+  <div class="sub">Live discovery · Momentum · Risk indicators · Signal performance</div>
+ </div>
 </header>
-<main class="main">
-  <div class="eyebrow">Market overview</div>
-  <section class="stats">
-    <div class="stat">
-      <div class="stat-label">Matching signals</div>
-      <div class="stat-number" id="total">—</div>
-      <div class="stat-foot">Across all networks</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Ethereum</div>
-      <div class="stat-number stat-blue" id="eth">—</div>
-      <div class="stat-foot">ETH mainnet pairs</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Solana</div>
-      <div class="stat-number" id="sol">—</div>
-      <div class="stat-foot">Solana pairs</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Robinhood Chain</div>
-      <div class="stat-number stat-accent" id="robinhood">—</div>
-      <div class="stat-foot">Robinhood network pairs</div>
-    </div>
-  </section>
-  <section class="toolbar">
-    <div class="search">
-      <input id="search" type="search" placeholder="⌕  Search token name or symbol…" autocomplete="off">
-    </div>
-    <div class="filters">
-      <button class="filter active" data-filter="all">All</button>
-      <button class="filter" data-filter="ethereum">ETH</button>
-      <button class="filter" data-filter="solana">SOL</button>
-      <button class="filter" data-filter="robinhood">Robinhood</button>
-    </div>
-  </section>
-  <div class="section-head">
-    <div class="section-title">⚡ Momentum signals</div>
-    <div class="result-count" id="resultCount">Loading…</div>
+
+<main>
+ <div class="stats">
+  <div class="stat"><small>Signals loaded</small><strong id="total">—</strong></div>
+  <div class="stat"><small>High momentum ≥70</small><strong id="strong">—</strong></div>
+  <div class="stat"><small>High-risk flags</small><strong id="risk">—</strong></div>
+  <div class="stat"><small>Last data update</small><strong id="updated" style="font-size:14px">—</strong></div>
+ </div>
+
+ <div class="panel">
+  <div class="section-title">Find signals</div>
+  <div class="toolbar" id="filters">
+   <button class="active" data-chain="all">All chains</button>
+   <button data-chain="ethereum">Ethereum</button>
+   <button data-chain="solana">Solana</button>
+   <button data-chain="robinhood">Robinhood</button>
   </div>
-  <section class="grid" id="cards">
-    <div class="empty">Loading scanner data…</div>
-  </section>
-  <div class="warning">
-    ⚠️ <strong>Risk notice:</strong> These are momentum signals, not buy recommendations.
-    Token contracts, holder concentration and liquidity locks are not verified by this dashboard.
-    New and low-cap tokens can be manipulated, difficult to sell or lose their entire value.
+  <div class="toolbar">
+   <input id="search" placeholder="Search token, symbol or address…">
+   <select id="sort">
+    <option value="score">Highest momentum</option>
+    <option value="volume">Highest volume</option>
+    <option value="change">Largest 1h rise</option>
+    <option value="liquidity">Highest liquidity</option>
+    <option value="newest">Recently detected</option>
+   </select>
+   <button id="refresh">Refresh</button>
   </div>
+  <div id="status" class="status">Loading signals…</div>
+ </div>
+
+ <div class="panel">
+  <div class="section-title">Token signals</div>
+  <div id="signals" class="grid"><div class="empty">Loading scanner data…</div></div>
+ </div>
+
+ <div class="panel">
+  <div class="section-title">How to read this dashboard</div>
+  <div class="status">
+   Momentum scores are heuristic rankings, not probabilities of profit.
+   Risk flags are preliminary checks, not a complete contract audit.
+   Missing checks or missing data do not mean a token is safe.
+   Historical returns use stored scanner snapshots and can be affected by
+   scan gaps, price movements between scans, liquidity and slippage.
+  </div>
+ </div>
 </main>
-<footer class="footer">
-  CRYPTO PULSE · POWERED BY DEXSCREENER<br>
-  <span id="lastUpdate">Waiting for scanner data…</span><br>
-  Dashboard refreshes every five minutes.
-</footer>
+
+<footer>Crypto Pulse · Data supplied by DEX Screener · Research only, not financial advice</footer>
+
 <script>
-let signals = [];
-let activeFilter = "all";
+const DATA_URL = "./signals.json";
+let allSignals = [];
+let selectedChain = "all";
+
 const $ = id => document.getElementById(id);
+
+function esc(value) {
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[ch]));
+}
+
 function money(value) {
   const n = Number(value);
   if (!Number.isFinite(n)) return "—";
-  if (n >= 1e9) return "$" + (n / 1e9).toFixed(2) + "B";
-  if (n >= 1e6) return "$" + (n / 1e6).toFixed(2) + "M";
-  if (n >= 1e3) return "$" + (n / 1e3).toFixed(1) + "K";
-  return "$" + n.toFixed(2);
+  if (n >= 1e9) return "$" + (n/1e9).toFixed(2) + "B";
+  if (n >= 1e6) return "$" + (n/1e6).toFixed(2) + "M";
+  if (n >= 1e3) return "$" + (n/1e3).toFixed(1) + "K";
+  return "$" + n.toLocaleString("en-US",{maximumFractionDigits:4});
 }
-function safe(value) {
-  return String(value ?? "—").replace(/[&<>"']/g, c => ({
-    "&":"&amp;", "<":"&lt;", ">":"&gt;",
-    '"':"&quot;", "'":"&#39;"
-  })[c]);
+
+function price(value) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return "—";
+  if (n >= 1) return "$" + n.toLocaleString("en-US",{maximumFractionDigits:4});
+  return "$" + n.toPrecision(5);
 }
-function shortAddress(address) {
-  if (!address || address.length < 17) return address || "Unavailable";
-  return address.slice(0, 9) + "…" + address.slice(-6);
+
+function pct(value) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return "—";
+  return (n > 0 ? "+" : "") + n.toFixed(2) + "%";
 }
-function validDexUrl(value) {
+
+function timeAgo(value) {
+  const t = Date.parse(value);
+  if (!Number.isFinite(t)) return "Unknown";
+  const minutes = Math.max(0,Math.floor((Date.now()-t)/60000));
+  if (minutes < 60) return minutes + "m ago";
+  if (minutes < 1440) return Math.floor(minutes/60) + "h ago";
+  return Math.floor(minutes/1440) + "d ago";
+}
+
+function safeDexUrl(value) {
   try {
-    const url = new URL(value);
-    return url.protocol === "https:" &&
-      (url.hostname === "dexscreener.com" ||
-       url.hostname.endsWith(".dexscreener.com"))
-      ? url.href : "";
-  } catch {
-    return "";
-  }
+    const u = new URL(value);
+    return u.protocol === "https:" && u.hostname === "dexscreener.com"
+      ? u.href : "";
+  } catch { return ""; }
 }
+
+function performance(signal) {
+  const windows = [
+    ["5m","return5m"],["15m","return15m"],["30m","return30m"],
+    ["1h","return60m"],["4h","return240m"],["24h","return1440m"]
+  ];
+  return windows.map(([label,key]) => {
+    const val = signal[key];
+    const n = Number(val);
+    const display = val === null || val === undefined || val === "" || !Number.isFinite(n)
+      ? "Pending" : pct(n);
+    const cls = Number.isFinite(n) && n > 0 ? "positive" :
+      Number.isFinite(n) && n < 0 ? "negative" : "";
+    return `<span>${label}: <b class="${cls}">${esc(display)}</b></span>`;
+  }).join(" · ");
+}
+
+function renderCard(s) {
+  const score = Number(s.score) || 0;
+  const scoreClass = score >= 70 ? "high" : score >= 45 ? "mid" : "low";
+  const risks = Array.isArray(s.risks) ? s.risks : [];
+  const reasons = Array.isArray(s.reasons) ? s.reasons : [];
+  const change = Number(s.change1h) || 0;
+  const changeClass = change > 0 ? "positive" : change < 0 ? "negative" : "";
+  const url = safeDexUrl(s.pairUrl);
+  const address = String(s.address || "");
+  const id = String(s.id || "");
+  const buyRatio = s.buyRatio == null ? "—" : esc(s.buyRatio) + "%";
+  const age = s.ageHours == null ? "—" : esc(s.ageHours) + "h";
+  const riskBadges = risks.length
+    ? risks.map(r => `<span class="badge warn">${esc(r)}</span>`).join("")
+    : '<span class="badge">No configured market-data flags</span>';
+
+  return `<article class="card">
+    <div class="cardhead">
+      <div><div class="name">${esc(s.name)}</div>
+      <div class="symbol">${esc(s.symbol)} · ${esc(s.chain)}</div></div>
+      <div class="score ${scoreClass}">${score}/100</div>
+    </div>
+    <div class="price">${esc(price(s.priceUsd))}</div>
+    <div class="${changeClass}">1h ${esc(pct(change))} · 24h ${esc(pct(s.change24h))}</div>
+    <div class="metrics">
+      <div class="metric"><small>24h volume</small><strong>${esc(money(s.volume24h))}</strong></div>
+      <div class="metric"><small>Liquidity</small><strong>${esc(money(s.liquidity))}</strong></div>
+      <div class="metric"><small>Market cap</small><strong>${esc(money(s.marketCap))}</strong></div>
+      <div class="metric"><small>FDV</small><strong>${esc(money(s.fdv))}</strong></div>
+      <div class="metric"><small>Buys / sells (1h)</small><strong>${esc(s.buys1h)} / ${esc(s.sells1h)}</strong></div>
+      <div class="metric"><small>Buy ratio / pair age</small><strong>${buyRatio} / ${age}</strong></div>
+    </div>
+    <div class="badges">${riskBadges}</div>
+    <div class="details"><b>Score reasons:</b> ${esc(reasons.join(", ") || "Not enough supporting data")}</div>
+    <div class="details"><b>Detected:</b> ${esc(timeAgo(s.firstSeen))} · <b>Updated:</b> ${esc(timeAgo(s.updated))}</div>
+    <div class="details"><b>Performance from stored snapshots</b><br>${performance(s)}</div>
+    <div class="actions">
+      ${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">Open DEX Screener ↗</a>` : ""}
+      <button data-copy="${esc(address)}">Copy token address</button>
+      <button data-watch="${esc(id)}">Show details</button>
+    </div>
+    <div class="details" hidden data-details="${esc(id)}">
+      Address: ${esc(address)}<br>Pair: ${esc(s.pairAddress || "—")}<br>
+      First seen: ${esc(s.firstSeen || "—")}<br>
+      Risk flags are not a full contract security audit.
+    </div>
+  </article>`;
+}
+
 function render() {
-  $("total").textContent = signals.length;
-  $("eth").textContent = signals.filter(s => s.chain === "ethereum").length;
-  $("sol").textContent = signals.filter(s => s.chain === "solana").length;
-  $("robinhood").textContent = signals.filter(s => s.chain === "robinhood").length;
   const query = $("search").value.trim().toLowerCase();
-  const filtered = signals.filter(s => {
-    const matchesChain = activeFilter === "all" || s.chain === activeFilter;
-    const matchesSearch = !query ||
-      String(s.token || "").toLowerCase().includes(query) ||
-      String(s.address || "").toLowerCase().includes(query);
-    return matchesChain && matchesSearch;
-  }).sort((a, b) => Number(b.change || 0) - Number(a.change || 0));
-  $("resultCount").textContent = filtered.length + " results";
-  if (!filtered.length) {
-    $("cards").innerHTML =
-      '<div class="empty"><strong>No matching signals</strong>Try another network or search term. The scanner only displays tokens that meet its current filters.</div>';
-    return;
-  }
-  $("cards").innerHTML = filtered.map(s => {
-    const change = Number(s.change || 0);
-    const positive = change >= 0;
-    const network = {
-      ethereum: "Ethereum",
-      solana: "Solana",
-      robinhood: "Robinhood Chain"
-    }[s.chain] || s.chain || "Unknown";
-    const url = validDexUrl(s.pairUrl);
-    const symbol = String(s.token || "?").slice(0, 2).toUpperCase();
-    return `
-      <article class="card">
-        <div class="card-top">
-          <div class="coin-icon">${safe(symbol)}</div>
-          <div class="coin-heading">
-            <div class="coin-name">${safe(s.token || "Unknown")}</div>
-            <div class="coin-network">${safe(network)}</div>
-          </div>
-          <span class="badge ${positive ? "" : "risk"}">
-            ${positive ? "MOMENTUM" : "DOWNTREND"}
-          </span>
-        </div>
-        <div class="price-row">
-          <div class="price">${safe(s.price || "—")}</div>
-          <div class="gain" style="color:${positive ? "var(--green)" : "var(--red)"}">
-            ${positive ? "+" : ""}${change.toFixed(2)}%
-          </div>
-        </div>
-        <div class="metrics">
-          <div>
-            <div class="metric-label">24H VOLUME</div>
-            <div class="metric-value">${money(s.volume)}</div>
-          </div>
-          <div>
-            <div class="metric-label">LIQUIDITY</div>
-            <div class="metric-value">${money(s.liquidity)}</div>
-          </div>
-          <div>
-            <div class="metric-label">MARKET CAP / FDV</div>
-            <div class="metric-value">${money(s.marketCap)}</div>
-          </div>
-          <div>
-            <div class="metric-label">1H CHANGE</div>
-            <div class="metric-value" style="color:${positive ? "var(--green)" : "var(--red)"}">
-              ${positive ? "+" : ""}${change.toFixed(2)}%
-            </div>
-          </div>
-        </div>
-        <div class="contract">TOKEN ADDRESS<br>${safe(shortAddress(s.address))}</div>
-        <div class="actions">
-          ${url
-            ? `<a class="action primary" href="${safe(url)}" target="_blank" rel="noopener noreferrer">View pair ↗</a>`
-            : ""}
-          ${s.address
-            ? `<button class="action copy" data-address="${safe(s.address)}">Copy address</button>`
-            : ""}
-        </div>
-      </article>
-    `;
-  }).join("");
+  const sort = $("sort").value;
+  let rows = allSignals.filter(s => {
+    const chain = String(s.chain || "").toLowerCase();
+    const text = [s.name,s.symbol,s.address,s.chain].join(" ").toLowerCase();
+    return (selectedChain === "all" || chain === selectedChain)
+      && text.includes(query);
+  });
+
+  rows.sort((a,b) => {
+    if (sort === "volume") return (Number(b.volume24h)||0)-(Number(a.volume24h)||0);
+    if (sort === "change") return (Number(b.change1h)||0)-(Number(a.change1h)||0);
+    if (sort === "liquidity") return (Number(b.liquidity)||0)-(Number(a.liquidity)||0);
+    if (sort === "newest") return Date.parse(b.firstSeen||0)-Date.parse(a.firstSeen||0);
+    return (Number(b.score)||0)-(Number(a.score)||0);
+  });
+
+  $("signals").innerHTML = rows.length
+    ? rows.map(renderCard).join("")
+    : '<div class="empty">No matching signals. Try another filter or refresh.</div>';
 }
+
 async function loadSignals() {
-  $("headerTime").textContent = "Checking data…";
+  $("status").textContent = "Loading scanner data…";
   try {
-    const response = await fetch("./signals.json?t=" + Date.now(), {
-      cache: "no-store"
-    });
+    const response = await fetch(DATA_URL + "?t=" + Date.now(), {cache:"no-store"});
     if (!response.ok) throw new Error("HTTP " + response.status);
     const data = await response.json();
-    if (!Array.isArray(data.signals)) throw new Error("Invalid signals data");
-    signals = data.signals;
-    $("headerTime").textContent = "Connected";
-    $("lastUpdate").textContent =
-      "Last scanner update: " + (data.updated || "Unknown");
+    if (!Array.isArray(data)) throw new Error("signals.json is not a list");
+
+    allSignals = data;
+    $("total").textContent = data.length;
+    $("strong").textContent = data.filter(s => Number(s.score) >= 70).length;
+    $("risk").textContent = data.filter(s => Array.isArray(s.risks) &&
+      s.risks.some(r => /LOW LIQUIDITY|LARGE 24H DECLINE|EXTREME|UNUSUALLY HIGH/.test(r))).length;
+
+    const latest = data.reduce((max,s) => {
+      const t = Date.parse(s.updated || 0) || 0;
+      return Math.max(max,t);
+    },0);
+    $("updated").textContent = latest ? new Date(latest).toLocaleTimeString() : "No data";
+    $("status").textContent = `Loaded ${data.length} signals · Data timestamp: ${latest ? new Date(latest).toLocaleString() : "unknown"} · Dashboard refreshes every minute; scanner runs on its own schedule.`;
     render();
-  } catch (error) {
-    $("headerTime").textContent = "Data unavailable";
-    $("lastUpdate").textContent = "Could not load signals.json. Check GitHub Actions.";
-    $("cards").innerHTML =
-      '<div class="empty"><strong>Unable to load scanner data</strong>Check that the scanner workflow completed successfully and published signals.json.</div>';
-    $("resultCount").textContent = "Unavailable";
+  } catch (err) {
+    $("status").textContent = "Could not load signals.json: " + err.message +
+      ". Check that the scanner has run and GitHub Pages is enabled.";
   }
 }
-document.querySelectorAll("[data-filter]").forEach(button => {
-  button.addEventListener("click", () => {
-    activeFilter = button.dataset.filter;
-    document.querySelectorAll("[data-filter]").forEach(item =>
-      item.classList.toggle("active", item === button)
-    );
-    render();
-  });
-});
-$("search").addEventListener("input", render);
-$("cards").addEventListener("click", async event => {
-  const button = event.target.closest("[data-address]");
+
+$("filters").addEventListener("click", event => {
+  const button = event.target.closest("button[data-chain]");
   if (!button) return;
-  try {
-    await navigator.clipboard.writeText(button.dataset.address);
-    const oldText = button.textContent;
-    button.textContent = "Copied ✓";
-    setTimeout(() => button.textContent = oldText, 1500);
-  } catch {
-    button.textContent = "Copy unavailable";
+  selectedChain = button.dataset.chain;
+  $("filters").querySelectorAll("button").forEach(b =>
+    b.classList.toggle("active",b === button));
+  render();
+});
+
+$("search").addEventListener("input",render);
+$("sort").addEventListener("change",render);
+$("refresh").addEventListener("click",loadSignals);
+
+$("signals").addEventListener("click",async event => {
+  const copy = event.target.closest("button[data-copy]");
+  const details = event.target.closest("button[data-watch]");
+  if (copy) {
+    try {
+      await navigator.clipboard.writeText(copy.dataset.copy);
+      copy.textContent = "Copied!";
+      setTimeout(() => copy.textContent = "Copy token address",1500);
+    } catch {
+      prompt("Copy token address:",copy.dataset.copy);
+    }
+  }
+  if (details) {
+    const id = details.dataset.watch;
+    const box = [...document.querySelectorAll("[data-details]")]
+      .find(el => el.dataset.details === id);
+    if (box) {
+      box.hidden = !box.hidden;
+      details.textContent = box.hidden ? "Show details" : "Hide details";
+    }
   }
 });
+
 loadSignals();
-setInterval(loadSignals, 300000);
+setInterval(loadSignals,60000);
 </script>
 </body>
 </html>
