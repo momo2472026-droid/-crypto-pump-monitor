@@ -457,4 +457,19 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import time
+    import traceback
+
+    print("Crypto Pulse Scanner starting...")
+    print("Scanning every 30 seconds.")
+
+    while True:
+        start_time = time.time()
+
+        try:
+            main()
+        except Exception:
+            traceback.print_exc()
+
+        elapsed = time.time() - start_time
+        time.sleep(max(1, 30 - elapsed))
