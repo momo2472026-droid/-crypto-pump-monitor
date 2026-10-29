@@ -5,42 +5,24 @@ from pathlib import Path
 
 import requests
 
+
 # CRYPTO PULSE PAPER TRADER
-# Simulation only. Never places live trades.
+# Simulation only. Never executes real cryptocurrency trades.
 
-STARTING_BALANCE = float(
-    os.getenv("PAPER_STARTING_BALANCE", "1000")
-)
-TRADE_SIZE = float(
-    os.getenv("PAPER_TRADE_SIZE", "50")
-)
-STOP_LOSS_PCT = float(
-    os.getenv("PAPER_STOP_LOSS_PCT", "10")
-)
-TAKE_PROFIT_PCT = float(
-    os.getenv("PAPER_TAKE_PROFIT_PCT", "25")
-)
+STARTING_BALANCE = float(os.getenv("PAPER_STARTING_BALANCE", "1000"))
+TRADE_SIZE = float(os.getenv("PAPER_TRADE_SIZE", "50"))
+STOP_LOSS_PCT = float(os.getenv("PAPER_STOP_LOSS_PCT", "10"))
+TAKE_PROFIT_PCT = float(os.getenv("PAPER_TAKE_PROFIT_PCT", "25"))
 MIN_SCORE = int(os.getenv("MIN_SCORE", "45"))
-MAX_OPEN_POSITIONS = int(
-    os.getenv("PAPER_MAX_OPEN_POSITIONS", "10")
-)
-TOTAL_PROFIT_TARGET = float(
-    os.getenv("PAPER_TOTAL_PROFIT_TARGET", "100")
-)
-MIN_LIQUIDITY = float(
-    os.getenv("MIN_LIQUIDITY", "10000")
-)
-MIN_VOLUME = float(
-    os.getenv("MIN_VOLUME_24H", "25000")
-)
+MAX_OPEN_POSITIONS = int(os.getenv("PAPER_MAX_OPEN_POSITIONS", "10"))
+TOTAL_PROFIT_TARGET = float(os.getenv("PAPER_TOTAL_PROFIT_TARGET", "100"))
+MIN_LIQUIDITY = float(os.getenv("MIN_LIQUIDITY", "10000"))
+MIN_VOLUME = float(os.getenv("MIN_VOLUME_24H", "25000"))
 
-# False means unverified tokens cannot be bought, even in simulation.
-# Set PAPER_ALLOW_UNVERIFIED=true only if you intentionally want
-# to experiment with unverified tokens in paper trading.
+# This only permits experimental PAPER entries when risk data is unknown.
+# It must never override a confirmed risk flag.
 ALLOW_UNVERIFIED = (
-    os.getenv("PAPER_ALLOW_UNVERIFIED", "false")
-    .strip()
-    .lower()
+    os.getenv("PAPER_ALLOW_UNVERIFIED", "false").strip().lower()
     in ("1", "true", "yes")
 )
 
@@ -50,9 +32,7 @@ TRADES_FILE = Path("paper_trades.json")
 DEX = "https://api.dexscreener.com"
 
 SESSION = requests.Session()
-SESSION.headers.update({
-    "User-Agent": "CryptoPulsePaperTrader/2.0"
-})
+SESSION.headers.update({"User-Agent": "CryptoPulsePaperTrader/2.0"})
 
 
 def now():
@@ -76,18 +56,23 @@ def save_json(path, data):
     temp.replace(path)
 
 
+def number(value, default=0.0):
+    try:
+        result = float(value)
+        return result if result == result else default
+    except (TypeError, ValueError):
+        return default
+
+
 def token_key(signal):
-    chain = str(signal.get("chain", "")).lower()
-    address = str(signal.get("address", "")).lower()
-
-    if not chain or not address:
-        return ""
-
-    return f"{chain}:{address}"
+    return (
+        f"{str(signal.get('chain', '')).lower()}:"
+        f"{str(signal.get('address', '')).lower()}"
+    )
 
 
 def price_from_dex(chain, address):
-    """Fetch the latest available DexScreener price."""
+    """Fetch a fresh price for an existing position."""
 
     try:
         response = SESSION.get(
@@ -108,14 +93,14 @@ def price_from_dex(chain, address):
         if not valid_pairs:
             return None
 
-        best = max(
+        best_pair = max(
             valid_pairs,
-            key=lambda pair: float(
-                (pair.get("liquidity") or {}).get("usd") or 0
+            key=lambda pair: number(
+                (pair.get("liquidity") or {}).get("usd")
             ),
         )
 
-        price = float(best.get("priceUsd") or 0)
+        price = number(best_pair.get("priceUsd"))
 
         return price if price > 0 else None
 
@@ -123,8 +108,54 @@ def price_from_dex(chain, address):
         requests.RequestException,
         ValueError,
         TypeError,
-    ):
+    ) as error:
+        print(
+            f"Could not refresh price for {chain}:{address}: {error}"
+        )
         return None
+
+
+def risk_decision(signal):
+    """
+    Returns:
+        allowed: whether an entry may be considered
+        verified: whether required risk checks passed
+        reason: explanation for logs
+    """
+
+    checks = signal.get("onchain_checks") or {}
+
+    status = str(
+        signal.get("risk_status")
+        or checks.get("status")
+        or "UNKNOWN"
+    ).upper()
+
+    hard_block = (
+        bool(checks.get("hard_block"))
+        or status == "FLAGGED"
+    )
+
+    # Confirmed risk flags always block entries.
+    if hard_block:
+        return False, False, "Confirmed risk flag"
+
+    verified = bool(
+        checks.get("verified")
+        and not checks.get("skip")
+        and not checks.get("hard_block")
+        and signal.get("paper_eligible", False)
+    )
+
+    if verified:
+        return True, True, "Risk checks verified"
+
+    # An unknown status is not proof of safety.
+    # The optional override applies only to paper simulation.
+    if ALLOW_UNVERIFIED:
+        return True, False, "Experimental paper entry; risk UNKNOWN"
+
+    return False, False, "Risk checks incomplete; verified data required"
 
 
 def main():
@@ -156,21 +187,20 @@ def main():
         closed = []
         portfolio["closed_trades"] = closed
 
-    # Keep an existing portfolio's original balance.
-    starting = float(
-        portfolio.get("starting_balance", STARTING_BALANCE)
+    # Preserve existing portfolio balances across workflow runs.
+    starting_balance = number(
+        portfolio.get("starting_balance"),
+        STARTING_BALANCE,
     )
-    cash = float(portfolio.get("cash", starting))
+    cash = number(portfolio.get("cash"), starting_balance)
 
     markets = {}
 
+    # Prices from the current scanner output.
     for signal in signals:
-        if not isinstance(signal, dict):
-            continue
-
         key = token_key(signal)
         metrics = signal.get("metrics") or {}
-        price = float(metrics.get("price_usd") or 0)
+        price = number(metrics.get("price_usd"))
 
         if key and price > 0:
             markets[key] = {
@@ -178,42 +208,48 @@ def main():
                 "signal": signal,
             }
 
-    # Refresh prices for existing positions, even when they no
-    # longer appear in the scanner's current candidate list.
+    # Refresh prices for open positions even if they have disappeared
+    # from the latest scanner results.
     for key, position in list(positions.items()):
         if key in markets:
             continue
 
-        price = price_from_dex(
-            str(position.get("chain") or ""),
-            str(position.get("address") or ""),
-        )
+        chain = str(position.get("chain") or "")
+        address = str(position.get("address") or "")
 
-        if price:
+        if not chain or not address:
+            continue
+
+        price = price_from_dex(chain, address)
+
+        if price is not None:
             markets[key] = {
                 "price": price,
                 "signal": None,
             }
 
-    # --------------------------------------------------------
-    # MANAGE OPEN POSITIONS FIRST
-    # --------------------------------------------------------
-
+    # Process exits before considering new entries.
     for key in list(positions.keys()):
         position = positions[key]
         market = markets.get(key)
 
-        # Do not invent prices if the market data is unavailable.
+        # Do not invent a price if the market data is unavailable.
+        # The position stays open until a usable price is available.
         if not market:
+            print(
+                f"PRICE UNAVAILABLE: {position.get('symbol', 'UNKNOWN')}; "
+                "position remains open."
+            )
             continue
 
-        price = market["price"]
-        entry = float(position.get("entry_price") or 0)
+        price = number(market.get("price"))
+        entry_price = number(position.get("entry_price"))
 
-        if entry <= 0:
+        if price <= 0 or entry_price <= 0:
             continue
 
-        pnl_pct = (price / entry - 1) * 100
+        pnl_pct = (price / entry_price - 1) * 100
+
         exit_reason = None
 
         if pnl_pct <= -STOP_LOSS_PCT:
@@ -224,58 +260,56 @@ def main():
         if not exit_reason:
             continue
 
-        quantity = float(position.get("quantity") or 0)
+        quantity = number(position.get("quantity"))
         proceeds = quantity * price
-        cost = float(position.get("cost_usd") or 0)
+        cost = number(position.get("cost_usd"))
         pnl = proceeds - cost
 
         cash += proceeds
 
-        closed.append({
-            **position,
-            "exit_time": now(),
-            "exit_price": price,
-            "exit_value_usd": round(proceeds, 8),
-            "realised_pnl_usd": round(pnl, 8),
-            "realised_pnl_pct": round(pnl_pct, 4),
-            "exit_reason": exit_reason,
-            "status": "CLOSED",
-        })
+        closed.append(
+            {
+                **position,
+                "exit_time": now(),
+                "exit_price": price,
+                "exit_value_usd": round(proceeds, 8),
+                "realised_pnl_usd": round(pnl, 8),
+                "realised_pnl_pct": round(pnl_pct, 4),
+                "exit_reason": exit_reason,
+                "status": "CLOSED",
+            }
+        )
 
         print(
             f"PAPER SELL {position.get('symbol', 'UNKNOWN')} | "
-            f"{exit_reason} | "
-            f"P/L ${pnl:.2f} ({pnl_pct:.2f}%)"
+            f"{exit_reason} | P/L ${pnl:.2f} ({pnl_pct:.2f}%)"
         )
 
         del positions[key]
 
-    # Calculate realised profit AFTER exits have been processed.
+    # Recalculate realised profit after processing exits.
     realised = sum(
-        float(trade.get("realised_pnl_usd", 0))
+        number(trade.get("realised_pnl_usd"))
         for trade in closed
     )
 
-    # Once reached, pause new purchases.
-    # Existing positions continue to be managed.
     target_hit = realised >= TOTAL_PROFIT_TARGET
 
     if target_hit:
         print(
-            f"Realised profit target ${TOTAL_PROFIT_TARGET:.2f} "
-            "reached; new paper buys paused."
+            f"Realised profit target ${TOTAL_PROFIT_TARGET:.2f} reached. "
+            "New paper buys paused."
         )
 
-    # --------------------------------------------------------
-    # OPEN NEW PAPER POSITIONS
-    # --------------------------------------------------------
-
     elif TRADE_SIZE > 0 and cash >= TRADE_SIZE:
+        # Consider higher-scoring signals first.
+        ranked_signals = sorted(
+            signals,
+            key=lambda signal: number(signal.get("score")),
+            reverse=True,
+        )
 
-        for signal in signals:
-            if not isinstance(signal, dict):
-                continue
-
+        for signal in ranked_signals:
             key = token_key(signal)
 
             if not key or key in positions:
@@ -285,18 +319,15 @@ def main():
                 break
 
             metrics = signal.get("metrics") or {}
-            price = float(metrics.get("price_usd") or 0)
-            score = int(signal.get("score") or 0)
 
-            liquidity = float(
-                metrics.get("liquidity_usd") or 0
-            )
-            volume = float(
-                metrics.get("volume_24h_usd") or 0
-            )
+            price = number(metrics.get("price_usd"))
+            score = int(number(signal.get("score")))
 
             if price <= 0 or score < MIN_SCORE:
                 continue
+
+            liquidity = number(metrics.get("liquidity_usd"))
+            volume = number(metrics.get("volume_24h_usd"))
 
             if liquidity < MIN_LIQUIDITY:
                 continue
@@ -304,34 +335,28 @@ def main():
             if volume < MIN_VOLUME:
                 continue
 
-            checks = signal.get("onchain_checks") or {}
+            allowed, verified, reason = risk_decision(signal)
 
-            verified = bool(
-                signal.get("paper_eligible")
-                and checks.get("verified")
-                and not checks.get("skip")
-            )
+            if not allowed:
+                print(
+                    f"PAPER SKIP {signal.get('symbol', 'UNKNOWN')}: "
+                    f"{reason}"
+                )
+                continue
 
             if not verified:
-                if not ALLOW_UNVERIFIED:
-                    print(
-                        f"PAPER SKIP "
-                        f"{signal.get('symbol', 'UNKNOWN')}: "
-                        f"risk checks not verified "
-                        f"({signal.get('risk_status', 'UNKNOWN')})"
-                    )
-                    continue
-
                 print(
                     f"PAPER EXPERIMENTAL ENTRY "
                     f"{signal.get('symbol', 'UNKNOWN')}: "
-                    "unverified risk data; simulation only."
+                    f"{reason}. Simulation only."
                 )
 
             if cash < TRADE_SIZE:
                 break
 
             quantity = TRADE_SIZE / price
+
+            checks = signal.get("onchain_checks") or {}
 
             position = {
                 "token_key": key,
@@ -344,15 +369,17 @@ def main():
                 "quantity": quantity,
                 "cost_usd": TRADE_SIZE,
                 "score_at_entry": score,
-                "risk_status": signal.get(
-                    "risk_status", "UNKNOWN"
+                "risk_status": (
+                    signal.get("risk_status")
+                    or checks.get("status")
+                    or "UNKNOWN"
                 ),
                 "risk_verified": verified,
-                "stop_loss_price": (
-                    price * (1 - STOP_LOSS_PCT / 100)
+                "stop_loss_price": price * (
+                    1 - STOP_LOSS_PCT / 100
                 ),
-                "take_profit_price": (
-                    price * (1 + TAKE_PROFIT_PCT / 100)
+                "take_profit_price": price * (
+                    1 + TAKE_PROFIT_PCT / 100
                 ),
                 "status": "OPEN",
             }
@@ -363,17 +390,13 @@ def main():
             print(
                 f"PAPER BUY {position['symbol']} | "
                 f"${TRADE_SIZE:.2f} at ${price:.10g} | "
-                f"Score {score} | "
-                f"Risk {position['risk_status']}"
+                f"Score {score} | Risk {position['risk_status']}"
             )
 
             if cash < TRADE_SIZE:
                 break
 
-    # --------------------------------------------------------
-    # UPDATE PORTFOLIO VALUES
-    # --------------------------------------------------------
-
+    # Recalculate current value and unrealised P/L.
     unrealised = 0.0
     open_value = 0.0
 
@@ -381,69 +404,75 @@ def main():
         market = markets.get(key)
 
         if market:
-            price = market["price"]
+            price = number(market.get("price"))
         else:
-            # Keep the last known price when the API fails.
-            price = float(
-                position.get("current_price")
-                or position.get("entry_price")
-                or 0
+            # Preserve the last known price when no refresh is available.
+            price = number(
+                position.get("current_price"),
+                number(position.get("entry_price")),
             )
 
-        quantity = float(position.get("quantity") or 0)
-        cost = float(position.get("cost_usd") or 0)
-        entry = float(position.get("entry_price") or 0)
+        quantity = number(position.get("quantity"))
+        cost = number(position.get("cost_usd"))
+        entry_price = number(position.get("entry_price"))
 
         value = quantity * price
         position_pnl = value - cost
 
-        position.update({
-            "current_price": price,
-            "current_value_usd": round(value, 8),
-            "unrealised_pnl_usd": round(position_pnl, 8),
-            "unrealised_pnl_pct": (
-                round((price / entry - 1) * 100, 4)
-                if entry > 0 else 0
-            ),
-        })
+        pnl_pct = (
+            (price / entry_price - 1) * 100
+            if entry_price > 0
+            else 0
+        )
+
+        position.update(
+            {
+                "current_price": price,
+                "current_value_usd": round(value, 8),
+                "unrealised_pnl_usd": round(position_pnl, 8),
+                "unrealised_pnl_pct": round(pnl_pct, 4),
+            }
+        )
 
         unrealised += position_pnl
         open_value += value
 
+    # Calculate the portfolio summary.
     realised = sum(
-        float(trade.get("realised_pnl_usd", 0))
+        number(trade.get("realised_pnl_usd"))
         for trade in closed
     )
 
     equity = cash + open_value
+    target_hit = realised >= TOTAL_PROFIT_TARGET
 
-    portfolio.update({
-        "mode": "PAPER_ONLY",
-        "starting_balance": starting,
-        "cash": round(cash, 8),
-        "open_positions": positions,
-        "closed_trades": closed[-2000:],
-        "open_position_count": len(positions),
-        "closed_trade_count": len(closed),
-        "open_positions_value_usd": round(open_value, 8),
-        "unrealised_pnl_usd": round(unrealised, 8),
-        "realised_pnl_usd": round(realised, 8),
-        "total_equity_usd": round(equity, 8),
-        "total_pnl_usd": round(equity - starting, 8),
-        "profit_target_usd": TOTAL_PROFIT_TARGET,
-        "profit_target_hit": (
-            realised >= TOTAL_PROFIT_TARGET
-        ),
-        "last_updated": now(),
-        "settings": {
-            "trade_size_usd": TRADE_SIZE,
-            "stop_loss_pct": STOP_LOSS_PCT,
-            "take_profit_pct": TAKE_PROFIT_PCT,
-            "minimum_score": MIN_SCORE,
-            "maximum_open_positions": MAX_OPEN_POSITIONS,
-            "allow_unverified_paper_entries": ALLOW_UNVERIFIED,
-        },
-    })
+    portfolio.update(
+        {
+            "mode": "PAPER_ONLY",
+            "starting_balance": starting_balance,
+            "cash": round(cash, 8),
+            "open_positions": positions,
+            "closed_trades": closed[-2000:],
+            "open_position_count": len(positions),
+            "closed_trade_count": len(closed),
+            "open_positions_value_usd": round(open_value, 8),
+            "unrealised_pnl_usd": round(unrealised, 8),
+            "realised_pnl_usd": round(realised, 8),
+            "total_equity_usd": round(equity, 8),
+            "total_pnl_usd": round(equity - starting_balance, 8),
+            "profit_target_usd": TOTAL_PROFIT_TARGET,
+            "profit_target_hit": target_hit,
+            "last_updated": now(),
+            "settings": {
+                "trade_size_usd": TRADE_SIZE,
+                "stop_loss_pct": STOP_LOSS_PCT,
+                "take_profit_pct": TAKE_PROFIT_PCT,
+                "minimum_score": MIN_SCORE,
+                "maximum_open_positions": MAX_OPEN_POSITIONS,
+                "allow_unverified_paper_entries": ALLOW_UNVERIFIED,
+            },
+        }
+    )
 
     save_json(TRADES_FILE, portfolio)
 
