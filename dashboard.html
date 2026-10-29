@@ -3,319 +3,1585 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#080d18">
-<title>Crypto Pulse</title>
+<meta name="theme-color" content="#f7f8fa">
+<title>Crypto Pulse | Trading Dashboard</title>
+
 <style>
-:root{color-scheme:dark;--bg:#080d18;--panel:#111a2b;--line:#25334b;--text:#edf3ff;--muted:#91a2bd;--green:#36df9a;--red:#ff667d;--blue:#73a9ff;--orange:#ffbd69}
+:root {
+  --bg:#f7f8fa;
+  --card:#ffffff;
+  --text:#17191f;
+  --muted:#858b98;
+  --line:#e9ebef;
+  --green:#159b68;
+  --green-bg:#e5f7ef;
+  --red:#e14e5c;
+  --red-bg:#ffedf0;
+  --blue:#4779ed;
+  --blue-bg:#edf2ff;
+  --orange:#b97818;
+  --shadow:0 2px 12px rgba(20,30,50,.035);
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-header{padding:24px 16px;background:linear-gradient(120deg,#142746,#101426);border-bottom:1px solid var(--line)}
-.wrap{max-width:1250px;margin:auto}
-.brand{font-size:27px;font-weight:850;letter-spacing:-1px}
-.brand span{color:var(--green)}
-.sub{color:var(--muted);margin-top:6px}
-main{max-width:1250px;margin:auto;padding:16px}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:16px}
-.stat,.panel,.card{background:var(--panel);border:1px solid var(--line);border-radius:13px}
-.stat{padding:14px}
-.stat small{color:var(--muted);display:block;margin-bottom:8px}
-.stat strong{font-size:23px}
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
-button,input,select{background:#0b1322;border:1px solid var(--line);color:var(--text);padding:10px 12px;border-radius:9px}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font:14px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+button,input,select{font:inherit}
 button{cursor:pointer}
-button.active{border-color:var(--green);color:var(--green)}
-input{flex:1;min-width:140px}
-.panel{padding:14px;margin-bottom:16px}
-.section-title{font-size:17px;font-weight:750;margin-bottom:12px}
-.status{color:var(--muted);font-size:12px;line-height:1.7}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.card{padding:15px;min-width:0}
-.cardhead{display:flex;justify-content:space-between;gap:10px;align-items:start}
-.name{font-size:17px;font-weight:800;overflow-wrap:anywhere}
-.symbol{color:var(--muted);font-size:12px;margin-top:4px}
-.score{border:1px solid var(--line);padding:7px 9px;border-radius:9px;white-space:nowrap;font-weight:800}
-.score.high{color:var(--green)}.score.mid{color:var(--orange)}.score.low{color:var(--muted)}
-.price{font-size:22px;font-weight:800;margin:17px 0 5px;overflow-wrap:anywhere}
-.positive{color:var(--green)}.negative{color:var(--red)}
-.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:14px 0}
-.metric{background:#0b1322;border-radius:8px;padding:9px;min-width:0}
-.metric small{display:block;color:var(--muted);margin-bottom:5px}
-.metric strong{overflow-wrap:anywhere}
-.badges{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
-.badge{font-size:11px;padding:5px 7px;border-radius:6px;background:#202d43;color:#c6d7f2}
-.badge.warn{background:#42272a;color:#ffb1bc}
-.badge.good{background:#15382e;color:#86f0c4}
-.details{font-size:12px;color:var(--muted);line-height:1.65;margin:10px 0;overflow-wrap:anywhere}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.actions a,.actions button{text-decoration:none;font-size:12px;padding:9px 10px}
-.actions a{border:1px solid var(--line);border-radius:8px;color:var(--blue)}
-.empty{padding:28px;text-align:center;color:var(--muted)}
-footer{padding:20px;text-align:center;color:var(--muted);font-size:12px}
-@media(max-width:700px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.grid{grid-template-columns:1fr}main{padding:11px}.brand{font-size:24px}.stat strong{font-size:20px}}
+.topbar{
+  height:72px;background:#fff;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 30px;gap:20px;
+}
+.brand{font-size:21px;font-weight:850;letter-spacing:-.8px}
+.brand span{color:var(--green)}
+.topnav{display:flex;gap:22px;color:var(--muted);font-size:13px}
+.topnav a{color:inherit;text-decoration:none}
+.topnav a.active{color:var(--text);font-weight:750}
+.topright{display:flex;align-items:center;gap:10px}
+.pill{
+  display:inline-flex;align-items:center;gap:7px;
+  border:1px solid var(--line);border-radius:999px;padding:8px 11px;
+  font-size:12px;background:#fff;
+}
+.dot{height:7px;width:7px;border-radius:50%;background:#bbb}
+.dot.green{background:var(--green)}
+.dot.red{background:var(--red)}
+main{max-width:1450px;margin:auto;padding:27px 28px 50px}
+.pagehead{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  gap:20px;margin-bottom:23px;
+}
+h1{font-size:27px;letter-spacing:-1px;margin:0 0 7px}
+.subtitle{color:var(--muted);font-size:13px}
+.head-actions{display:flex;gap:9px;flex-wrap:wrap}
+.btn{
+  border:1px solid var(--line);background:#fff;border-radius:9px;
+  padding:10px 13px;font-weight:650;font-size:12px;color:var(--text);
+}
+.btn.primary{background:#17191f;color:white;border-color:#17191f}
+.btn.green{background:var(--green);color:#fff;border-color:var(--green)}
+.btn.danger{background:var(--red-bg);color:var(--red);border-color:#ffd5db}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(290px,1fr);gap:18px}
+.stack{display:flex;flex-direction:column;gap:18px;min-width:0}
+.card{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:15px;padding:20px;box-shadow:var(--shadow);min-width:0;
+}
+.card-title{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;margin-bottom:17px;
+}
+.card-title h2{font-size:15px;margin:0;font-weight:750}
+.muted{color:var(--muted)}
+.tiny{font-size:11px}
+.label{font-size:12px;color:var(--muted);margin-bottom:9px}
+.big-number{font-size:32px;font-weight:800;letter-spacing:-1.2px}
+.small-number{font-size:21px;font-weight:780;letter-spacing:-.5px}
+.green{color:var(--green)}
+.red{color:var(--red)}
+.blue{color:var(--blue)}
+.orange{color:var(--orange)}
+.badge{
+  display:inline-flex;align-items:center;gap:5px;border-radius:7px;
+  padding:5px 8px;font-size:11px;font-weight:700;background:#f0f1f4;
+}
+.badge.green{background:var(--green-bg);color:var(--green)}
+.badge.red{background:var(--red-bg);color:var(--red)}
+.badge.blue{background:var(--blue-bg);color:var(--blue)}
+.badge.orange{background:#fff4df;color:var(--orange)}
+.stats{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:13px;margin-bottom:18px;
+}
+.stat-card{
+  background:#fff;border:1px solid var(--line);border-radius:13px;
+  padding:17px;min-width:0;
+}
+.stat-card .label{margin-bottom:10px}
+.stat-foot{display:flex;align-items:center;gap:6px;margin-top:9px;font-size:11px;color:var(--muted)}
+.portfolio-line{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:15px;
+  flex-wrap:wrap;
+}
+.change{font-size:12px;font-weight:700;margin-top:7px}
+.chart-wrap{height:155px;margin-top:22px;position:relative}
+canvas{width:100%;height:100%;display:block}
+.chart-labels{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:7px}
+.metrics-row{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  border-top:1px solid var(--line);margin-top:18px;padding-top:17px;gap:10px;
+}
+.metric-item .label{margin-bottom:7px}
+.metric-item strong{font-size:15px}
+.heatmap{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.heat-day{text-align:center;color:var(--muted);font-size:10px;padding-bottom:5px}
+.heat-cell{
+  min-height:47px;border-radius:7px;display:flex;align-items:center;
+  justify-content:center;font-size:11px;font-weight:750;background:#f0f1f4;
+}
+.heat-cell.pos1{background:#d7f5e6;color:#17734d}
+.heat-cell.pos2{background:#a7e8c9;color:#126542}
+.heat-cell.pos3{background:#58d39c;color:#064f34}
+.heat-cell.neg1{background:#ffe0e4;color:#a63243}
+.heat-cell.neg2{background:#ffb9c1;color:#8e1c30}
+.heat-cell.today{outline:2px solid #222;outline-offset:1px}
+.heat-legend{display:flex;align-items:center;gap:7px;justify-content:flex-end;margin-top:13px;color:var(--muted);font-size:10px}
+.legend-box{width:12px;height:12px;border-radius:3px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap}
+input,select{
+  background:#fff;border:1px solid var(--line);border-radius:9px;
+  padding:10px 11px;color:var(--text);min-width:0;
+}
+input:focus,select:focus{outline:2px solid #dbe5ff;border-color:#a9c0ff}
+input.search{flex:1;min-width:140px}
+.table-wrap{width:100%;overflow-x:auto}
+table{width:100%;border-collapse:collapse;text-align:left;white-space:nowrap}
+th{
+  color:var(--muted);font-size:10px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.5px;padding:11px 8px;
+  border-bottom:1px solid var(--line);
+}
+td{padding:13px 8px;border-bottom:1px solid #f0f1f4;font-size:12px}
+tbody tr:last-child td{border-bottom:0}
+.token-name{font-weight:750}
+.token-sub{font-size:10px;color:var(--muted);margin-top:4px}
+.token-dot{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:30px;height:30px;border-radius:9px;background:#eef1f7;
+  font-size:10px;font-weight:800;margin-right:8px;flex-shrink:0;
+}
+.token-cell{display:flex;align-items:center}
+.row-actions{display:flex;gap:5px}
+.icon-btn{
+  border:1px solid var(--line);border-radius:7px;background:#fff;
+  padding:7px 8px;font-size:11px;
+}
+.position-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.position-stat{padding:12px;border:1px solid var(--line);border-radius:10px}
+.position-stat .label{font-size:11px}
+.position-stat strong{font-size:17px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field label{font-size:11px;color:var(--muted)}
+.field input,.field select{width:100%}
+.full{grid-column:1/-1}
+.progress{
+  width:100%;height:8px;background:#edf0f4;border-radius:20px;
+  overflow:hidden;margin:14px 0 8px;
+}
+.progress-bar{height:100%;background:var(--green);border-radius:20px;width:0;transition:width .3s}
+.target-line{display:flex;justify-content:space-between;gap:10px;font-size:11px;color:var(--muted)}
+.event-list{display:flex;flex-direction:column}
+.event{
+  display:flex;gap:11px;padding:13px 0;border-bottom:1px solid #f0f1f4;
+  align-items:flex-start;
+}
+.event:last-child{border-bottom:0}
+.event-icon{
+  width:31px;height:31px;border-radius:9px;background:#f0f2f6;
+  display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0;
+}
+.event-body{flex:1;min-width:0}
+.event-title{font-size:12px;font-weight:750;overflow-wrap:anywhere}
+.event-desc{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.5;overflow-wrap:anywhere}
+.event-time{font-size:10px;color:var(--muted);white-space:nowrap}
+.empty{text-align:center;padding:25px 12px;color:var(--muted);font-size:12px}
+.status-box{
+  background:#f7f8fa;border:1px solid var(--line);border-radius:10px;
+  padding:12px;font-size:11px;line-height:1.7;color:var(--muted);overflow-wrap:anywhere;
+}
+.footer{text-align:center;color:var(--muted);font-size:11px;padding:25px 10px}
+.tabs{display:flex;gap:15px;border-bottom:1px solid var(--line);margin-bottom:10px}
+.tab{
+  background:transparent;border:0;border-bottom:2px solid transparent;
+  padding:0 0 11px;font-size:12px;color:var(--muted);font-weight:650;
+}
+.tab.active{color:var(--text);border-color:#17191f}
+.hidden{display:none!important}
+@media(max-width:1000px){
+  .layout{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:650px){
+  .topbar{padding:0 15px;height:62px}
+  .topnav{display:none}
+  main{padding:19px 12px 35px}
+  .pagehead{flex-direction:column}
+  h1{font-size:24px}
+  .card{padding:15px}
+  .big-number{font-size:28px}
+  .metrics-row{grid-template-columns:1fr 1fr}
+  .heat-cell{min-height:39px;font-size:10px}
+  .stats{gap:9px}
+  .stat-card{padding:13px}
+  .stat-card .small-number{font-size:18px}
+}
 </style>
 </head>
+
 <body>
-<header>
- <div class="wrap">
-  <div class="brand">CRYPTO <span>PULSE</span></div>
-  <div class="sub">Live discovery · Momentum · Risk indicators · Signal performance</div>
- </div>
+
+<header class="topbar">
+  <div class="brand">Crypto <span>Pulse</span></div>
+  <nav class="topnav">
+    <a href="#overview" class="active">Overview</a>
+    <a href="#markets">Markets</a>
+    <a href="#paper">Paper trading</a>
+    <a href="#activity">Activity</a>
+  </nav>
+  <div class="topright">
+    <span class="pill"><span class="dot green" id="connectionDot"></span><span id="connectionText">Connecting</span></span>
+    <span class="pill">PAPER MODE</span>
+  </div>
 </header>
 
 <main>
- <div class="stats">
-  <div class="stat"><small>Signals loaded</small><strong id="total">—</strong></div>
-  <div class="stat"><small>High momentum ≥70</small><strong id="strong">—</strong></div>
-  <div class="stat"><small>High-risk flags</small><strong id="risk">—</strong></div>
-  <div class="stat"><small>Last data update</small><strong id="updated" style="font-size:14px">—</strong></div>
- </div>
-
- <div class="panel">
-  <div class="section-title">Find signals</div>
-  <div class="toolbar" id="filters">
-   <button class="active" data-chain="all">All chains</button>
-   <button data-chain="ethereum">Ethereum</button>
-   <button data-chain="solana">Solana</button>
-   <button data-chain="robinhood">Robinhood</button>
+  <div class="pagehead">
+    <div>
+      <h1>Trading dashboard</h1>
+      <div class="subtitle">Market signals, simulated portfolio and risk monitoring</div>
+    </div>
+    <div class="head-actions">
+      <button class="btn" id="refreshBtn">↻ Refresh data</button>
+      <button class="btn primary" id="exportBtn">Export trades ↓</button>
+    </div>
   </div>
-  <div class="toolbar">
-   <input id="search" placeholder="Search token, symbol or address…">
-   <select id="sort">
-    <option value="score">Highest momentum</option>
-    <option value="volume">Highest volume</option>
-    <option value="change">Largest 1h rise</option>
-    <option value="liquidity">Highest liquidity</option>
-    <option value="newest">Recently detected</option>
-   </select>
-   <button id="refresh">Refresh</button>
-  </div>
-  <div id="status" class="status">Loading signals…</div>
- </div>
 
- <div class="panel">
-  <div class="section-title">Token signals</div>
-  <div id="signals" class="grid"><div class="empty">Loading scanner data…</div></div>
- </div>
+  <section class="stats" id="overview">
+    <div class="stat-card">
+      <div class="label">Portfolio value</div>
+      <div class="small-number" id="portfolioValue">$10,000.00</div>
+      <div class="stat-foot"><span class="badge blue">SIMULATED</span><span>Virtual account</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Total profit / loss</div>
+      <div class="small-number" id="totalPnl">$0.00</div>
+      <div class="stat-foot" id="pnlFoot">0.00% return</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Win rate</div>
+      <div class="small-number" id="winRate">—</div>
+      <div class="stat-foot" id="winFoot">No closed paper trades yet</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Open positions</div>
+      <div class="small-number" id="openPositions">0</div>
+      <div class="stat-foot" id="openFoot">No active paper positions</div>
+    </div>
+  </section>
 
- <div class="panel">
-  <div class="section-title">How to read this dashboard</div>
-  <div class="status">
-   Momentum scores are heuristic rankings, not probabilities of profit.
-   Risk flags are preliminary checks, not a complete contract audit.
-   Missing checks or missing data do not mean a token is safe.
-   Historical returns use stored scanner snapshots and can be affected by
-   scan gaps, price movements between scans, liquidity and slippage.
+  <div class="layout">
+    <div class="stack">
+
+      <section class="card">
+        <div class="card-title">
+          <div>
+            <h2>Portfolio performance</h2>
+            <div class="subtitle" style="margin-top:5px">Virtual equity over time</div>
+          </div>
+          <span class="badge blue">PAPER</span>
+        </div>
+
+        <div class="portfolio-line">
+          <div>
+            <div class="label">Current account equity</div>
+            <div class="big-number" id="equity">$10,000.00</div>
+            <div class="change" id="equityChange">+$0.00 (0.00%)</div>
+          </div>
+          <div>
+            <div class="label">Available cash</div>
+            <div class="small-number" id="cashBalance">$10,000.00</div>
+          </div>
+        </div>
+
+        <div class="chart-wrap"><canvas id="equityChart"></canvas></div>
+        <div class="chart-labels"><span>Account started</span><span id="chartEnd">Current</span></div>
+
+        <div class="metrics-row">
+          <div class="metric-item">
+            <div class="label">Realised P/L</div>
+            <strong id="realisedPnl">$0.00</strong>
+          </div>
+          <div class="metric-item">
+            <div class="label">Unrealised P/L</div>
+            <strong id="unrealisedPnl">$0.00</strong>
+          </div>
+          <div class="metric-item">
+            <div class="label">Total trades</div>
+            <strong id="tradeCount">0</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">
+          <div>
+            <h2>Performance heatmap</h2>
+            <div class="subtitle" style="margin-top:5px">Daily realised paper-trading P/L</div>
+          </div>
+          <span class="badge" id="heatMonth">This month</span>
+        </div>
+        <div class="heatmap" id="heatmap"></div>
+        <div class="heat-legend">
+          <span>Loss</span><span class="legend-box" style="background:#ffb9c1"></span>
+          <span class="legend-box" style="background:#f0f1f4"></span>
+          <span class="legend-box" style="background:#a7e8c9"></span><span>Profit</span>
+        </div>
+      </section>
+
+      <section class="card" id="markets">
+        <div class="card-title">
+          <div>
+            <h2>Token scanner</h2>
+            <div class="subtitle" style="margin-top:5px">Signals from your existing GitHub scanner</div>
+          </div>
+          <span class="badge" id="signalCountBadge">Loading</span>
+        </div>
+
+        <div class="toolbar" style="margin-bottom:12px">
+          <input class="search" id="searchTokens" placeholder="Search token, symbol or address">
+          <select id="chainFilter">
+            <option value="all">All chains</option>
+            <option value="solana">Solana</option>
+            <option value="ethereum">Ethereum</option>
+            <option value="base">Base</option>
+            <option value="bsc">BNB Chain</option>
+            <option value="polygon">Polygon</option>
+            <option value="arbitrum">Arbitrum</option>
+          </select>
+          <select id="sortTokens">
+            <option value="score">Highest score</option>
+            <option value="volume">Highest volume</option>
+            <option value="change">Largest 1h move</option>
+            <option value="liquidity">Highest liquidity</option>
+          </select>
+        </div>
+
+        <div class="status-box" id="scannerStatus">Loading signals.json…</div>
+
+        <div class="table-wrap" style="margin-top:12px">
+          <table>
+            <thead>
+              <tr>
+                <th>Token</th>
+                <th>Price</th>
+                <th>1h</th>
+                <th>24h volume</th>
+                <th>Liquidity</th>
+                <th>Score</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="tokenRows">
+              <tr><td colspan="7" class="empty">Loading scanner data…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">
+          <div>
+            <h2>Open paper positions</h2>
+            <div class="subtitle" style="margin-top:5px">Positions held in this browser's saved paper account</div>
+          </div>
+          <span class="badge blue" id="positionCountBadge">0 positions</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Token</th><th>Entry price</th><th>Current price</th>
+                <th>Value</th><th>Unrealised P/L</th><th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="positionRows">
+              <tr><td colspan="6" class="empty">No open paper positions</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">
+          <div>
+            <h2>Trade history</h2>
+            <div class="subtitle" style="margin-top:5px">Saved simulated buys and sells</div>
+          </div>
+          <select id="historyFilter">
+            <option value="all">All activity</option>
+            <option value="BUY">Buys</option>
+            <option value="SELL">Sells</option>
+          </select>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Time</th><th>Action</th><th>Token</th><th>Price</th><th>Amount</th><th>Realised P/L</th></tr>
+            </thead>
+            <tbody id="historyRows">
+              <tr><td colspan="6" class="empty">No paper trades yet</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+
+    <aside class="stack">
+
+      <section class="card" id="paper">
+        <div class="card-title">
+          <div>
+            <h2>Paper trading</h2>
+            <div class="subtitle" style="margin-top:5px">Simulated only · No real orders</div>
+          </div>
+          <span class="badge green">SAFE MODE</span>
+        </div>
+
+        <div class="position-grid">
+          <div class="position-stat">
+            <div class="label">Virtual starting balance</div>
+            <strong id="startingBalance">$10,000</strong>
+          </div>
+          <div class="position-stat">
+            <div class="label">Available cash</div>
+            <strong id="paperCash">$10,000</strong>
+          </div>
+        </div>
+
+        <div style="height:1px;background:var(--line);margin:17px 0"></div>
+
+        <form id="tradeForm">
+          <div class="form-grid">
+            <div class="field full">
+              <label for="tradeToken">Select scanner token</label>
+              <select id="tradeToken" required>
+                <option value="">Select a token…</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="tradeSide">Action</label>
+              <select id="tradeSide">
+                <option value="BUY">Paper buy</option>
+                <option value="SELL">Paper sell</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="tradeAmount">Amount in USD</label>
+              <input id="tradeAmount" type="number" min="1" step="1" value="100" required>
+            </div>
+            <div class="field full">
+              <label for="tradeNote">Optional note</label>
+              <input id="tradeNote" maxlength="120" placeholder="Why are you taking this trade?">
+            </div>
+            <div class="full">
+              <button class="btn primary" id="submitTrade" type="submit" style="width:100%">Execute paper trade</button>
+            </div>
+          </div>
+        </form>
+
+        <div class="status-box" style="margin-top:13px">
+          Paper trades are stored in this browser's local storage. They are not real exchange orders and are not automatically shared across devices.
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">
+          <h2>Profit target</h2>
+          <span class="badge green" id="targetBadge">Not reached</span>
+        </div>
+        <div class="label">Target account value</div>
+        <div class="big-number" id="targetValue">$15,000</div>
+        <div class="subtitle" style="margin-top:6px">Choose the return target for your virtual portfolio.</div>
+
+        <div class="toolbar" style="margin-top:15px">
+          <button class="btn target-btn" data-target="1.25">1.25×</button>
+          <button class="btn target-btn" data-target="1.5">1.5×</button>
+          <button class="btn target-btn" data-target="2">2×</button>
+          <button class="btn target-btn" data-target="3">3×</button>
+        </div>
+
+        <div class="progress"><div class="progress-bar" id="targetProgress"></div></div>
+        <div class="target-line">
+          <span id="targetProgressText">0% of target gain</span>
+          <span id="targetMultiple">1.5× target</span>
+        </div>
+
+        <div style="height:1px;background:var(--line);margin:17px 0"></div>
+        <div class="toolbar" style="align-items:center;justify-content:space-between">
+          <div>
+            <div style="font-weight:750;font-size:12px">Pause new paper buys</div>
+            <div class="tiny muted" style="margin-top:4px">Also pauses buys when the target is reached</div>
+          </div>
+          <input type="checkbox" id="pauseBuys" style="width:18px;height:18px;flex:0 0 auto">
+        </div>
+        <button class="btn" id="resumeBuys" style="width:100%;margin-top:10px">Resume paper buys</button>
+        <div class="status-box" id="targetStatus" style="margin-top:12px">Paper trading is simulated.</div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">
+          <h2>Risk monitor</h2>
+          <span class="badge orange" id="riskCount">0 flags</span>
+        </div>
+        <div class="position-grid">
+          <div class="position-stat">
+            <div class="label">Developer holding >10%</div>
+            <strong id="devFlags">0</strong>
+          </div>
+          <div class="position-stat">
+            <div class="label">Bundle data >25%</div>
+            <strong id="bundleFlags">0</strong>
+          </div>
+        </div>
+        <div class="event-list" id="riskEvents" style="margin-top:9px">
+          <div class="empty">Loading risk checks…</div>
+        </div>
+        <div class="status-box">Unknown or missing developer/bundle data is not proof of safety. The dashboard displays fields supplied by the scanner; it does not independently audit contracts.</div>
+      </section>
+
+      <section class="card" id="activity">
+        <div class="card-title">
+          <h2>Recent activity</h2>
+          <span class="badge" id="activityCount">0 events</span>
+        </div>
+        <div class="event-list" id="activityList">
+          <div class="empty">Waiting for scanner data…</div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-title"><h2>Scanner status</h2></div>
+        <div class="event-list">
+          <div class="event">
+            <div class="event-icon">↻</div>
+            <div class="event-body">
+              <div class="event-title">Last scan</div>
+              <div class="event-desc" id="lastScan">Waiting for scanner state…</div>
+            </div>
+          </div>
+          <div class="event">
+            <div class="event-icon">◎</div>
+            <div class="event-body">
+              <div class="event-title">Discovered tokens</div>
+              <div class="event-desc" id="discoveredCount">—</div>
+            </div>
+          </div>
+          <div class="event">
+            <div class="event-icon">◈</div>
+            <div class="event-body">
+              <div class="event-title">Qualifying signals</div>
+              <div class="event-desc" id="qualifyingCount">—</div>
+            </div>
+          </div>
+        </div>
+        <div class="status-box" id="lastUpdated" style="margin-top:12px">Waiting for data…</div>
+      </section>
+
+      <section class="card">
+        <div class="card-title"><h2>Account controls</h2></div>
+        <div class="status-box">Your paper-trading history is saved locally in this browser. Export your trades regularly if you want a separate backup.</div>
+        <button class="btn" id="exportJson" style="width:100%;margin-top:12px">Export account backup</button>
+        <button class="btn danger" id="resetAccount" style="width:100%;margin-top:8px">Reset paper account</button>
+      </section>
+
+    </aside>
   </div>
- </div>
+
+  <div class="footer">
+    Crypto Pulse · Paper trading only · No live orders · Market data may be delayed · Not financial advice
+  </div>
 </main>
 
-<footer>Crypto Pulse · Data supplied by DEX Screener · Research only, not financial advice</footer>
-
 <script>
-const DATA_URL = "./signals.json";
-let allSignals = [];
-let selectedChain = "all";
+"use strict";
+
+/*
+ Crypto Pulse dashboard.
+ Reads scanner.py's actual JSON structure:
+ signal.metrics.price_usd
+ signal.metrics.volume_24h_usd
+ signal.metrics.liquidity_usd
+ signal.metrics.change_1h_pct
+ signal.metrics.change_24h_pct
+ signal.onchain_checks
+ state.last_scan
+
+ Paper trades are local to this browser and never reach an exchange.
+*/
+
+const SIGNALS_URL = "./signals.json";
+const STATE_URL = "./scanner_state.json";
+const START_BALANCE = 10000;
+const STORAGE_KEY = "cryptoPulsePaperAccountV1";
 
 const $ = id => document.getElementById(id);
+let signals = [];
+let scannerState = {};
+let lastSignalRefresh = null;
+let paper = loadPaper();
+let chartPrices = [];
 
-function esc(value) {
-  return String(value ?? "").replace(/[&<>"']/g, ch => ({
+function defaultPaper() {
+  return {
+    startingBalance: START_BALANCE,
+    cash: START_BALANCE,
+    targetMultiple: 1.5,
+    pauseBuys: false,
+    targetReached: false,
+    positions: {},
+    trades: [],
+    equityHistory: [{
+      time: new Date().toISOString(),
+      equity: START_BALANCE
+    }],
+    events: [{
+      time: new Date().toISOString(),
+      title: "Paper account created",
+      description: "Virtual balance initialized to $10,000.",
+      type: "INFO"
+    }]
+  };
+}
+
+function loadPaper() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return defaultPaper();
+    const saved = JSON.parse(raw);
+    const base = defaultPaper();
+    return {
+      ...base,
+      ...saved,
+      positions: saved.positions || {},
+      trades: Array.isArray(saved.trades) ? saved.trades : [],
+      events: Array.isArray(saved.events) ? saved.events : [],
+      equityHistory: Array.isArray(saved.equityHistory) && saved.equityHistory.length
+        ? saved.equityHistory : base.equityHistory
+    };
+  } catch {
+    return defaultPaper();
+  }
+}
+
+function savePaper() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(paper));
+  } catch (e) {
+    console.error("Could not save paper account:", e);
+    alert("Your browser could not save the paper account. Export a backup and check browser storage.");
+  }
+}
+
+function esc(v) {
+  return String(v ?? "").replace(/[&<>"']/g, c => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[ch]));
+  }[c]));
 }
 
-function money(value) {
-  const n = Number(value);
-  if (!Number.isFinite(n)) return "—";
-  if (n >= 1e9) return "$" + (n/1e9).toFixed(2) + "B";
-  if (n >= 1e6) return "$" + (n/1e6).toFixed(2) + "M";
-  if (n >= 1e3) return "$" + (n/1e3).toFixed(1) + "K";
-  return "$" + n.toLocaleString("en-US",{maximumFractionDigits:4});
+function num(v) {
+  if (v === null || v === undefined || v === "") return null;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
 }
 
-function price(value) {
-  const n = Number(value);
-  if (!Number.isFinite(n)) return "—";
-  if (n >= 1) return "$" + n.toLocaleString("en-US",{maximumFractionDigits:4});
+function money(v, decimals = 2) {
+  const n = num(v);
+  if (n === null) return "—";
+  return n.toLocaleString("en-US", {
+    style: "currency", currency: "USD",
+    minimumFractionDigits: decimals, maximumFractionDigits: decimals
+  });
+}
+
+function compactMoney(v) {
+  const n = num(v);
+  if (n === null) return "—";
+  if (Math.abs(n) >= 1e9) return "$" + (n / 1e9).toFixed(2) + "B";
+  if (Math.abs(n) >= 1e6) return "$" + (n / 1e6).toFixed(2) + "M";
+  if (Math.abs(n) >= 1e3) return "$" + (n / 1e3).toFixed(1) + "K";
+  return money(n);
+}
+
+function price(v) {
+  const n = num(v);
+  if (n === null) return "—";
+  if (n === 0) return "$0";
+  if (Math.abs(n) >= 1) {
+    return "$" + n.toLocaleString("en-US", {maximumFractionDigits: 6});
+  }
   return "$" + n.toPrecision(5);
 }
 
-function pct(value) {
-  const n = Number(value);
-  if (!Number.isFinite(n)) return "—";
+function percent(v) {
+  const n = num(v);
+  if (n === null) return "—";
   return (n > 0 ? "+" : "") + n.toFixed(2) + "%";
 }
 
-function timeAgo(value) {
-  const t = Date.parse(value);
+function signClass(v) {
+  const n = num(v);
+  return n > 0 ? "green" : n < 0 ? "red" : "";
+}
+
+function chainName(v) {
+  const c = String(v || "").toLowerCase();
+  const aliases = {
+    "sol":"solana",
+    "eth":"ethereum",
+    "matic":"polygon",
+    "polygon-pos":"polygon",
+    "binance-smart-chain":"bsc",
+    "arbitrum-one":"arbitrum",
+    "avax":"avalanche"
+  };
+  return aliases[c] || c;
+}
+
+function timeAgo(v) {
+  const t = Date.parse(v);
   if (!Number.isFinite(t)) return "Unknown";
-  const minutes = Math.max(0,Math.floor((Date.now()-t)/60000));
-  if (minutes < 60) return minutes + "m ago";
-  if (minutes < 1440) return Math.floor(minutes/60) + "h ago";
-  return Math.floor(minutes/1440) + "d ago";
+  const m = Math.max(0, Math.floor((Date.now() - t) / 60000));
+  if (m < 1) return "just now";
+  if (m < 60) return m + "m ago";
+  if (m < 1440) return Math.floor(m / 60) + "h ago";
+  return Math.floor(m / 1440) + "d ago";
 }
 
-function safeDexUrl(value) {
-  try {
-    const u = new URL(value);
-    return u.protocol === "https:" && u.hostname === "dexscreener.com"
-      ? u.href : "";
-  } catch { return ""; }
+function formatTime(v) {
+  const t = Date.parse(v);
+  return Number.isFinite(t) ? new Date(t).toLocaleString() : "Unknown";
 }
 
-function performance(signal) {
-  const windows = [
-    ["5m","return5m"],["15m","return15m"],["30m","return30m"],
-    ["1h","return60m"],["4h","return240m"],["24h","return1440m"]
-  ];
-  return windows.map(([label,key]) => {
-    const val = signal[key];
-    const n = Number(val);
-    const display = val === null || val === undefined || val === "" || !Number.isFinite(n)
-      ? "Pending" : pct(n);
-    const cls = Number.isFinite(n) && n > 0 ? "positive" :
-      Number.isFinite(n) && n < 0 ? "negative" : "";
-    return `<span>${label}: <b class="${cls}">${esc(display)}</b></span>`;
-  }).join(" · ");
+function metric(signal, key) {
+  return signal && signal.metrics ? signal.metrics[key] : null;
 }
 
-function renderCard(s) {
-  const score = Number(s.score) || 0;
-  const scoreClass = score >= 70 ? "high" : score >= 45 ? "mid" : "low";
-  const risks = Array.isArray(s.risks) ? s.risks : [];
-  const reasons = Array.isArray(s.reasons) ? s.reasons : [];
-  const change = Number(s.change1h) || 0;
-  const changeClass = change > 0 ? "positive" : change < 0 ? "negative" : "";
-  const url = safeDexUrl(s.pairUrl);
-  const address = String(s.address || "");
-  const id = String(s.id || "");
-  const buyRatio = s.buyRatio == null ? "—" : esc(s.buyRatio) + "%";
-  const age = s.ageHours == null ? "—" : esc(s.ageHours) + "h";
-  const riskBadges = risks.length
-    ? risks.map(r => `<span class="badge warn">${esc(r)}</span>`).join("")
-    : '<span class="badge">No configured market-data flags</span>';
-
-  return `<article class="card">
-    <div class="cardhead">
-      <div><div class="name">${esc(s.name)}</div>
-      <div class="symbol">${esc(s.symbol)} · ${esc(s.chain)}</div></div>
-      <div class="score ${scoreClass}">${score}/100</div>
-    </div>
-    <div class="price">${esc(price(s.priceUsd))}</div>
-    <div class="${changeClass}">1h ${esc(pct(change))} · 24h ${esc(pct(s.change24h))}</div>
-    <div class="metrics">
-      <div class="metric"><small>24h volume</small><strong>${esc(money(s.volume24h))}</strong></div>
-      <div class="metric"><small>Liquidity</small><strong>${esc(money(s.liquidity))}</strong></div>
-      <div class="metric"><small>Market cap</small><strong>${esc(money(s.marketCap))}</strong></div>
-      <div class="metric"><small>FDV</small><strong>${esc(money(s.fdv))}</strong></div>
-      <div class="metric"><small>Buys / sells (1h)</small><strong>${esc(s.buys1h)} / ${esc(s.sells1h)}</strong></div>
-      <div class="metric"><small>Buy ratio / pair age</small><strong>${buyRatio} / ${age}</strong></div>
-    </div>
-    <div class="badges">${riskBadges}</div>
-    <div class="details"><b>Score reasons:</b> ${esc(reasons.join(", ") || "Not enough supporting data")}</div>
-    <div class="details"><b>Detected:</b> ${esc(timeAgo(s.firstSeen))} · <b>Updated:</b> ${esc(timeAgo(s.updated))}</div>
-    <div class="details"><b>Performance from stored snapshots</b><br>${performance(s)}</div>
-    <div class="actions">
-      ${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">Open DEX Screener ↗</a>` : ""}
-      <button data-copy="${esc(address)}">Copy token address</button>
-      <button data-watch="${esc(id)}">Show details</button>
-    </div>
-    <div class="details" hidden data-details="${esc(id)}">
-      Address: ${esc(address)}<br>Pair: ${esc(s.pairAddress || "—")}<br>
-      First seen: ${esc(s.firstSeen || "—")}<br>
-      Risk flags are not a full contract security audit.
-    </div>
-  </article>`;
+function tokenKey(s) {
+  return chainName(s.chain) + ":" + String(s.address || "").toLowerCase();
 }
 
-function render() {
-  const query = $("search").value.trim().toLowerCase();
-  const sort = $("sort").value;
-  let rows = allSignals.filter(s => {
-    const chain = String(s.chain || "").toLowerCase();
+function getSignal(key) {
+  return signals.find(s => tokenKey(s) === key);
+}
+
+function tokenPrice(s) {
+  return num(metric(s, "price_usd"));
+}
+
+function tokenName(s) {
+  return (s.name || "Unknown token") + " (" + (s.symbol || "UNKNOWN") + ")";
+}
+
+function addEvent(title, description, type = "INFO") {
+  paper.events.unshift({
+    time: new Date().toISOString(),
+    title,
+    description,
+    type
+  });
+  paper.events = paper.events.slice(0, 150);
+}
+
+function getPositionValue(position) {
+  const s = getSignal(position.key);
+  const p = s ? tokenPrice(s) : null;
+  const current = p === null ? position.entryPrice : p;
+  return position.quantity * current;
+}
+
+function getUnrealised(position) {
+  return getPositionValue(position) - position.costBasis;
+}
+
+function getPortfolio() {
+  const openValue = Object.values(paper.positions).reduce(
+    (sum, p) => sum + getPositionValue(p), 0
+  );
+  const unrealised = Object.values(paper.positions).reduce(
+    (sum, p) => sum + getUnrealised(p), 0
+  );
+  const realised = paper.trades.reduce(
+    (sum, t) => sum + (num(t.realisedPnl) || 0), 0
+  );
+  return {
+    openValue,
+    unrealised,
+    realised,
+    equity: paper.cash + openValue,
+    totalPnl: paper.cash + openValue - paper.startingBalance
+  };
+}
+
+function recordEquity() {
+  const equity = getPortfolio().equity;
+  const now = new Date().toISOString();
+  const last = paper.equityHistory[paper.equityHistory.length - 1];
+
+  if (last && Math.abs(last.equity - equity) < 0.000001) {
+    last.time = now;
+  } else {
+    paper.equityHistory.push({time: now, equity});
+  }
+  paper.equityHistory = paper.equityHistory.slice(-500);
+  savePaper();
+}
+
+function checkTarget() {
+  const p = getPortfolio();
+  const target = paper.startingBalance * paper.targetMultiple;
+
+  if (p.equity >= target && !paper.targetReached) {
+    paper.targetReached = true;
+    paper.pauseBuys = true;
+    addEvent(
+      "Profit target reached",
+      "Virtual equity reached " + money(target) +
+      ". New paper buys are paused pending your review.",
+      "TARGET"
+    );
+    savePaper();
+  }
+}
+
+function renderPortfolio() {
+  const p = getPortfolio();
+  const totalReturn = paper.startingBalance
+    ? (p.totalPnl / paper.startingBalance) * 100 : 0;
+  const closed = paper.trades.filter(t => t.side === "SELL");
+  const wins = closed.filter(t => (num(t.realisedPnl) || 0) > 0).length;
+  const winPct = closed.length ? wins / closed.length * 100 : null;
+
+  $("portfolioValue").textContent = money(p.equity);
+  $("equity").textContent = money(p.equity);
+  $("cashBalance").textContent = money(paper.cash);
+  $("paperCash").textContent = money(paper.cash);
+  $("startingBalance").textContent = compactMoney(paper.startingBalance);
+
+  $("totalPnl").textContent = money(p.totalPnl);
+  $("totalPnl").className = "small-number " + signClass(p.totalPnl);
+  $("pnlFoot").textContent = percent(totalReturn) + " return";
+  $("pnlFoot").className = "stat-foot " + signClass(totalReturn);
+
+  $("equityChange").textContent =
+    (p.totalPnl >= 0 ? "+" : "") + money(p.totalPnl) +
+    " (" + percent(totalReturn) + ")";
+  $("equityChange").className = "change " + signClass(p.totalPnl);
+
+  $("realisedPnl").textContent = money(p.realised);
+  $("realisedPnl").className = signClass(p.realised);
+  $("unrealisedPnl").textContent = money(p.unrealised);
+  $("unrealisedPnl").className = signClass(p.unrealised);
+
+  $("tradeCount").textContent = paper.trades.length;
+  $("winRate").textContent = winPct === null ? "—" : winPct.toFixed(1) + "%";
+  $("winFoot").textContent = closed.length
+    ? wins + " winning closes out of " + closed.length
+    : "No closed paper trades yet";
+
+  const openCount = Object.keys(paper.positions).length;
+  $("openPositions").textContent = openCount;
+  $("openFoot").textContent = openCount + " active paper position" + (openCount === 1 ? "" : "s");
+  $("positionCountBadge").textContent = openCount + " position" + (openCount === 1 ? "" : "s");
+
+  const target = paper.startingBalance * paper.targetMultiple;
+  const targetGain = target - paper.startingBalance;
+  const achievedGain = p.equity - paper.startingBalance;
+  const progress = targetGain > 0
+    ? Math.max(0, Math.min(100, achievedGain / targetGain * 100)) : 0;
+
+  $("targetValue").textContent = money(target);
+  $("targetMultiple").textContent = paper.targetMultiple + "× target";
+  $("targetProgress").style.width = progress + "%";
+  $("targetProgressText").textContent = progress.toFixed(1) + "% of target gain";
+  $("targetBadge").textContent = paper.targetReached ? "Reached" : "Not reached";
+  $("targetBadge").className = "badge " + (paper.targetReached ? "green" : "");
+
+  $("pauseBuys").checked = !!paper.pauseBuys;
+  $("targetStatus").textContent = paper.targetReached
+    ? "Target reached. New paper buys are paused. Review your results before resuming."
+    : paper.pauseBuys
+      ? "New paper buys are paused."
+      : "Paper buys are enabled. Orders are simulated locally only.";
+
+  document.querySelectorAll(".target-btn").forEach(b => {
+    b.classList.toggle("primary", Number(b.dataset.target) === Number(paper.targetMultiple));
+  });
+
+  drawEquityChart();
+}
+
+function drawEquityChart() {
+  const canvas = $("equityChart");
+  const rect = canvas.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  const w = Math.max(280, rect.width);
+  const h = Math.max(120, rect.height);
+
+  canvas.width = Math.round(w * dpr);
+  canvas.height = Math.round(h * dpr);
+
+  const ctx = canvas.getContext("2d");
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, w, h);
+
+  let points = paper.equityHistory.map(x => num(x.equity)).filter(x => x !== null);
+  if (!points.length) points = [paper.startingBalance];
+  if (points.length === 1) points = [paper.startingBalance, points[0]];
+
+  const current = getPortfolio().equity;
+  if (Math.abs(points[points.length - 1] - current) > 0.0001) {
+    points.push(current);
+  }
+
+  const minVal = Math.min(...points, paper.startingBalance);
+  const maxVal = Math.max(...points, paper.startingBalance);
+  const spread = Math.max(1, maxVal - minVal);
+  const pad = 12;
+  const plotH = h - pad * 2;
+  const plotW = w - pad * 2;
+
+  ctx.strokeStyle = "#eceef2";
+  ctx.lineWidth = 1;
+  for (let i = 0; i < 4; i++) {
+    const y = pad + i * plotH / 3;
+    ctx.beginPath();
+    ctx.moveTo(pad, y);
+    ctx.lineTo(w - pad, y);
+    ctx.stroke();
+  }
+
+  const xy = points.map((v, i) => ({
+    x: pad + (points.length === 1 ? 0 : i / (points.length - 1)) * plotW,
+    y: pad + (maxVal - v) / spread * plotH
+  }));
+
+  const positive = current >= paper.startingBalance;
+  const color = positive ? "#159b68" : "#e14e5c";
+
+  ctx.beginPath();
+  xy.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y));
+  ctx.lineTo(xy[xy.length - 1].x, h - pad);
+  ctx.lineTo(xy[0].x, h - pad);
+  ctx.closePath();
+  ctx.fillStyle = positive ? "rgba(21,155,104,.08)" : "rgba(225,78,92,.07)";
+  ctx.fill();
+
+  ctx.beginPath();
+  xy.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y));
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2.4;
+  ctx.lineJoin = "round";
+  ctx.lineCap = "round";
+  ctx.stroke();
+
+  const last = xy[xy.length - 1];
+  ctx.beginPath();
+  ctx.arc(last.x, last.y, 4, 0, Math.PI * 2);
+  ctx.fillStyle = color;
+  ctx.fill();
+
+  $("chartEnd").textContent = "Updated " + new Date().toLocaleTimeString();
+}
+
+function renderHeatmap() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  $("heatMonth").textContent = now.toLocaleDateString(undefined, {month:"long",year:"numeric"});
+
+  const firstDay = new Date(year, month, 1);
+  const days = new Date(year, month + 1, 0).getDate();
+  const offset = (firstDay.getDay() + 6) % 7;
+  const daily = {};
+
+  paper.trades.filter(t => t.side === "SELL").forEach(t => {
+    const d = new Date(t.time);
+    if (d.getFullYear() === year && d.getMonth() === month) {
+      const key = d.getDate();
+      daily[key] = (daily[key] || 0) + (num(t.realisedPnl) || 0);
+    }
+  });
+
+  const labels = ["M","T","W","T","F","S","S"];
+  let html = labels.map(d => `<div class="heat-day">${d}</div>`).join("");
+
+  for (let i = 0; i < offset; i++) {
+    html += '<div class="heat-cell" style="visibility:hidden"></div>';
+  }
+
+  for (let day = 1; day <= days; day++) {
+    const val = daily[day] || 0;
+    let cls = "";
+    if (val > 0 && val < 50) cls = "pos1";
+    else if (val >= 50 && val < 200) cls = "pos2";
+    else if (val >= 200) cls = "pos3";
+    else if (val < 0 && val > -50) cls = "neg1";
+    else if (val <= -50) cls = "neg2";
+    if (day === now.getDate()) cls += " today";
+
+    html += `<div class="heat-cell ${cls}" title="${esc(day + " " + now.toLocaleDateString(undefined,{month:"long"}) + ": " + money(val))}">${val === 0 ? day : (val > 0 ? "+" : "") + Math.round(val)}</div>`;
+  }
+
+  $("heatmap").innerHTML = html;
+}
+
+function renderSignals() {
+  const query = $("searchTokens").value.trim().toLowerCase();
+  const chain = $("chainFilter").value;
+  const sort = $("sortTokens").value;
+
+  const rows = signals.filter(s => {
     const text = [s.name,s.symbol,s.address,s.chain].join(" ").toLowerCase();
-    return (selectedChain === "all" || chain === selectedChain)
-      && text.includes(query);
+    return text.includes(query) && (chain === "all" || chainName(s.chain) === chain);
   });
 
   rows.sort((a,b) => {
-    if (sort === "volume") return (Number(b.volume24h)||0)-(Number(a.volume24h)||0);
-    if (sort === "change") return (Number(b.change1h)||0)-(Number(a.change1h)||0);
-    if (sort === "liquidity") return (Number(b.liquidity)||0)-(Number(a.liquidity)||0);
-    if (sort === "newest") return Date.parse(b.firstSeen||0)-Date.parse(a.firstSeen||0);
-    return (Number(b.score)||0)-(Number(a.score)||0);
+    if (sort === "volume") return (num(metric(b,"volume_24h_usd")) || 0) - (num(metric(a,"volume_24h_usd")) || 0);
+    if (sort === "change") return (num(metric(b,"change_1h_pct")) || 0) - (num(metric(a,"change_1h_pct")) || 0);
+    if (sort === "liquidity") return (num(metric(b,"liquidity_usd")) || 0) - (num(metric(a,"liquidity_usd")) || 0);
+    return (num(b.score) || 0) - (num(a.score) || 0);
   });
 
-  $("signals").innerHTML = rows.length
-    ? rows.map(renderCard).join("")
-    : '<div class="empty">No matching signals. Try another filter or refresh.</div>';
+  $("signalCountBadge").textContent = signals.length + " signals";
+  $("tokenRows").innerHTML = rows.length ? rows.map(s => {
+    const key = tokenKey(s);
+    const ch = num(metric(s,"change_1h_pct"));
+    const risks = Array.isArray(s.risks) ? s.risks : [];
+    const onchain = s.onchain_checks || {};
+    const flagged = risks.length || onchain.skip ||
+      (num(onchain.developer_holding_pct) !== null && num(onchain.developer_holding_pct) > 10) ||
+      (num(onchain.bundle_pct) !== null && num(onchain.bundle_pct) > 25);
+
+    const symbol = String(s.symbol || "?").slice(0,3).toUpperCase();
+    const score = num(s.score) || 0;
+
+    return `<tr>
+      <td><div class="token-cell">
+        <span class="token-dot">${esc(symbol)}</span>
+        <span><div class="token-name">${esc(s.name || "Unknown")}</div>
+        <div class="token-sub">${esc(s.symbol || "UNKNOWN")} · ${esc(chainName(s.chain))}</div></span>
+      </div></td>
+      <td>${esc(price(metric(s,"price_usd")))}</td>
+      <td class="${signClass(ch)}">${esc(percent(ch))}</td>
+      <td>${esc(compactMoney(metric(s,"volume_24h_usd")))}</td>
+      <td>${esc(compactMoney(metric(s,"liquidity_usd")))}</td>
+      <td><span class="badge ${score >= 70 ? "green" : score >= 45 ? "blue" : ""}">${esc(score)}</span></td>
+      <td><div class="row-actions">
+        <button class="icon-btn" data-buy="${esc(key)}">Buy</button>
+        ${flagged ? '<span class="badge orange">Risk</span>' : ''}
+      </div></td>
+    </tr>`;
+  }).join("") : '<tr><td colspan="7" class="empty">No matching signals</td></tr>';
+
+  updateTradeTokenSelect();
 }
 
-async function loadSignals() {
-  $("status").textContent = "Loading scanner data…";
+function updateTradeTokenSelect() {
+  const select = $("tradeToken");
+  const old = select.value;
+  const options = signals.map(s =>
+    `<option value="${esc(tokenKey(s))}">${esc(tokenName(s))} · ${esc(chainName(s.chain))}</option>`
+  ).join("");
+  select.innerHTML = '<option value="">Select a token…</option>' + options;
+  if (signals.some(s => tokenKey(s) === old)) select.value = old;
+}
+
+function renderPositions() {
+  const positions = Object.values(paper.positions);
+  $("positionRows").innerHTML = positions.length ? positions.map(p => {
+    const s = getSignal(p.key);
+    const current = s ? tokenPrice(s) : null;
+    const currentPrice = current === null ? p.entryPrice : current;
+    const value = p.quantity * currentPrice;
+    const pnl = value - p.costBasis;
+
+    return `<tr>
+      <td><div class="token-name">${esc(p.name)}</div><div class="token-sub">${esc(p.symbol)} · ${esc(p.chain)}</div></td>
+      <td>${esc(price(p.entryPrice))}</td>
+      <td>${esc(current === null ? "Last entry price" : price(current))}</td>
+      <td>${esc(money(value))}</td>
+      <td class="${signClass(pnl)}">${esc(money(pnl))}</td>
+      <td><button class="icon-btn" data-sell="${esc(p.key)}">Sell</button></td>
+    </tr>`;
+  }).join("") : '<tr><td colspan="6" class="empty">No open paper positions. Choose a scanner token to simulate a buy.</td></tr>';
+}
+
+function renderHistory() {
+  const filter = $("historyFilter").value;
+  const trades = paper.trades.filter(t => filter === "all" || t.side === filter);
+
+  $("historyRows").innerHTML = trades.length ? trades.slice().reverse().map(t => `
+    <tr>
+      <td>${esc(formatTime(t.time))}</td>
+      <td><span class="badge ${t.side === "BUY" ? "blue" : "green"}">${esc(t.side)}</span></td>
+      <td><div class="token-name">${esc(t.name)}</div><div class="token-sub">${esc(t.symbol)}</div></td>
+      <td>${esc(price(t.price))}</td>
+      <td>${esc(money(t.amount))}</td>
+      <td class="${signClass(t.realisedPnl)}">${t.side === "SELL" ? esc(money(t.realisedPnl)) : "—"}</td>
+    </tr>
+  `).join("") : '<tr><td colspan="6" class="empty">No matching paper trades</td></tr>';
+}
+
+function renderRisk() {
+  const risks = [];
+
+  signals.forEach(s => {
+    const checks = s.onchain_checks || {};
+    const dev = num(checks.developer_holding_pct);
+    const bundle = num(checks.bundle_pct);
+
+    if (dev !== null && dev > 10) {
+      risks.push({
+        name: tokenName(s),
+        detail: "Reported developer holding: " + percent(dev),
+        type: "DEV"
+      });
+    }
+    if (bundle !== null && bundle > 25) {
+      risks.push({
+        name: tokenName(s),
+        detail: "Reported bundle concentration: " + percent(bundle),
+        type: "BUNDLE"
+      });
+    }
+    if (checks.skip) {
+      risks.push({
+        name: tokenName(s),
+        detail: "Scanner marked on-chain checks high-risk or unknown.",
+        type: "CHECK"
+      });
+    }
+    if (Array.isArray(s.risks)) {
+      s.risks.forEach(r => risks.push({
+        name: tokenName(s),
+        detail: String(r),
+        type: "MARKET"
+      }));
+    }
+  });
+
+  $("devFlags").textContent = signals.filter(s =>
+    num((s.onchain_checks || {}).developer_holding_pct) !== null &&
+    num((s.onchain_checks || {}).developer_holding_pct) > 10
+  ).length;
+
+  $("bundleFlags").textContent = signals.filter(s =>
+    num((s.onchain_checks || {}).bundle_pct) !== null &&
+    num((s.onchain_checks || {}).bundle_pct) > 25
+  ).length;
+
+  $("riskCount").textContent = risks.length + " flags";
+
+  $("riskEvents").innerHTML = risks.length ? risks.slice(0,8).map(r => `
+    <div class="event">
+      <div class="event-icon">${r.type === "DEV" ? "D" : r.type === "BUNDLE" ? "B" : "!"}</div>
+      <div class="event-body">
+        <div class="event-title">${esc(r.name)}</div>
+        <div class="event-desc">${esc(r.detail)}</div>
+      </div>
+    </div>
+  `).join("") : '<div class="empty">No supplied risk flags. Missing data is not proof of safety.</div>';
+}
+
+function renderActivity() {
+  const items = [...paper.events];
+
+  signals.slice(0, 10).forEach(s => {
+    items.push({
+      time: s.timestamp,
+      title: "Scanner signal: " + tokenName(s),
+      description: "Score " + (num(s.score) || 0) + "/100 · " +
+        percent(metric(s,"change_1h_pct")) + " 1h · " +
+        (Array.isArray(s.sources) ? s.sources.join(", ") : "Unknown source"),
+      type: "SIGNAL"
+    });
+  });
+
+  items.sort((a,b) => (Date.parse(b.time) || 0) - (Date.parse(a.time) || 0));
+
+  $("activityCount").textContent = items.length + " events";
+  $("activityList").innerHTML = items.length ? items.slice(0,12).map(e => `
+    <div class="event">
+      <div class="event-icon">${e.type === "BUY" ? "B" : e.type === "SELL" ? "S" : e.type === "TARGET" ? "✓" : "•"}</div>
+      <div class="event-body">
+        <div class="event-title">${esc(e.title)}</div>
+        <div class="event-desc">${esc(e.description)}</div>
+      </div>
+      <div class="event-time">${esc(timeAgo(e.time))}</div>
+    </div>
+  `).join("") : '<div class="empty">No recent activity</div>';
+}
+
+function renderScannerState() {
+  const last = scannerState.last_scan;
+  $("lastScan").textContent = last ? formatTime(last) + " · " + timeAgo(last) : "Unknown";
+  $("discoveredCount").textContent = scannerState.last_discovery_count ?? "Unknown";
+  $("qualifyingCount").textContent = scannerState.last_signal_count ?? signals.length;
+
+  let fresh = false;
+  if (last) {
+    const age = Date.now() - Date.parse(last);
+    fresh = Number.isFinite(age) && age < 12 * 60 * 1000;
+  }
+
+  $("connectionDot").className = "dot " + (fresh ? "green" : "red");
+  $("connectionText").textContent = fresh ? "Scanner recent" : "Data may be stale";
+
+  $("lastUpdated").textContent = last
+    ? "Last scanner run: " + formatTime(last) +
+      ". The page refreshes every 60 seconds; GitHub Actions controls scanner execution."
+    : "No scanner timestamp found. Check that scanner_state.json has been updated by GitHub Actions.";
+}
+
+function renderAll() {
+  renderPortfolio();
+  renderHeatmap();
+  renderSignals();
+  renderPositions();
+  renderHistory();
+  renderRisk();
+  renderActivity();
+  renderScannerState();
+}
+
+async function fetchJson(url) {
+  const response = await fetch(url + "?t=" + Date.now(), {cache:"no-store"});
+  if (!response.ok) throw new Error(url + " returned HTTP " + response.status);
+  return response.json();
+}
+
+async function refreshScanner() {
+  $("scannerStatus").textContent = "Fetching latest scanner files…";
+
   try {
-    const response = await fetch(DATA_URL + "?t=" + Date.now(), {cache:"no-store"});
-    if (!response.ok) throw new Error("HTTP " + response.status);
-    const data = await response.json();
-    if (!Array.isArray(data)) throw new Error("signals.json is not a list");
+    const results = await Promise.allSettled([
+      fetchJson(SIGNALS_URL),
+      fetchJson(STATE_URL)
+    ]);
 
-    allSignals = data;
-    $("total").textContent = data.length;
-    $("strong").textContent = data.filter(s => Number(s.score) >= 70).length;
-    $("risk").textContent = data.filter(s => Array.isArray(s.risks) &&
-      s.risks.some(r => /LOW LIQUIDITY|LARGE 24H DECLINE|EXTREME|UNUSUALLY HIGH/.test(r))).length;
+    if (results[0].status === "fulfilled") {
+      if (!Array.isArray(results[0].value)) {
+        throw new Error("signals.json does not contain a list");
+      }
+      signals = results[0].value;
+    } else {
+      throw results[0].reason;
+    }
 
-    const latest = data.reduce((max,s) => {
-      const t = Date.parse(s.updated || 0) || 0;
-      return Math.max(max,t);
-    },0);
-    $("updated").textContent = latest ? new Date(latest).toLocaleTimeString() : "No data";
-    $("status").textContent = `Loaded ${data.length} signals · Data timestamp: ${latest ? new Date(latest).toLocaleString() : "unknown"} · Dashboard refreshes every minute; scanner runs on its own schedule.`;
-    render();
-  } catch (err) {
-    $("status").textContent = "Could not load signals.json: " + err.message +
-      ". Check that the scanner has run and GitHub Pages is enabled.";
+    if (results[1].status === "fulfilled" &&
+        results[1].value && typeof results[1].value === "object") {
+      scannerState = results[1].value;
+    } else {
+      scannerState = {};
+    }
+
+    lastSignalRefresh = new Date().toISOString();
+    $("scannerStatus").textContent =
+      "Loaded " + signals.length + " signals · Browser refreshed " +
+      new Date().toLocaleTimeString() +
+      ". Scanner run time is shown separately below.";
+
+    renderAll();
+  } catch (e) {
+    $("scannerStatus").textContent =
+      "Could not load scanner data: " + e.message +
+      ". Check that signals.json and scanner_state.json exist in the published site.";
+    $("connectionDot").className = "dot red";
+    $("connectionText").textContent = "Data error";
   }
 }
 
-$("filters").addEventListener("click", event => {
-  const button = event.target.closest("button[data-chain]");
-  if (!button) return;
-  selectedChain = button.dataset.chain;
-  $("filters").querySelectorAll("button").forEach(b =>
-    b.classList.toggle("active",b === button));
-  render();
-});
+function doPaperTrade(key, side, amount, note) {
+  const s = getSignal(key);
+  if (!s) {
+    alert("That token is no longer in the loaded scanner data.");
+    return false;
+  }
 
-$("search").addEventListener("input",render);
-$("sort").addEventListener("change",render);
-$("refresh").addEventListener("click",loadSignals);
+  const px = tokenPrice(s);
+  if (px === null || px <= 0) {
+    alert("A valid token price is not available. No trade was recorded.");
+    return false;
+  }
 
-$("signals").addEventListener("click",async event => {
-  const copy = event.target.closest("button[data-copy]");
-  const details = event.target.closest("button[data-watch]");
-  if (copy) {
-    try {
-      await navigator.clipboard.writeText(copy.dataset.copy);
-      copy.textContent = "Copied!";
-      setTimeout(() => copy.textContent = "Copy token address",1500);
-    } catch {
-      prompt("Copy token address:",copy.dataset.copy);
+  if (!Number.isFinite(amount) || amount <= 0) {
+    alert("Enter a valid trade amount.");
+    return false;
+  }
+
+  if (side === "BUY") {
+    checkTarget();
+    if (paper.pauseBuys || paper.targetReached) {
+      alert("Paper buys are paused. Resume them manually before buying.");
+      return false;
+    }
+    if (amount > paper.cash) {
+      alert("Insufficient virtual cash. Available: " + money(paper.cash));
+      return false;
+    }
+
+    const quantity = amount / px;
+    const keyId = tokenKey(s);
+    let p = paper.positions[keyId];
+
+    if (!p) {
+      p = {
+        key: keyId,
+        name: s.name || "Unknown",
+        symbol: s.symbol || "UNKNOWN",
+        chain: chainName(s.chain),
+        quantity: 0,
+        costBasis: 0,
+        entryPrice: px
+      };
+      paper.positions[keyId] = p;
+    }
+
+    p.quantity += quantity;
+    p.costBasis += amount;
+    p.entryPrice = p.costBasis / p.quantity;
+    paper.cash -= amount;
+
+    paper.trades.push({
+      id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+      time: new Date().toISOString(),
+      side: "BUY",
+      key: keyId,
+      name: s.name || "Unknown",
+      symbol: s.symbol || "UNKNOWN",
+      price: px,
+      quantity,
+      amount,
+      realisedPnl: 0,
+      note: note || ""
+    });
+
+    addEvent("Paper buy: " + tokenName(s),
+      "Simulated purchase of " + money(amount) + " at " + price(px) +
+      (note ? ". Note: " + note : ""), "BUY");
+
+  } else {
+    const keyId = tokenKey(s);
+    const p = paper.positions[keyId];
+
+    if (!p || p.quantity <= 0 || p.costBasis <= 0) {
+      alert("There is no open paper position for this token.");
+      return false;
+    }
+
+    const currentValue = p.quantity * px;
+    const sellAmount = Math.min(amount, currentValue);
+    const quantityToSell = sellAmount / px;
+    const fraction = quantityToSell / p.quantity;
+    const basisSold = p.costBasis * fraction;
+    const pnl = sellAmount - basisSold;
+
+    if (sellAmount <= 0 || quantityToSell <= 0) {
+      alert("Enter a valid sell amount.");
+      return false;
+    }
+
+    p.quantity -= quantityToSell;
+    p.costBasis -= basisSold;
+    paper.cash += sellAmount;
+
+    paper.trades.push({
+      id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+      time: new Date().toISOString(),
+      side: "SELL",
+      key: keyId,
+      name: s.name || p.name,
+      symbol: s.symbol || p.symbol,
+      price: px,
+      quantity: quantityToSell,
+      amount: sellAmount,
+      realisedPnl: pnl,
+      note: note || ""
+    });
+
+    addEvent("Paper sell: " + tokenName(s),
+      "Simulated sale of " + money(sellAmount) + " at " + price(px) +
+      ". Realised P/L: " + money(pnl) +
+      (note ? ". Note: " + note : ""), "SELL");
+
+    if (p.quantity <= 1e-12 || p.costBasis <= 1e-8) {
+      delete paper.positions[keyId];
     }
   }
-  if (details) {
-    const id = details.dataset.watch;
-    const box = [...document.querySelectorAll("[data-details]")]
-      .find(el => el.dataset.details === id);
-    if (box) {
-      box.hidden = !box.hidden;
-      details.textContent = box.hidden ? "Show details" : "Hide details";
-    }
+
+  recordEquity();
+  checkTarget();
+  savePaper();
+  renderAll();
+  return true;
+}
+
+$("tradeForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const key = $("tradeToken").value;
+  const side = $("tradeSide").value;
+  const amount = num($("tradeAmount").value);
+  const note = $("tradeNote").value.trim();
+
+  if (!key) {
+    alert("Select a scanner token first.");
+    return;
+  }
+
+  if (doPaperTrade(key, side, amount, note)) {
+    $("tradeNote").value = "";
   }
 });
 
-loadSignals();
-setInterval(loadSignals,60000);
+$("tokenRows").addEventListener("click", event => {
+  const btn = event.target.closest("button[data-buy]");
+  if (!btn) return;
+
+  $("tradeToken").value = btn.dataset.buy;
+  $("tradeSide").value = "BUY";
+  $("tradeAmount").value = "100";
+  $("tradeToken").scrollIntoView({behavior:"smooth",block:"center"});
+  $("tradeAmount").focus();
+});
+
+$("positionRows").addEventListener("click", event => {
+  const btn = event.target.closest("button[data-sell]");
+  if (!btn) return;
+
+  const key = btn.dataset.sell;
+  const p = paper.positions[key];
+  if (!p) return;
+
+  const s = getSignal(key);
+  const px = s ? tokenPrice(s) : null;
+
+  if (px === null || px <= 0) {
+    alert("Current scanner price unavailable. Refresh the data before selling.");
+    return;
+  }
+
+  $("tradeToken").value = key;
+  $("tradeSide").value = "SELL";
+  $("tradeAmount").value = Math.max(1, Math.floor(p.quantity * px));
+  $("tradeToken").scrollIntoView({behavior:"smooth",block:"center"});
+});
+
+$("searchTokens").addEventListener("input", renderSignals);
+$("chainFilter").addEventListener("change", renderSignals);
+$("sortTokens").addEventListener("change", renderSignals);
+$("historyFilter").addEventListener("change", renderHistory);
+
+$("refreshBtn").addEventListener("click", refreshScanner);
+
+$("pauseBuys").addEventListener("change", () => {
+  paper.pauseBuys = $("pauseBuys").checked;
+  addEvent(
+    paper.pauseBuys ? "Paper buys paused" : "Paper buys enabled",
+    paper.pauseBuys
+      ? "New simulated buy orders are disabled."
+      : "New simulated buys are enabled.",
+    "INFO"
+  );
+  savePaper();
+  renderAll();
+});
+
+$("resumeBuys").addEventListener("click", () => {
+  if (paper.targetReached) {
+    const ok = confirm(
+      "Your profit target was reached. Resume paper buys anyway?"
+    );
+    if (!ok) return;
+    paper.targetReached = false;
+  }
+
+  paper.pauseBuys = false;
+  addEvent("Paper buys resumed", "Manual approval recorded in this browser.", "INFO");
+  savePaper();
+  renderAll();
+});
+
+document.querySelectorAll(".target-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    paper.targetMultiple = Number(btn.dataset.target);
+    paper.targetReached = false;
+    addEvent(
+      "Profit target changed",
+      "Virtual account target changed to " + paper.targetMultiple + "×.",
+      "INFO"
+    );
+    savePaper();
+    checkTarget();
+    renderAll();
+  });
+});
+
+$("exportBtn").addEventListener("click", () => {
+  const rows = [
+    ["Time","Side","Token","Symbol","Chain","Price USD","Quantity","Amount USD","Realised P/L USD","Note"],
+    ...paper.trades.map(t => [
+      t.time,t.side,t.name,t.symbol,
+      (getSignal(t.key) || {}).chain || "",
+      t.price,t.quantity,t.amount,t.realisedPnl,t.note || ""
+    ])
+  ];
+
+  const csv = rows.map(row => row.map(value => {
+    const v = String(value ?? "");
+    return '"' + v.replace(/"/g,'""') + '"';
+  }).join(",")).join("\r\n");
+
+  downloadFile("crypto-pulse-paper-trades.csv", csv, "text/csv;charset=utf-8");
+});
+
+$("exportJson").addEventListener("click", () => {
+  downloadFile(
+    "crypto-pulse-paper-account.json",
+    JSON.stringify(paper, null, 2),
+    "application/json"
+  );
+});
+
+function downloadFile(name, content, type) {
+  const blob = new Blob([content], {type});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+$("resetAccount").addEventListener("click", () => {
+  const answer = prompt(
+    "This permanently deletes this browser's saved paper trades. Type RESET to confirm."
+  );
+  if (answer !== "RESET") return;
+
+  paper = defaultPaper();
+  savePaper();
+  renderAll();
+});
+
+window.addEventListener("resize", () => drawEquityChart());
+
+async function start() {
+  savePaper();
+  recordEquity();
+  renderAll();
+  await refreshScanner();
+  setInterval(refreshScanner, 60000);
+}
+
+start();
 </script>
 </body>
 </html>
