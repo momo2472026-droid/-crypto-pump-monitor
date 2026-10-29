@@ -1,4 +1,5 @@
 name: Crypto Pulse Scanner
+
 on:
   schedule:
     - cron: "*/5 * * * *"
@@ -7,29 +8,35 @@ on:
     paths:
       - "scanner.py"
       - "paper_trader.py"
-      - "rug_blacklist.json"
       - ".github/workflows/scanner.yml"
+
 permissions:
   contents: write
+
 concurrency:
   group: crypto-pulse-scanner
   cancel-in-progress: false
+
 jobs:
   scan:
     runs-on: ubuntu-latest
     timeout-minutes: 4
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           ref: main
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
       - name: Install dependencies
         run: pip install requests
-      - name: Run crypto scanner
+
+      - name: Run scanner
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -40,6 +47,7 @@ jobs:
           MAX_TOKENS_PER_SCAN: "100"
           ALERT_COOLDOWN_HOURS: "6"
         run: python scanner.py
+
       - name: Run paper trader
         env:
           PAPER_STARTING_BALANCE: "1000"
@@ -48,18 +56,19 @@ jobs:
           PAPER_TAKE_PROFIT_PCT: "25"
           PAPER_MAX_OPEN_POSITIONS: "10"
           PAPER_TOTAL_PROFIT_TARGET: "100"
-          # Experimental simulations for tokens with unknown risk data.
-          # This must never enable real-money trades.
           PAPER_ALLOW_UNVERIFIED: "true"
           MIN_LIQUIDITY: "10000"
           MIN_VOLUME_24H: "25000"
           MIN_SCORE: "45"
         run: python paper_trader.py
-      - name: Save scanner and paper-trading data
+
+      - name: Save scanner and paper trading data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           git add -f signals.json history.json scanner_state.json paper_trades.json
+
           if ! git diff --cached --quiet; then
             git commit -m "Update scanner and paper trading data"
             git push origin HEAD:main
