@@ -7,15 +7,15 @@ from pathlib import Path
 
 import requests
 
-# CRYPTO PULSE SCANNER
-# PAPER/SIGNAL MODE ONLY — NEVER PLACES LIVE TRADES.
+# CRYPTO PULSE SCANNER — PAPER/SIGNAL MODE ONLY
+# This scanner never places live trades.
 
 DEX = "https://api.dexscreener.com"
 GECKO = "https://api.geckoterminal.com/api/v2"
 RUGCHECK = "https://api.rugcheck.xyz/v1"
 SOLANA_RPC = os.getenv(
     "SOLANA_RPC_URL",
-    "https://api.mainnet-beta.solana.com",
+    "https://api.mainnet-beta.solana.com"
 )
 
 CHAINS = {
@@ -41,8 +41,8 @@ STATE_FILE = Path("scanner_state.json")
 HISTORY_FILE = Path("history.json")
 BLACKLIST_FILE = Path("rug_blacklist.json")
 
-SESSION = requests.Session()
-SESSION.headers.update({"User-Agent": "CryptoPulseScanner/4.0"})
+S = requests.Session()
+S.headers.update({"User-Agent": "CryptoPulseScanner/4.0"})
 
 GECKO_NETWORKS = {
     "solana": "solana",
@@ -84,7 +84,7 @@ def write_json(path, data):
 
 def get_json(url, params=None, headers=None):
     try:
-        response = SESSION.get(
+        response = S.get(
             url,
             params=params,
             headers=headers,
@@ -93,10 +93,8 @@ def get_json(url, params=None, headers=None):
         if response.status_code == 429:
             print("API rate limit reached:", url)
             return None
-
         response.raise_for_status()
         return response.json()
-
     except (requests.RequestException, ValueError) as error:
         print("API error:", url, str(error))
         return None
@@ -121,10 +119,7 @@ def key_for(chain, address):
 
 
 def load_blacklist():
-    data = read_json(
-        BLACKLIST_FILE,
-        {"tokens": [], "wallets": []},
-    )
+    data = read_json(BLACKLIST_FILE, {"tokens": [], "wallets": []})
     if not isinstance(data, dict):
         data = {}
 
@@ -141,16 +136,12 @@ def load_blacklist():
     return tokens, wallets
 
 
-def token_is_blacklisted(chain, address, token_blacklist):
+def token_is_blacklisted(chain, address, tokens):
     return (
-        key_for(chain, address) in token_blacklist
-        or str(address).lower() in token_blacklist
+        key_for(chain, address) in tokens
+        or str(address).lower() in tokens
     )
 
-
-# ------------------------------------------------------------
-# TOKEN DISCOVERY: DEXSCREENER
-# ------------------------------------------------------------
 
 def discover_dexscreener():
     found = {}
@@ -193,6 +184,7 @@ def discover_dexscreener():
             f"{DEX}/latest/dex/search",
             params={"q": term},
         )
+
         if not isinstance(data, dict):
             continue
 
@@ -221,10 +213,6 @@ def discover_dexscreener():
     return found
 
 
-# ------------------------------------------------------------
-# TOKEN DISCOVERY: GECKOTERMINAL
-# ------------------------------------------------------------
-
 def discover_gecko():
     found = {}
 
@@ -237,14 +225,15 @@ def discover_gecko():
             f"{GECKO}/networks/{network}/trending_pools",
             params={"page": 1},
         )
+
         if not isinstance(data, dict):
             continue
 
         for pool in data.get("data") or []:
             attrs = pool.get("attributes") or {}
             relationships = pool.get("relationships") or {}
-            base_rel = relationships.get("base_token") or {}
-            token_data = base_rel.get("data") or {}
+            base_token = relationships.get("base_token") or {}
+            token_data = base_token.get("data") or {}
             token_id = token_data.get("id", "")
 
             address = (
@@ -252,29 +241,25 @@ def discover_gecko():
                 if "_" in token_id
                 else attrs.get("base_token_address", "")
             )
+
             if not address:
                 continue
+
+            name = attrs.get("name") or "Unknown"
 
             found.setdefault(
                 key_for(chain, address),
                 {
                     "chain": chain,
                     "address": address,
-                    "name": attrs.get("name") or "Unknown",
-                    "symbol": (
-                        attrs.get("name") or "UNKNOWN"
-                    ).split(" / ")[0],
+                    "name": name,
+                    "symbol": name.split(" / ")[0],
                     "sources": ["GeckoTerminal"],
                 },
             )
 
     return found
 
-
-# ------------------------------------------------------------
-# OPTIONAL DEXVIEW DISCOVERY
-# Requires DEXVIEW_API_KEY and DEXVIEW_DISCOVERY_URL.
-# ------------------------------------------------------------
 
 def discover_dexview():
     api_key = os.getenv("DEXVIEW_API_KEY", "").strip()
@@ -286,11 +271,9 @@ def discover_dexview():
 
     data = get_json(
         endpoint,
-        headers={
-            "X-API-KEY": api_key,
-            "apikey": api_key,
-        },
+        headers={"X-API-KEY": api_key, "apikey": api_key},
     )
+
     if not isinstance(data, dict):
         return {}
 
@@ -341,13 +324,13 @@ def discover_dexview():
 def discover_tokens():
     combined = {}
 
-    sources = (
+    providers = [
         ("DexScreener", discover_dexscreener),
         ("GeckoTerminal", discover_gecko),
         ("DexView", discover_dexview),
-    )
+    ]
 
-    for label, function in sources:
+    for label, function in providers:
         try:
             items = function()
             print(f"{label}: {len(items)} tokens discovered.")
@@ -368,23 +351,14 @@ def discover_tokens():
     return list(combined.values())[:MAX_TOKENS]
 
 
-# ------------------------------------------------------------
-# MARKET DATA
-# ------------------------------------------------------------
-
 def get_pairs(token):
     chain = token["chain"]
     address = token["address"]
 
-    data = get_json(
-        f"{DEX}/token-pairs/v1/{chain}/{address}"
-    )
+    data = get_json(f"{DEX}/token-pairs/v1/{chain}/{address}")
 
     if isinstance(data, list) and data:
-        return [
-            item for item in data
-            if isinstance(item, dict)
-        ]
+        return [item for item in data if isinstance(item, dict)]
 
     network = GECKO_NETWORKS.get(chain)
     if not network:
@@ -394,6 +368,7 @@ def get_pairs(token):
         f"{GECKO}/networks/{network}/tokens/{address}/pools",
         params={"page": 1},
     )
+
     if not isinstance(data, dict):
         return []
 
@@ -403,83 +378,68 @@ def get_pairs(token):
         attrs = pool.get("attributes") or {}
         volume = attrs.get("volume_usd") or {}
         changes = attrs.get("price_change_percentage") or {}
+        name = attrs.get("name") or "Unknown"
 
-        pairs.append({
-            "chainId": chain,
-            "pairAddress": attrs.get("address"),
-            "url": "",
-            "baseToken": {
-                "address": address,
-                "name": attrs.get("name") or "Unknown",
-                "symbol": (
-                    attrs.get("name") or "UNKNOWN"
-                ).split(" / ")[0],
-            },
-            "priceUsd": attrs.get("base_token_price_usd"),
-            "liquidity": {
-                "usd": attrs.get("reserve_in_usd"),
-            },
-            "volume": {
-                "h24": volume.get("h24", 0),
-                "h1": volume.get("h1", 0),
-            },
-            "priceChange": {
-                "h1": changes.get("h1", 0),
-                "h24": changes.get("h24", 0),
-            },
-            "txns": {},
-            "pairCreatedAt": None,
-        })
+        pairs.append(
+            {
+                "chainId": chain,
+                "pairAddress": attrs.get("address"),
+                "url": "",
+                "baseToken": {
+                    "address": address,
+                    "name": name,
+                    "symbol": name.split(" / ")[0],
+                },
+                "priceUsd": attrs.get("base_token_price_usd"),
+                "liquidity": {"usd": attrs.get("reserve_in_usd")},
+                "volume": {
+                    "h24": volume.get("h24", 0),
+                    "h1": volume.get("h1", 0),
+                },
+                "priceChange": {
+                    "h1": changes.get("h1", 0),
+                    "h24": changes.get("h24", 0),
+                },
+                "txns": {},
+                "pairCreatedAt": None,
+            }
+        )
 
     return pairs
 
 
 def get_metrics(pair):
-    liquidity = num(
-        (pair.get("liquidity") or {}).get("usd")
-    )
+    liquidity = num((pair.get("liquidity") or {}).get("usd"))
     volume = pair.get("volume") or {}
-    txns = pair.get("txns") or {}
-    hour_txns = txns.get("h1") or {}
-    day_txns = txns.get("h24") or {}
+    transactions = pair.get("txns") or {}
+    hour_tx = transactions.get("h1") or {}
+    day_tx = transactions.get("h24") or {}
     changes = pair.get("priceChange") or {}
 
     created = pair.get("pairCreatedAt")
-    age = None
-
-    if created:
-        age = max(
-            0,
-            (time.time() * 1000 - num(created)) / 60000,
-        )
+    age = (
+        max(0, (time.time() * 1000 - num(created)) / 60000)
+        if created
+        else None
+    )
 
     return {
         "price_usd": num(pair.get("priceUsd")),
         "liquidity_usd": liquidity,
         "volume_24h_usd": num(volume.get("h24")),
         "volume_1h_usd": num(volume.get("h1")),
-        "buys_1h": num(hour_txns.get("buys")),
-        "sells_1h": num(hour_txns.get("sells")),
-        "buys_24h": num(day_txns.get("buys")),
-        "sells_24h": num(day_txns.get("sells")),
+        "buys_1h": num(hour_tx.get("buys")),
+        "sells_1h": num(hour_tx.get("sells")),
+        "buys_24h": num(day_tx.get("buys")),
+        "sells_24h": num(day_tx.get("sells")),
         "change_1h_pct": num(changes.get("h1")),
         "change_24h_pct": num(changes.get("h24")),
         "age_minutes": age,
     }
 
 
-# ------------------------------------------------------------
-# DEVELOPER AND BUNDLE RISK CHECKS
-#
-# Missing information is UNKNOWN, not SAFE.
-# Unknown candidates are saved for visibility, but paper_eligible
-# remains false unless the checks are sufficiently supported.
-# ------------------------------------------------------------
-
 def rugcheck_report(address):
-    return get_json(
-        f"{RUGCHECK}/tokens/{address}/report"
-    )
+    return get_json(f"{RUGCHECK}/tokens/{address}/report")
 
 
 def inspect_solana(token, state):
@@ -487,6 +447,7 @@ def inspect_solana(token, state):
         return {
             "skip": True,
             "verified": False,
+            "hard_block": False,
             "status": "UNKNOWN",
             "reasons": [
                 "Developer/bundle checks are not configured for this chain"
@@ -502,10 +463,9 @@ def inspect_solana(token, state):
         return {
             "skip": True,
             "verified": False,
+            "hard_block": False,
             "status": "UNKNOWN",
-            "reasons": [
-                "RugCheck unavailable; risk checks UNKNOWN"
-            ],
+            "reasons": ["RugCheck unavailable; risk checks UNKNOWN"],
             "developer_wallet": None,
             "developer_holding_pct": None,
             "bundle_pct": None,
@@ -521,18 +481,14 @@ def inspect_solana(token, state):
         creator = creator.get("address") or creator.get("wallet")
 
     if not creator:
-        meta = report.get("tokenMeta") or {}
-        creator = meta.get("updateAuthority")
+        creator = (report.get("tokenMeta") or {}).get("updateAuthority")
 
     risks = report.get("risks") or []
     risk_text = " ".join(str(item) for item in risks).lower()
 
-    bundle_pct = None
+    bundle = None
 
-    for obj in (
-        report,
-        report.get("graphInsidersDetected"),
-    ):
+    for obj in (report, report.get("graphInsidersDetected")):
         if not isinstance(obj, dict):
             continue
 
@@ -543,26 +499,18 @@ def inspect_solana(token, state):
             "insiderPct",
             "insider_pct",
         ):
-            value = obj.get(field)
+            if obj.get(field) is not None:
+                value = num(obj.get(field), -1)
 
-            if value is None:
-                continue
+                if 0 <= value <= 100:
+                    bundle = value
+                    break
 
-            candidate = num(value, -1)
-
-            if 0 <= candidate <= 100:
-                bundle_pct = candidate
-                break
-
-        if bundle_pct is not None:
+        if bundle is not None:
             break
 
     dev_pct = None
-    holders = (
-        report.get("topHolders")
-        or report.get("top_holders")
-        or []
-    )
+    holders = report.get("topHolders") or report.get("top_holders") or []
 
     if creator and isinstance(holders, list):
         for holder in holders:
@@ -580,27 +528,23 @@ def inspect_solana(token, state):
                 continue
 
             for field in ("pct", "percentage", "share"):
-                if holder.get(field) is None:
-                    continue
-
-                candidate = num(holder[field], -1)
-
-                if 0 <= candidate <= 100:
-                    dev_pct = candidate
+                if holder.get(field) is not None:
+                    value = num(holder[field], -1)
+                    if 0 <= value <= 100:
+                        dev_pct = value
                     break
 
             break
 
     reasons = []
     skip = False
+    hard_block = False
 
     if not creator:
         reasons.append("Developer wallet UNKNOWN")
         skip = True
     elif dev_pct is None:
-        reasons.append(
-            "Developer ownership UNKNOWN; no matching holder data"
-        )
+        reasons.append("Developer ownership UNKNOWN; no matching holder data")
         skip = True
     elif dev_pct > MAX_DEV_PCT:
         reasons.append(
@@ -608,46 +552,41 @@ def inspect_solana(token, state):
             f"(limit {MAX_DEV_PCT:.1f}%)"
         )
         skip = True
+        hard_block = True
+    else:
+        reasons.append(f"Reported developer holding: {dev_pct:.2f}%")
+
+    if bundle is None:
+        reasons.append("Bundle concentration UNKNOWN in provider report")
+        skip = True
+    elif bundle > MAX_BUNDLE_PCT:
+        reasons.append(
+            f"Bundle/insider percentage {bundle:.2f}% "
+            f"exceeds {MAX_BUNDLE_PCT:.1f}%"
+        )
+        skip = True
+        hard_block = True
     else:
         reasons.append(
-            f"Reported developer holding: {dev_pct:.2f}%"
+            f"Reported bundle/insider concentration: {bundle:.2f}%"
         )
 
-    if bundle_pct is None:
-        reasons.append(
-            "Bundle concentration UNKNOWN in provider report"
-        )
-        skip = True
-    elif bundle_pct > MAX_BUNDLE_PCT:
-        reasons.append(
-            f"Reported bundle/insider percentage "
-            f"{bundle_pct:.2f}% exceeds {MAX_BUNDLE_PCT:.1f}%"
-        )
-        skip = True
-    else:
-        reasons.append(
-            f"Reported bundle/insider concentration: "
-            f"{bundle_pct:.2f}%"
-        )
+    severe_terms = (
+        "rugpull",
+        "rug pull",
+        "honeypot",
+        "freeze authority",
+        "mint authority",
+    )
 
-    # Reported RugCheck risks are not ignored.
-    if risk_text and any(
-        word in risk_text
-        for word in (
-            "danger",
-            "critical",
-            "rugged",
-            "scam",
-            "honeypot",
-        )
-    ):
-        reasons.append("RugCheck reports potentially serious risks")
+    if any(term in risk_text for term in severe_terms):
+        reasons.append("RugCheck reports a potentially severe risk")
         skip = True
+        hard_block = True
 
-    # A SOL balance change is NOT proof of a token sale.
     if creator:
         try:
-            response = SESSION.post(
+            response = S.post(
                 SOLANA_RPC,
                 json={
                     "jsonrpc": "2.0",
@@ -662,30 +601,24 @@ def inspect_solana(token, state):
             )
             response.raise_for_status()
             payload = response.json()
-            lamports = (
-                (payload.get("result") or {}).get("value")
-            )
+            lamports = (payload.get("result") or {}).get("value")
 
             if lamports is not None:
-                balance = float(lamports) / 1_000_000_000
-                developer_state = state.setdefault(
-                    "developer_wallets", {}
-                )
-                previous = developer_state.get(creator)
+                balance = float(lamports) / 1e9
+                dev_state = state.setdefault("developer_wallets", {})
+                previous = dev_state.get(creator)
 
-                if previous is not None:
+                if previous is not None and abs(balance - float(previous)) >= 0.01:
                     delta = balance - float(previous)
+                    telegram(
+                        "CRYPTO PULSE — DEVELOPER WALLET BALANCE CHANGE\n"
+                        f"Token: {token['address']}\n"
+                        f"Wallet: {creator}\n"
+                        f"SOL balance change: {delta:+.4f} SOL\n"
+                        "This is not proof of a token sale."
+                    )
 
-                    if abs(delta) >= 0.01:
-                        telegram(
-                            "CRYPTO PULSE — DEVELOPER WALLET CHANGE\n"
-                            f"Token: {token['address']}\n"
-                            f"Wallet: {creator}\n"
-                            f"SOL balance change: {delta:+.4f} SOL\n"
-                            "This is not proof of a token sale."
-                        )
-
-                developer_state[creator] = balance
+                dev_state[creator] = balance
 
         except (
             requests.RequestException,
@@ -697,39 +630,35 @@ def inspect_solana(token, state):
     verified = bool(
         creator
         and dev_pct is not None
-        and bundle_pct is not None
-        and not skip
+        and bundle is not None
+        and dev_pct <= MAX_DEV_PCT
+        and bundle <= MAX_BUNDLE_PCT
+        and not any(term in risk_text for term in severe_terms)
+    )
+
+    status = (
+        "FLAGGED"
+        if hard_block
+        else ("VERIFIED" if verified else "UNKNOWN")
     )
 
     return {
         "skip": skip,
         "verified": verified,
-        "status": "VERIFIED" if verified else "UNKNOWN_OR_FLAGGED",
+        "hard_block": hard_block,
+        "status": status,
         "developer_wallet": creator,
         "developer_holding_pct": dev_pct,
-        "bundle_pct": bundle_pct,
+        "bundle_pct": bundle,
         "reasons": reasons,
         "rugcheck_score": report.get("score"),
         "rugcheck_risks": risks,
     }
 
 
-# ------------------------------------------------------------
-# BLACKLIST
-# rug_blacklist.json format:
-# {"tokens": [], "wallets": []}
-# ------------------------------------------------------------
+def wallet_is_blacklisted(wallet, wallets):
+    return bool(wallet and str(wallet).lower() in wallets)
 
-def wallet_is_blacklisted(wallet, wallet_blacklist):
-    return bool(
-        wallet
-        and str(wallet).lower() in wallet_blacklist
-    )
-
-
-# ------------------------------------------------------------
-# SCORING
-# ------------------------------------------------------------
 
 def score_pair(pair):
     metrics = get_metrics(pair)
@@ -812,31 +741,22 @@ def score_pair(pair):
     return min(score, 100), reasons, risks, metrics
 
 
-# ------------------------------------------------------------
-# TELEGRAM
-# ------------------------------------------------------------
-
 def telegram(message):
     bot = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
     chat = os.getenv("TELEGRAM_CHAT_ID", "").strip()
 
     if not bot or not chat:
-        print("Telegram not configured; alert:")
-        print(message)
+        print("Telegram not configured; alert:\n" + message)
         return False
 
     try:
-        response = SESSION.post(
+        response = S.post(
             f"https://api.telegram.org/bot{bot}/sendMessage",
-            data={
-                "chat_id": chat,
-                "text": message,
-            },
+            data={"chat_id": chat, "text": message},
             timeout=TIMEOUT,
         )
         response.raise_for_status()
         return True
-
     except requests.RequestException as error:
         print("Telegram error:", str(error))
         return False
@@ -851,22 +771,17 @@ def format_alert(signal):
         f"{signal['name']} ({signal['symbol']})\n"
         f"Chain: {signal['chain']}\n"
         f"Score: {signal['score']}/100\n"
-        f"Risk status: {signal.get('risk_status', 'UNKNOWN')}\n"
-        f"Paper eligible: {signal.get('paper_eligible', False)}\n"
+        f"Risk status: {checks.get('status', 'UNKNOWN')}\n"
         f"Price: ${metrics['price_usd']:.10g}\n"
         f"Liquidity: ${metrics['liquidity_usd']:,.0f}\n"
         f"24h volume: ${metrics['volume_24h_usd']:,.0f}\n"
         f"1h change: {metrics['change_1h_pct']:.2f}%\n"
         f"Sources: {', '.join(signal['sources'])}\n"
-        f"Risk checks: {'; '.join(checks.get('reasons', [])[:4])}\n"
-        f"Market risks: {', '.join(signal['risks'][:5])}\n"
+        f"Risks: {', '.join((signal.get('risks') or [])[:5])}\n"
+        f"Risk checks: {', '.join((checks.get('reasons') or [])[:3])}\n"
         f"Token address: {signal['address']}"
     )
 
-
-# ------------------------------------------------------------
-# MAIN SCAN
-# ------------------------------------------------------------
 
 def main():
     print("Crypto Pulse scan starting:", now_iso())
@@ -886,8 +801,6 @@ def main():
         old_signals = []
 
     last_alerts = state.setdefault("last_alerts", {})
-    state.setdefault("developer_wallets", {})
-
     token_blacklist, wallet_blacklist = load_blacklist()
     tokens = discover_tokens()
 
@@ -899,27 +812,25 @@ def main():
     for token in tokens:
         chain = token["chain"]
         address = token["address"]
-        token_key_value = key_for(chain, address)
+        token_key = key_for(chain, address)
 
-        if token_is_blacklisted(
-            chain,
-            address,
-            token_blacklist,
-        ):
-            print("Blacklisted token skipped:", token_key_value)
+        if token_is_blacklisted(chain, address, token_blacklist):
+            print("Blacklisted token skipped:", token_key)
             continue
 
-        # Unknown risk information is recorded, not mislabelled as safe.
-        onchain = inspect_solana(token, state)
+        checks = inspect_solana(token, state)
 
         if wallet_is_blacklisted(
-            onchain.get("developer_wallet"),
+            checks.get("developer_wallet"),
             wallet_blacklist,
         ):
-            print("Blacklisted developer wallet:", token_key_value)
+            print("Blacklisted developer wallet:", token_key)
             continue
 
+        # Unknown and flagged candidates remain visible in the scanner output.
+        # The paper trader separately enforces hard risk exclusions.
         pairs = get_pairs(token)
+
         if not pairs:
             continue
 
@@ -932,26 +843,23 @@ def main():
 
         score, reasons, risks, metrics = score_pair(best_pair)
 
-        if metrics["price_usd"] <= 0:
-            continue
-
         if metrics["liquidity_usd"] < MIN_LIQUIDITY:
             continue
-
         if metrics["volume_24h_usd"] < MIN_VOLUME_24H:
             continue
 
-        history.setdefault(token_key_value, [])
-        history[token_key_value].append({
-            "timestamp": current_time,
-            "price_usd": metrics["price_usd"],
-        })
+        history.setdefault(token_key, [])
+        history[token_key].append(
+            {
+                "timestamp": current_time,
+                "price_usd": metrics["price_usd"],
+            }
+        )
 
-        history[token_key_value] = [
+        history[token_key] = [
             item
-            for item in history[token_key_value]
-            if current_time - num(item.get("timestamp"))
-            <= 7 * 86400
+            for item in history[token_key]
+            if current_time - num(item.get("timestamp")) <= 7 * 86400
         ][-2000:]
 
         returns = {}
@@ -961,27 +869,22 @@ def main():
 
             candidates = [
                 item
-                for item in history[token_key_value]
+                for item in history[token_key]
                 if num(item.get("timestamp")) <= cutoff
                 and num(item.get("price_usd")) > 0
             ]
 
-            if candidates:
+            if candidates and metrics["price_usd"] > 0:
                 previous = max(
                     candidates,
                     key=lambda item: num(item["timestamp"]),
                 )
+                previous_price = num(previous["price_usd"])
 
-                returns[f"{minutes}m_pct"] = (
-                    metrics["price_usd"]
-                    / num(previous["price_usd"])
-                    - 1
-                ) * 100
-
-        paper_eligible = bool(
-            onchain.get("verified")
-            and not onchain.get("skip")
-        )
+                if previous_price > 0:
+                    returns[f"{minutes}m_pct"] = (
+                        metrics["price_usd"] / previous_price - 1
+                    ) * 100
 
         signal = {
             "timestamp": now_iso(),
@@ -998,15 +901,20 @@ def main():
             "metrics": metrics,
             "returns": returns,
             "mode": "PAPER_ONLY",
-            "onchain_checks": onchain,
-            "paper_eligible": paper_eligible,
-            "risk_status": onchain.get("status", "UNKNOWN"),
+            "onchain_checks": checks,
+            "paper_eligible": bool(
+                checks.get("verified")
+                and not checks.get("skip")
+                and not checks.get("hard_block")
+            ),
+            "risk_status": checks.get("status", "UNKNOWN"),
         }
 
         results.append(signal)
 
         if score >= MIN_SCORE:
-            last = num(last_alerts.get(token_key_value))
+            last_alert = num(last_alerts.get(token_key))
+
             previous_score = max(
                 [
                     num(item.get("score"))
@@ -1014,17 +922,17 @@ def main():
                     if key_for(
                         item.get("chain"),
                         item.get("address"),
-                    ) == token_key_value
+                    ) == token_key
                 ],
                 default=0,
             )
 
             if (
-                current_time - last >= COOLDOWN * 3600
+                current_time - last_alert >= COOLDOWN * 3600
                 or score >= previous_score + 10
             ):
                 telegram(format_alert(signal))
-                last_alerts[token_key_value] = current_time
+                last_alerts[token_key] = current_time
 
     results.sort(
         key=lambda item: (
@@ -1037,27 +945,39 @@ def main():
     write_json(SIGNALS_FILE, results[:300])
     write_json(HISTORY_FILE, history)
 
-    state.update({
-        "last_scan": now_iso(),
-        "last_discovery_count": len(tokens),
-        "last_signal_count": len(results),
-        "verified_signal_count": sum(
-            1 for item in results
-            if item.get("paper_eligible")
-        ),
-        "unknown_or_flagged_count": sum(
-            1 for item in results
-            if not item.get("paper_eligible")
-        ),
-    })
+    verified_count = sum(
+        1 for item in results if item.get("paper_eligible")
+    )
+    flagged_count = sum(
+        1
+        for item in results
+        if item.get("risk_status") == "FLAGGED"
+    )
+    unknown_count = sum(
+        1
+        for item in results
+        if item.get("risk_status") == "UNKNOWN"
+    )
+
+    state.update(
+        {
+            "last_scan": now_iso(),
+            "last_discovery_count": len(tokens),
+            "last_signal_count": len(results),
+            "verified_signal_count": verified_count,
+            "unknown_count": unknown_count,
+            "flagged_count": flagged_count,
+            "unknown_or_flagged_count": unknown_count + flagged_count,
+        }
+    )
 
     write_json(STATE_FILE, state)
 
     print(
         f"Scan finished. {len(results)} candidates; "
-        f"{state['verified_signal_count']} verified; "
-        f"{state['unknown_or_flagged_count']} unknown/flagged. "
-        "Paper mode only."
+        f"{verified_count} verified, "
+        f"{unknown_count} unknown, "
+        f"{flagged_count} flagged. Paper mode only."
     )
 
 
