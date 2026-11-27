@@ -1,35 +1,37 @@
 [
   {
-    "timestamp": "2026-11-27T10:51:27.512077+00:00",
-    "chain": "ethereum",
-    "address": "0xe018d1e8747ac44d87d35197ba1e9a73a721097c",
-    "name": "PEJAK / ETH",
-    "symbol": "PEJAK",
-    "pair_address": "0x796b05002bdfa2aaa9f01fc0ce0ceedbd1e20e0e8e1d1e282e1bbade325646ba",
-    "url": "https://dexscreener.com/ethereum/0x796b05002bdfa2aaa9f01fc0ce0ceedbd1e20e0e8e1d1e282e1bbade325646ba",
+    "timestamp": "2026-11-27T19:44:59.089952+00:00",
+    "chain": "solana",
+    "address": "B9wbjDJ4FbHMsZmoXAkJSTAwuePaJUKbySvnK5zApump",
+    "name": "Unknown",
+    "symbol": "UNKNOWN",
+    "pair_address": "Dnxt5J7R1ATKnh23rSbwYuuc9NeixsXBgfRLbMBNmkS2",
+    "url": "https://dexscreener.com/solana/dnxt5j7r1atknh23rsbwyuuc9neixsxbgfrlbmbnmks2",
     "sources": [
-      "GeckoTerminal"
+      "DexScreener"
     ],
-    "score": 75,
+    "score": 69,
     "reasons": [
-      "Strong liquidity",
+      "Good liquidity",
       "High 24h volume",
       "Buy activity stronger",
-      "Positive 1h momentum"
+      "Recently created pool"
     ],
-    "risks": [],
+    "risks": [
+      "Negative 1h momentum"
+    ],
     "metrics": {
-      "price_usd": 0.01242,
-      "liquidity_usd": 291596.7,
-      "volume_24h_usd": 2077452.82,
-      "volume_1h_usd": 107687.99,
-      "buys_1h": 60.0,
-      "sells_1h": 31.0,
-      "buys_24h": 1103.0,
-      "sells_24h": 557.0,
-      "change_1h_pct": 24.39,
-      "change_24h_pct": 215.0,
-      "age_minutes": 7750.475200968424
+      "price_usd": 0.0004919,
+      "liquidity_usd": 50731.52,
+      "volume_24h_usd": 782912.58,
+      "volume_1h_usd": 53387.07,
+      "buys_1h": 2320.0,
+      "sells_1h": 613.0,
+      "buys_24h": 17311.0,
+      "sells_24h": 5123.0,
+      "change_1h_pct": -22.65,
+      "change_24h_pct": 1337.0,
+      "age_minutes": 335.7848322631836
     },
     "returns": {},
     "mode": "PAPER_ONLY",
@@ -38,48 +40,102 @@
       "verified": false,
       "hard_block": false,
       "status": "UNKNOWN",
-      "reasons": [
-        "Developer/bundle checks are not configured for this chain"
-      ],
-      "developer_wallet": null,
+      "developer_wallet": "2aQm75mD7skgrnbJ17tXvEXBjpBmXap4DMxaHC4mGTKz",
       "developer_holding_pct": null,
-      "bundle_pct": null
+      "bundle_pct": null,
+      "reasons": [
+        "Developer ownership UNKNOWN; no matching holder data",
+        "Bundle concentration UNKNOWN in provider report"
+      ],
+      "rugcheck_score": 1,
+      "rugcheck_risks": []
     },
     "paper_eligible": false,
     "risk_status": "UNKNOWN"
   },
   {
-    "timestamp": "2026-11-27T10:50:53.402494+00:00",
-    "chain": "bsc",
-    "address": "0xEcb310703a1083Ff1EBA5898624e2Ac5c9b67777",
+    "timestamp": "2026-11-27T19:44:56.402446+00:00",
+    "chain": "solana",
+    "address": "4WZLGbAp6oEPxFbDcsfADCo1AgYZkfiteQhtM5iwpump",
     "name": "Unknown",
     "symbol": "UNKNOWN",
-    "pair_address": "0xd8758665a9Df06A4cc8ECF9A1008ca7911B0F051",
-    "url": "https://dexscreener.com/bsc/0xd8758665a9df06a4cc8ecf9a1008ca7911b0f051",
+    "pair_address": "GiKis2Ckjx75qbWeTKqHoFU489ukDEjAtNuDq3FTKcuj",
+    "url": "https://dexscreener.com/solana/gikis2ckjx75qbwetkqhofu489ukdejatnudq3ftkcuj",
     "sources": [
       "DexScreener"
     ],
-    "score": 66,
+    "score": 69,
     "reasons": [
-      "Minimum liquidity reached",
-      "Minimum volume reached",
+      "Good liquidity",
+      "High 24h volume",
       "Buy activity stronger",
-      "Strong 1h momentum",
       "Recently created pool"
     ],
     "risks": [],
     "metrics": {
-      "price_usd": 2.722e-05,
-      "liquidity_usd": 20438.88,
-      "volume_24h_usd": 44401.37,
-      "volume_1h_usd": 3387.61,
-      "buys_1h": 28.0,
-      "sells_1h": 12.0,
-      "buys_24h": 314.0,
-      "sells_24h": 216.0,
-      "change_1h_pct": 31.71,
-      "change_24h_pct": 721.0,
-      "age_minutes": 258.57337450764976
+      "price_usd": 0.0001591,
+      "liquidity_usd": 28321.79,
+      "volume_24h_usd": 538797.42,
+      "volume_1h_usd": 139522.07,
+      "buys_1h": 8832.0,
+      "sells_1h": 1104.0,
+      "buys_24h": 16558.0,
+      "sells_24h": 2549.0,
+      "change_1h_pct": 8.53,
+      "change_24h_pct": 384.0,
+      "age_minutes": 97.17337379964192
+    },
+    "returns": {},
+    "mode": "PAPER_ONLY",
+    "onchain_checks": {
+      "skip": true,
+      "verified": false,
+      "hard_block": false,
+      "status": "UNKNOWN",
+      "developer_wallet": "46hGSWVcmbPy9Rh4fTVgE4bvFedqCzKyoquRDZXUBENf",
+      "developer_holding_pct": null,
+      "bundle_pct": null,
+      "reasons": [
+        "Developer ownership UNKNOWN; no matching holder data",
+        "Bundle concentration UNKNOWN in provider report"
+      ],
+      "rugcheck_score": 1,
+      "rugcheck_risks": []
+    },
+    "paper_eligible": false,
+    "risk_status": "UNKNOWN"
+  },
+  {
+    "timestamp": "2026-11-27T19:44:52.611607+00:00",
+    "chain": "ethereum",
+    "address": "0xEcF91A1958a843c080e863027b1182D4B9E39b93",
+    "name": "Unknown",
+    "symbol": "UNKNOWN",
+    "pair_address": "0xe577e63152f4d6f387c974e03a56c2912f1c8322031cdad416a0dc2c29cb4e2e",
+    "url": "https://dexscreener.com/ethereum/0xe577e63152f4d6f387c974e03a56c2912f1c8322031cdad416a0dc2c29cb4e2e",
+    "sources": [
+      "DexScreener"
+    ],
+    "score": 62,
+    "reasons": [
+      "Minimum liquidity reached",
+      "Good 24h volume",
+      "Buy activity stronger",
+      "Strong 1h momentum"
+    ],
+    "risks": [],
+    "metrics": {
+      "price_usd": 9.541e-05,
+      "liquidity_usd": 23605.14,
+      "volume_24h_usd": 73999.17,
+      "volume_1h_usd": 73999.17,
+      "buys_1h": 148.0,
+      "sells_1h": 50.0,
+      "buys_24h": 148.0,
+      "sells_24h": 50.0,
+      "change_1h_pct": 187.0,
+      "change_24h_pct": 187.0,
+      "age_minutes": 1608.0935264770508
     },
     "returns": {},
     "mode": "PAPER_ONLY",
@@ -99,7 +155,7 @@
     "risk_status": "UNKNOWN"
   },
   {
-    "timestamp": "2026-11-27T10:50:59.984059+00:00",
+    "timestamp": "2026-11-27T19:45:08.019873+00:00",
     "chain": "bsc",
     "address": "0xa4Ca4968126c7Fa6227c682d27bfF8D8BcA87777",
     "name": "Unknown",
@@ -113,29 +169,29 @@
     "reasons": [
       "Good liquidity",
       "High 24h volume",
-      "Positive 1h momentum"
+      "Buy activity stronger"
     ],
     "risks": [],
     "metrics": {
-      "price_usd": 0.0006376,
-      "liquidity_usd": 98797.97,
-      "volume_24h_usd": 595151.03,
-      "volume_1h_usd": 119138.12,
-      "buys_1h": 417.0,
-      "sells_1h": 313.0,
-      "buys_24h": 4006.0,
-      "sells_24h": 2346.0,
-      "change_1h_pct": 18.13,
-      "change_24h_pct": 374.0,
-      "age_minutes": 13385.933066967773
+      "price_usd": 0.0004852,
+      "liquidity_usd": 86907.89,
+      "volume_24h_usd": 627598.81,
+      "volume_1h_usd": 11107.92,
+      "buys_1h": 52.0,
+      "sells_1h": 27.0,
+      "buys_24h": 3328.0,
+      "sells_24h": 2283.0,
+      "change_1h_pct": -3.23,
+      "change_24h_pct": 72.27,
+      "age_minutes": 13920.066997237142
     },
     "returns": {
-      "5m_pct": 882.2831613002618,
-      "15m_pct": 882.2831613002618,
-      "30m_pct": 882.2831613002618,
-      "60m_pct": 882.2831613002618,
-      "240m_pct": 882.2831613002618,
-      "1440m_pct": 882.2831613002618
+      "5m_pct": -23.902132998745294,
+      "15m_pct": -23.902132998745294,
+      "30m_pct": -23.902132998745294,
+      "60m_pct": -23.902132998745294,
+      "240m_pct": -23.902132998745294,
+      "1440m_pct": 647.4965336619935
     },
     "mode": "PAPER_ONLY",
     "onchain_checks": {
@@ -154,7 +210,57 @@
     "risk_status": "UNKNOWN"
   },
   {
-    "timestamp": "2026-11-27T10:51:26.583368+00:00",
+    "timestamp": "2026-11-27T19:44:56.854908+00:00",
+    "chain": "ethereum",
+    "address": "0x983715456495DB0E4Eee06706847085860430412",
+    "name": "Unknown",
+    "symbol": "UNKNOWN",
+    "pair_address": "0x288d44a29052073c836fdb5403b11c5bcb6bd5068b15d58a6d2e92d5beadc9e0",
+    "url": "https://dexscreener.com/ethereum/0x288d44a29052073c836fdb5403b11c5bcb6bd5068b15d58a6d2e92d5beadc9e0",
+    "sources": [
+      "DexScreener"
+    ],
+    "score": 59,
+    "reasons": [
+      "Good liquidity",
+      "High 24h volume",
+      "Recently created pool"
+    ],
+    "risks": [
+      "Negative 1h momentum"
+    ],
+    "metrics": {
+      "price_usd": 0.0001942,
+      "liquidity_usd": 34394.49,
+      "volume_24h_usd": 331560.59,
+      "volume_1h_usd": 99853.73,
+      "buys_1h": 45.0,
+      "sells_1h": 61.0,
+      "buys_24h": 250.0,
+      "sells_24h": 174.0,
+      "change_1h_pct": -91.94,
+      "change_24h_pct": 9519.0,
+      "age_minutes": 350.7642482218424
+    },
+    "returns": {},
+    "mode": "PAPER_ONLY",
+    "onchain_checks": {
+      "skip": true,
+      "verified": false,
+      "hard_block": false,
+      "status": "UNKNOWN",
+      "reasons": [
+        "Developer/bundle checks are not configured for this chain"
+      ],
+      "developer_wallet": null,
+      "developer_holding_pct": null,
+      "bundle_pct": null
+    },
+    "paper_eligible": false,
+    "risk_status": "UNKNOWN"
+  },
+  {
+    "timestamp": "2026-11-27T19:45:37.913791+00:00",
     "chain": "ethereum",
     "address": "0x6982508145454ce325ddbe47a25d4ec3d2311933",
     "name": "PEPE / WETH",
@@ -172,25 +278,25 @@
     ],
     "risks": [],
     "metrics": {
-      "price_usd": 3.637e-06,
-      "liquidity_usd": 23813459.73,
-      "volume_24h_usd": 873695.33,
-      "volume_1h_usd": 54471.01,
-      "buys_1h": 21.0,
-      "sells_1h": 4.0,
-      "buys_24h": 270.0,
-      "sells_24h": 374.0,
-      "change_1h_pct": 0.8,
-      "change_24h_pct": 2.68,
-      "age_minutes": 1904730.2597220987
+      "price_usd": 3.543e-06,
+      "liquidity_usd": 23134252.69,
+      "volume_24h_usd": 929479.32,
+      "volume_1h_usd": 56731.29,
+      "buys_1h": 31.0,
+      "sells_1h": 6.0,
+      "buys_24h": 294.0,
+      "sells_24h": 343.0,
+      "change_1h_pct": 1.33,
+      "change_24h_pct": 0.47,
+      "age_minutes": 1905264.4485626465
     },
     "returns": {
-      "5m_pct": 6.345029239766098,
-      "15m_pct": 6.345029239766098,
-      "30m_pct": 6.345029239766098,
-      "60m_pct": 6.345029239766098,
-      "240m_pct": 6.345029239766098,
-      "1440m_pct": 6.345029239766098
+      "5m_pct": -2.584547704151785,
+      "15m_pct": -2.584547704151785,
+      "30m_pct": -2.584547704151785,
+      "60m_pct": -2.584547704151785,
+      "240m_pct": -2.584547704151785,
+      "1440m_pct": 3.5964912280701755
     },
     "mode": "PAPER_ONLY",
     "onchain_checks": {
@@ -209,553 +315,7 @@
     "risk_status": "UNKNOWN"
   },
   {
-    "timestamp": "2026-11-27T10:51:27.148136+00:00",
-    "chain": "ethereum",
-    "address": "0xe0f63a424a4439cbe457d80e4f4b51ad25b2c56c",
-    "name": "SPX / WETH",
-    "symbol": "SPX",
-    "pair_address": "0x52c77b0CB827aFbAD022E6d6CAF2C44452eDbc39",
-    "url": "https://dexscreener.com/ethereum/0x52c77b0cb827afbad022e6d6caf2c44452edbc39",
-    "sources": [
-      "GeckoTerminal"
-    ],
-    "score": 55,
-    "reasons": [
-      "Strong liquidity",
-      "High 24h volume",
-      "Buy activity stronger"
-    ],
-    "risks": [],
-    "metrics": {
-      "price_usd": 0.2819,
-      "liquidity_usd": 8165525.43,
-      "volume_24h_usd": 330440.3,
-      "volume_1h_usd": 10145.81,
-      "buys_1h": 17.0,
-      "sells_1h": 3.0,
-      "buys_24h": 497.0,
-      "sells_24h": 427.0,
-      "change_1h_pct": 0.17,
-      "change_24h_pct": 2.22,
-      "age_minutes": 1727039.2691349448
-    },
-    "returns": {
-      "5m_pct": -0.9138840070298748,
-      "15m_pct": -0.9138840070298748,
-      "30m_pct": -0.9138840070298748,
-      "60m_pct": -0.9138840070298748,
-      "240m_pct": -0.9138840070298748,
-      "1440m_pct": -0.9138840070298748
-    },
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "reasons": [
-        "Developer/bundle checks are not configured for this chain"
-      ],
-      "developer_wallet": null,
-      "developer_holding_pct": null,
-      "bundle_pct": null
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:51:27.788872+00:00",
-    "chain": "ethereum",
-    "address": "0xa038a26bf960451b8ce75ec4c92013c6307f8e4e",
-    "name": "GDLR / USDC 0.3%",
-    "symbol": "GDLR",
-    "pair_address": "0xDbf919D8A1276BE708736527045b1610dF27319F",
-    "url": "https://dexscreener.com/ethereum/0xdbf919d8a1276be708736527045b1610df27319f",
-    "sources": [
-      "GeckoTerminal"
-    ],
-    "score": 55,
-    "reasons": [
-      "Strong liquidity",
-      "High 24h volume"
-    ],
-    "risks": [],
-    "metrics": {
-      "price_usd": 1.23,
-      "liquidity_usd": 435609.88,
-      "volume_24h_usd": 733455.38,
-      "volume_1h_usd": 4165.76,
-      "buys_1h": 7.0,
-      "sells_1h": 8.0,
-      "buys_24h": 289.0,
-      "sells_24h": 154.0,
-      "change_1h_pct": -0.01,
-      "change_24h_pct": 3.2,
-      "age_minutes": 144144.67981345623
-    },
-    "returns": {
-      "5m_pct": 0.8196721311475308,
-      "15m_pct": 0.8196721311475308,
-      "30m_pct": 0.8196721311475308,
-      "60m_pct": 0.8196721311475308,
-      "240m_pct": 0.8196721311475308,
-      "1440m_pct": 0.8196721311475308
-    },
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "reasons": [
-        "Developer/bundle checks are not configured for this chain"
-      ],
-      "developer_wallet": null,
-      "developer_holding_pct": null,
-      "bundle_pct": null
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:50:54.650911+00:00",
-    "chain": "solana",
-    "address": "DtcicPCKTKeAh7TDEzTym3hXeoHAoMiBdYJhMYxZpump",
-    "name": "Unknown",
-    "symbol": "UNKNOWN",
-    "pair_address": "B4Cp45PGifVM5FAXfh6AeV8QZ3eUNQnqGBw7KuC7MHnB",
-    "url": "https://dexscreener.com/solana/b4cp45pgifvm5faxfh6aev8qz3eunqnqgbw7kuc7mhnb",
-    "sources": [
-      "DexScreener"
-    ],
-    "score": 55,
-    "reasons": [
-      "Strong liquidity",
-      "High 24h volume"
-    ],
-    "risks": [],
-    "metrics": {
-      "price_usd": 0.007754,
-      "liquidity_usd": 314760.92,
-      "volume_24h_usd": 341096.89,
-      "volume_1h_usd": 20567.13,
-      "buys_1h": 75.0,
-      "sells_1h": 52.0,
-      "buys_24h": 1283.0,
-      "sells_24h": 1008.0,
-      "change_1h_pct": -0.63,
-      "change_24h_pct": 21.11,
-      "age_minutes": 74421.02750963949
-    },
-    "returns": {
-      "5m_pct": 2.8245590770454854,
-      "15m_pct": 2.8245590770454854,
-      "30m_pct": 2.8245590770454854,
-      "60m_pct": 2.8245590770454854,
-      "240m_pct": 2.8245590770454854,
-      "1440m_pct": 24.822923374114623
-    },
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "developer_wallet": "3WhAzuGAjnNCJz3kRMog71WGipQvXb2CzaQvjS7mkkXF",
-      "developer_holding_pct": null,
-      "bundle_pct": null,
-      "reasons": [
-        "Developer ownership UNKNOWN; no matching holder data",
-        "Bundle concentration UNKNOWN in provider report"
-      ],
-      "rugcheck_score": 1,
-      "rugcheck_risks": []
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:51:26.795663+00:00",
-    "chain": "ethereum",
-    "address": "0xdf92a58d2a910241bb433c872343d5f002f8ba9d",
-    "name": "TAC / ETH",
-    "symbol": "TAC",
-    "pair_address": "0xe371ef62651be5ab434b129e882de170f6ddc4c03060a7a686b413478d78de11",
-    "url": "https://dexscreener.com/ethereum/0xe371ef62651be5ab434b129e882de170f6ddc4c03060a7a686b413478d78de11",
-    "sources": [
-      "GeckoTerminal"
-    ],
-    "score": 55,
-    "reasons": [
-      "Strong liquidity",
-      "High 24h volume"
-    ],
-    "risks": [
-      "Negative 1h momentum"
-    ],
-    "metrics": {
-      "price_usd": 0.006195,
-      "liquidity_usd": 205358.99,
-      "volume_24h_usd": 3798773.93,
-      "volume_1h_usd": 212991.35,
-      "buys_1h": 94.0,
-      "sells_1h": 74.0,
-      "buys_24h": 2630.0,
-      "sells_24h": 1036.0,
-      "change_1h_pct": -41.98,
-      "change_24h_pct": 4607.0,
-      "age_minutes": 6899.863260530599
-    },
-    "returns": {
-      "5m_pct": 27347.93974302171,
-      "15m_pct": 27347.93974302171,
-      "30m_pct": 27347.93974302171,
-      "60m_pct": 27347.93974302171,
-      "240m_pct": 27347.93974302171,
-      "1440m_pct": 27347.93974302171
-    },
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "reasons": [
-        "Developer/bundle checks are not configured for this chain"
-      ],
-      "developer_wallet": null,
-      "developer_holding_pct": null,
-      "bundle_pct": null
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:50:58.185088+00:00",
-    "chain": "solana",
-    "address": "PgFtGGquvnv2zEkjG2N2QPvBTBrafuExGYEqahRpump",
-    "name": "Unknown",
-    "symbol": "UNKNOWN",
-    "pair_address": "EhPzeSdXTyMvWZ1iy5NT3LrNjY1xbC1KGqSpL1kqNYiv",
-    "url": "https://dexscreener.com/solana/ehpzesdxtymvwz1iy5nt3lrnjy1xbc1kgqspl1kqnyiv",
-    "sources": [
-      "DexScreener"
-    ],
-    "score": 55,
-    "reasons": [
-      "Strong liquidity",
-      "High 24h volume"
-    ],
-    "risks": [],
-    "metrics": {
-      "price_usd": 0.005623,
-      "liquidity_usd": 188721.31,
-      "volume_24h_usd": 1084841.41,
-      "volume_1h_usd": 11010.32,
-      "buys_1h": 44.0,
-      "sells_1h": 49.0,
-      "buys_24h": 4722.0,
-      "sells_24h": 3141.0,
-      "change_1h_pct": 0.51,
-      "change_24h_pct": -43.1,
-      "age_minutes": 29180.253083695476
-    },
-    "returns": {
-      "5m_pct": -34.28771765805772,
-      "15m_pct": -34.28771765805772,
-      "30m_pct": -34.28771765805772,
-      "60m_pct": -34.28771765805772,
-      "240m_pct": -34.28771765805772,
-      "1440m_pct": -19.957295373665474
-    },
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "developer_wallet": "H3TfYJ4gkDFDY4ZrHSwhPYknFgNwHGUcsXQpzBhtZyx7",
-      "developer_holding_pct": null,
-      "bundle_pct": null,
-      "reasons": [
-        "Developer ownership UNKNOWN; no matching holder data",
-        "Bundle concentration UNKNOWN in provider report"
-      ],
-      "rugcheck_score": 1,
-      "rugcheck_risks": []
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:50:56.437647+00:00",
-    "chain": "solana",
-    "address": "9Pq7aLAbhDG2tTnS22cm6kuysZVcZpLFE368HWuypump",
-    "name": "Unknown",
-    "symbol": "UNKNOWN",
-    "pair_address": "HAUVBmNthCFmG9SRXMvZ1GAXNpU955hkPdSAsC2cx4C8",
-    "url": "https://dexscreener.com/solana/hauvbmnthcfmg9srxmvz1gaxnpu955hkpdsasc2cx4c8",
-    "sources": [
-      "DexScreener"
-    ],
-    "score": 55,
-    "reasons": [
-      "Strong liquidity",
-      "High 24h volume"
-    ],
-    "risks": [],
-    "metrics": {
-      "price_usd": 0.001846,
-      "liquidity_usd": 147305.87,
-      "volume_24h_usd": 429507.13,
-      "volume_1h_usd": 18102.52,
-      "buys_1h": 339.0,
-      "sells_1h": 324.0,
-      "buys_24h": 5514.0,
-      "sells_24h": 6658.0,
-      "change_1h_pct": 1.67,
-      "change_24h_pct": 10.38,
-      "age_minutes": 44137.47395919189
-    },
-    "returns": {
-      "5m_pct": 4.293785310734455,
-      "15m_pct": 4.293785310734455,
-      "30m_pct": 4.293785310734455,
-      "60m_pct": 4.293785310734455,
-      "240m_pct": 4.293785310734455,
-      "1440m_pct": 4.293785310734455
-    },
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "developer_wallet": "WBgfajLaoDToTrwtcBaxHk9TQ7eWM7x6YEBtsSkYHS5",
-      "developer_holding_pct": null,
-      "bundle_pct": null,
-      "reasons": [
-        "Developer ownership UNKNOWN; no matching holder data",
-        "Bundle concentration UNKNOWN in provider report"
-      ],
-      "rugcheck_score": 1,
-      "rugcheck_risks": []
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:51:26.959230+00:00",
-    "chain": "ethereum",
-    "address": "0x7ad1a8fc42ac150b04ded5825d21a0c90b6d28d8",
-    "name": "CON / ETH 1.2%",
-    "symbol": "CON",
-    "pair_address": "0x4888d73ef157b632d5a0142359d54e0fc548c515cae011c34fc2b22e86eafb39",
-    "url": "https://dexscreener.com/ethereum/0x4888d73ef157b632d5a0142359d54e0fc548c515cae011c34fc2b22e86eafb39",
-    "sources": [
-      "GeckoTerminal"
-    ],
-    "score": 49,
-    "reasons": [
-      "Strong liquidity",
-      "Good 24h volume",
-      "Buy activity stronger"
-    ],
-    "risks": [],
-    "metrics": {
-      "price_usd": 0.0654,
-      "liquidity_usd": 668688.96,
-      "volume_24h_usd": 97737.76,
-      "volume_1h_usd": 3204.06,
-      "buys_1h": 14.0,
-      "sells_1h": 4.0,
-      "buys_24h": 285.0,
-      "sells_24h": 177.0,
-      "change_1h_pct": 1.11,
-      "change_24h_pct": -3.02,
-      "age_minutes": 29566.865986661785
-    },
-    "returns": {},
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "reasons": [
-        "Developer/bundle checks are not configured for this chain"
-      ],
-      "developer_wallet": null,
-      "developer_holding_pct": null,
-      "bundle_pct": null
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:50:58.969624+00:00",
-    "chain": "solana",
-    "address": "9TKbd3VFaMSXsEAicD9JVQWpWwAoLi4fSgWmZL2cpump",
-    "name": "Unknown",
-    "symbol": "UNKNOWN",
-    "pair_address": "AirCDeU4yL6hjuina65mtWAKzmex7STKZSiNMYZhzKt2",
-    "url": "https://dexscreener.com/solana/aircdeu4yl6hjuina65mtwakzmex7stkzsinmyzhzkt2",
-    "sources": [
-      "DexScreener",
-      "GeckoTerminal"
-    ],
-    "score": 49,
-    "reasons": [
-      "Good liquidity",
-      "High 24h volume"
-    ],
-    "risks": [
-      "Unusually high volume/liquidity ratio"
-    ],
-    "metrics": {
-      "price_usd": 0.0008617,
-      "liquidity_usd": 75644.01,
-      "volume_24h_usd": 2208048.52,
-      "volume_1h_usd": 33697.85,
-      "buys_1h": 496.0,
-      "sells_1h": 650.0,
-      "buys_24h": 32038.0,
-      "sells_24h": 29363.0,
-      "change_1h_pct": -3.79,
-      "change_24h_pct": 4581.0,
-      "age_minutes": 2428.832826550293
-    },
-    "returns": {
-      "5m_pct": 52.5672804532578,
-      "15m_pct": 52.5672804532578,
-      "30m_pct": 52.5672804532578,
-      "60m_pct": 52.5672804532578,
-      "240m_pct": 52.5672804532578
-    },
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "developer_wallet": "D4kuhipR2T9xsf6hwHynwWWS9SUbPacjmU3Lq75NwX8L",
-      "developer_holding_pct": null,
-      "bundle_pct": null,
-      "reasons": [
-        "Developer ownership UNKNOWN; no matching holder data",
-        "Bundle concentration UNKNOWN in provider report"
-      ],
-      "rugcheck_score": 1,
-      "rugcheck_risks": []
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:50:59.848366+00:00",
-    "chain": "ethereum",
-    "address": "0xc2E886422182D778FB05495EA22399e3Aa2E2Ec3",
-    "name": "Unknown",
-    "symbol": "UNKNOWN",
-    "pair_address": "0xE898877656f0579FfC4CAFd335134a38e8e270E4",
-    "url": "https://dexscreener.com/ethereum/0xe898877656f0579ffc4cafd335134a38e8e270e4",
-    "sources": [
-      "DexScreener",
-      "GeckoTerminal"
-    ],
-    "score": 49,
-    "reasons": [
-      "Good liquidity",
-      "High 24h volume"
-    ],
-    "risks": [
-      "Unusually high volume/liquidity ratio"
-    ],
-    "metrics": {
-      "price_usd": 0.0004015,
-      "liquidity_usd": 49727.08,
-      "volume_24h_usd": 1338600.19,
-      "volume_1h_usd": 8918.07,
-      "buys_1h": 40.0,
-      "sells_1h": 42.0,
-      "buys_24h": 4734.0,
-      "sells_24h": 3880.0,
-      "change_1h_pct": -2.1,
-      "change_24h_pct": 17176.0,
-      "age_minutes": 1351.8141388468425
-    },
-    "returns": {
-      "5m_pct": 24.922215308027383,
-      "15m_pct": 24.922215308027383,
-      "30m_pct": 24.922215308027383,
-      "60m_pct": 24.922215308027383,
-      "240m_pct": 24.922215308027383
-    },
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "reasons": [
-        "Developer/bundle checks are not configured for this chain"
-      ],
-      "developer_wallet": null,
-      "developer_holding_pct": null,
-      "bundle_pct": null
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:51:27.346201+00:00",
-    "chain": "ethereum",
-    "address": "0x6c3ea9036406852006290770bedfcaba0e23a0e8",
-    "name": "PYUSD / USDS",
-    "symbol": "PYUSD",
-    "pair_address": "0xe63e32b2ae40601662f760d6bf5d771057324fbd97784fe1d3717069f7b75d45",
-    "url": "https://dexscreener.com/ethereum/0xe63e32b2ae40601662f760d6bf5d771057324fbd97784fe1d3717069f7b75d45",
-    "sources": [
-      "GeckoTerminal"
-    ],
-    "score": 45,
-    "reasons": [
-      "Strong liquidity",
-      "High 24h volume"
-    ],
-    "risks": [],
-    "metrics": {
-      "price_usd": 1.0012,
-      "liquidity_usd": 100239526.35,
-      "volume_24h_usd": 54257234.2,
-      "volume_1h_usd": 5597384.1,
-      "buys_1h": 12.0,
-      "sells_1h": 7.0,
-      "buys_24h": 140.0,
-      "sells_24h": 289.0,
-      "change_1h_pct": 0.01,
-      "change_24h_pct": 0.0,
-      "age_minutes": 456986.27243637695
-    },
-    "returns": {},
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "reasons": [
-        "Developer/bundle checks are not configured for this chain"
-      ],
-      "developer_wallet": null,
-      "developer_holding_pct": null,
-      "bundle_pct": null
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:51:01.980970+00:00",
+    "timestamp": "2026-11-27T19:45:09.391164+00:00",
     "chain": "solana",
     "address": "pumpCmXqMfrsAkQ5r49WcJnRayYRqmXz6ae8H7H9Dfn",
     "name": "Pump",
@@ -766,32 +326,33 @@
       "DexScreener",
       "GeckoTerminal"
     ],
-    "score": 45,
+    "score": 55,
     "reasons": [
       "Strong liquidity",
-      "High 24h volume"
+      "High 24h volume",
+      "Buy activity stronger"
     ],
     "risks": [],
     "metrics": {
-      "price_usd": 0.002687,
-      "liquidity_usd": 18590399.23,
-      "volume_24h_usd": 1611557.84,
-      "volume_1h_usd": 72906.36,
-      "buys_1h": 571.0,
-      "sells_1h": 436.0,
-      "buys_24h": 2976.0,
-      "sells_24h": 3335.0,
-      "change_1h_pct": 0.28,
-      "change_24h_pct": 2.06,
-      "age_minutes": 721075.2163430542
+      "price_usd": 0.002606,
+      "liquidity_usd": 18311485.45,
+      "volume_24h_usd": 2021420.15,
+      "volume_1h_usd": 73050.93,
+      "buys_1h": 288.0,
+      "sells_1h": 78.0,
+      "buys_24h": 3020.0,
+      "sells_24h": 3604.0,
+      "change_1h_pct": 1.39,
+      "change_24h_pct": 0.21,
+      "age_minutes": 721609.339849349
     },
     "returns": {
-      "5m_pct": 2.5572519083969514,
-      "15m_pct": 2.5572519083969514,
-      "30m_pct": 2.5572519083969514,
-      "60m_pct": 2.5572519083969514,
-      "240m_pct": 2.5572519083969514,
-      "1440m_pct": 1.8574677786201699
+      "5m_pct": -3.014514328247131,
+      "15m_pct": -3.014514328247131,
+      "30m_pct": -3.014514328247131,
+      "60m_pct": -3.014514328247131,
+      "240m_pct": -3.014514328247131,
+      "1440m_pct": 0.42389210019266876
     },
     "mode": "PAPER_ONLY",
     "onchain_checks": {
@@ -813,43 +374,50 @@
     "risk_status": "UNKNOWN"
   },
   {
-    "timestamp": "2026-11-27T10:50:56.064879+00:00",
+    "timestamp": "2026-11-27T19:45:07.323014+00:00",
     "chain": "solana",
-    "address": "8rjgC1GsBo4fwuXjq7Hy12SAFxgFxbtSJJSFBYkVpump",
+    "address": "DtcicPCKTKeAh7TDEzTym3hXeoHAoMiBdYJhMYxZpump",
     "name": "Unknown",
     "symbol": "UNKNOWN",
-    "pair_address": "pJxgZmuDyERjCvi1eTNfKCyHHmnnpGwuTLqTf63p6oa",
-    "url": "https://dexscreener.com/solana/pjxgzmudyerjcvi1etnfkcyhhmnnpgwutlqtf63p6oa",
+    "pair_address": "B4Cp45PGifVM5FAXfh6AeV8QZ3eUNQnqGBw7KuC7MHnB",
+    "url": "https://dexscreener.com/solana/b4cp45pgifvm5faxfh6aev8qz3eunqnqgbw7kuc7mhnb",
     "sources": [
       "DexScreener"
     ],
-    "score": 43,
+    "score": 55,
     "reasons": [
-      "Good liquidity",
-      "Good 24h volume"
+      "Strong liquidity",
+      "High 24h volume"
     ],
     "risks": [],
     "metrics": {
-      "price_usd": 0.0006644,
-      "liquidity_usd": 61942.92,
-      "volume_24h_usd": 124332.67,
-      "volume_1h_usd": 1558.46,
-      "buys_1h": 15.0,
-      "sells_1h": 26.0,
-      "buys_24h": 996.0,
-      "sells_24h": 1040.0,
-      "change_1h_pct": 1.49,
-      "change_24h_pct": 66.51,
-      "age_minutes": 12624.58441377767
+      "price_usd": 0.006858,
+      "liquidity_usd": 296090.1,
+      "volume_24h_usd": 392412.53,
+      "volume_1h_usd": 2909.88,
+      "buys_1h": 36.0,
+      "sells_1h": 57.0,
+      "buys_24h": 1446.0,
+      "sells_24h": 1137.0,
+      "change_1h_pct": -0.97,
+      "change_24h_pct": 7.03,
+      "age_minutes": 74955.23871417643
     },
-    "returns": {},
+    "returns": {
+      "5m_pct": -11.555326283208656,
+      "15m_pct": -11.555326283208656,
+      "30m_pct": -11.555326283208656,
+      "60m_pct": -11.555326283208656,
+      "240m_pct": -11.555326283208656,
+      "1440m_pct": 6.029684601113172
+    },
     "mode": "PAPER_ONLY",
     "onchain_checks": {
       "skip": true,
       "verified": false,
       "hard_block": false,
       "status": "UNKNOWN",
-      "developer_wallet": "8oQvFQyKduhDKe4FfysrDx4Dtasvr6ntZNj6mqop7zWX",
+      "developer_wallet": "3WhAzuGAjnNCJz3kRMog71WGipQvXb2CzaQvjS7mkkXF",
       "developer_holding_pct": null,
       "bundle_pct": null,
       "reasons": [
@@ -863,7 +431,162 @@
     "risk_status": "UNKNOWN"
   },
   {
-    "timestamp": "2026-11-27T10:50:58.429297+00:00",
+    "timestamp": "2026-11-27T19:45:38.321573+00:00",
+    "chain": "ethereum",
+    "address": "0xc2e886422182d778fb05495ea22399e3aa2e2ec3",
+    "name": "KURO / WETH",
+    "symbol": "KURO",
+    "pair_address": "0xE898877656f0579FfC4CAFd335134a38e8e270E4",
+    "url": "https://dexscreener.com/ethereum/0xe898877656f0579ffc4cafd335134a38e8e270e4",
+    "sources": [
+      "GeckoTerminal"
+    ],
+    "score": 53,
+    "reasons": [
+      "Minimum liquidity reached",
+      "High 24h volume",
+      "Positive 1h momentum"
+    ],
+    "risks": [
+      "Unusually high volume/liquidity ratio"
+    ],
+    "metrics": {
+      "price_usd": 5.742e-05,
+      "liquidity_usd": 18900.32,
+      "volume_24h_usd": 642410.05,
+      "volume_1h_usd": 3720.93,
+      "buys_1h": 28.0,
+      "sells_1h": 20.0,
+      "buys_24h": 2360.0,
+      "sells_24h": 2180.0,
+      "change_1h_pct": 23.86,
+      "change_24h_pct": -92.91,
+      "age_minutes": 1886.455359037272
+    },
+    "returns": {
+      "5m_pct": -85.6986301369863,
+      "15m_pct": -85.6986301369863,
+      "30m_pct": -85.6986301369863,
+      "60m_pct": -85.6986301369863,
+      "240m_pct": -85.6986301369863,
+      "1440m_pct": -89.70414201183432
+    },
+    "mode": "PAPER_ONLY",
+    "onchain_checks": {
+      "skip": true,
+      "verified": false,
+      "hard_block": false,
+      "status": "UNKNOWN",
+      "reasons": [
+        "Developer/bundle checks are not configured for this chain"
+      ],
+      "developer_wallet": null,
+      "developer_holding_pct": null,
+      "bundle_pct": null
+    },
+    "paper_eligible": false,
+    "risk_status": "UNKNOWN"
+  },
+  {
+    "timestamp": "2026-11-27T19:45:03.734184+00:00",
+    "chain": "solana",
+    "address": "C8CZZnPJzPaWhB82EmpKMZc5PEqNnQ46n43j5Fj9pump",
+    "name": "Unknown",
+    "symbol": "UNKNOWN",
+    "pair_address": "BQ5eSt5VPCfLesD8JL7Hvj4Qcw67C24MHDXK2pRzGkMg",
+    "url": "https://dexscreener.com/solana/bq5est5vpcflesd8jl7hvj4qcw67c24mhdxk2przgkmg",
+    "sources": [
+      "DexScreener"
+    ],
+    "score": 52,
+    "reasons": [
+      "Minimum liquidity reached",
+      "Good 24h volume",
+      "Strong 1h momentum"
+    ],
+    "risks": [],
+    "metrics": {
+      "price_usd": 3.565e-05,
+      "liquidity_usd": 12409.38,
+      "volume_24h_usd": 209211.69,
+      "volume_1h_usd": 4338.75,
+      "buys_1h": 74.0,
+      "sells_1h": 60.0,
+      "buys_24h": 3524.0,
+      "sells_24h": 2804.0,
+      "change_1h_pct": 31.63,
+      "change_24h_pct": 22.44,
+      "age_minutes": 1241.4789028076173
+    },
+    "returns": {},
+    "mode": "PAPER_ONLY",
+    "onchain_checks": {
+      "skip": true,
+      "verified": false,
+      "hard_block": false,
+      "status": "UNKNOWN",
+      "developer_wallet": "G9cQKHV6xLzavLrXhRhLMWJBL8Yo7KY6CQRQGeNHPng5",
+      "developer_holding_pct": null,
+      "bundle_pct": null,
+      "reasons": [
+        "Developer ownership UNKNOWN; no matching holder data",
+        "Bundle concentration UNKNOWN in provider report"
+      ],
+      "rugcheck_score": 1,
+      "rugcheck_risks": []
+    },
+    "paper_eligible": false,
+    "risk_status": "UNKNOWN"
+  },
+  {
+    "timestamp": "2026-11-27T19:45:38.126898+00:00",
+    "chain": "ethereum",
+    "address": "0x4d0528598f916fd1d8dc80e5f54a8feedcfd4b18",
+    "name": "ATOS / WETH 1%",
+    "symbol": "ATOS",
+    "pair_address": "0xC3aBd8C07f0D669906f4bE495389f2dcc598020f",
+    "url": "https://dexscreener.com/ethereum/0xc3abd8c07f0d669906f4be495389f2dcc598020f",
+    "sources": [
+      "GeckoTerminal"
+    ],
+    "score": 49,
+    "reasons": [
+      "Good liquidity",
+      "High 24h volume"
+    ],
+    "risks": [],
+    "metrics": {
+      "price_usd": 0.004643,
+      "liquidity_usd": 48029.05,
+      "volume_24h_usd": 910874.54,
+      "volume_1h_usd": 14041.05,
+      "buys_1h": 42.0,
+      "sells_1h": 41.0,
+      "buys_24h": 2032.0,
+      "sells_24h": 1206.0,
+      "change_1h_pct": 1.3,
+      "change_24h_pct": -82.91,
+      "age_minutes": 1211490.8521147135
+    },
+    "returns": {},
+    "mode": "PAPER_ONLY",
+    "onchain_checks": {
+      "skip": true,
+      "verified": false,
+      "hard_block": false,
+      "status": "UNKNOWN",
+      "reasons": [
+        "Developer/bundle checks are not configured for this chain"
+      ],
+      "developer_wallet": null,
+      "developer_holding_pct": null,
+      "bundle_pct": null
+    },
+    "paper_eligible": false,
+    "risk_status": "UNKNOWN"
+  },
+  {
+    "timestamp": "2026-11-27T19:45:00.582914+00:00",
     "chain": "solana",
     "address": "EwUVBpdM5vw1CJHRMSLywzVjyQSJZpy6qboxEPBKpump",
     "name": "Unknown",
@@ -873,33 +596,33 @@
     "sources": [
       "DexScreener"
     ],
-    "score": 41,
+    "score": 47,
     "reasons": [
-      "Minimum liquidity reached",
+      "Good liquidity",
       "Minimum volume reached",
       "Buy activity stronger"
     ],
     "risks": [],
     "metrics": {
-      "price_usd": 0.0001103,
-      "liquidity_usd": 24129.2,
-      "volume_24h_usd": 42977.41,
-      "volume_1h_usd": 1026.53,
-      "buys_1h": 20.0,
-      "sells_1h": 7.0,
-      "buys_24h": 676.0,
-      "sells_24h": 559.0,
-      "change_1h_pct": -2.91,
-      "change_24h_pct": 15.14,
-      "age_minutes": 18111.007151000977
+      "price_usd": 0.0001423,
+      "liquidity_usd": 27437.91,
+      "volume_24h_usd": 38062.32,
+      "volume_1h_usd": 1512.44,
+      "buys_1h": 36.0,
+      "sells_1h": 16.0,
+      "buys_24h": 569.0,
+      "sells_24h": 543.0,
+      "change_1h_pct": -2.36,
+      "change_24h_pct": 44.1,
+      "age_minutes": 18645.043045955405
     },
     "returns": {
-      "5m_pct": -2.8193832599118895,
-      "15m_pct": -2.8193832599118895,
-      "30m_pct": -2.8193832599118895,
-      "60m_pct": -2.8193832599118895,
-      "240m_pct": -2.8193832599118895,
-      "1440m_pct": 14.943726552730308
+      "5m_pct": 29.011786038077968,
+      "15m_pct": 29.011786038077968,
+      "30m_pct": 29.011786038077968,
+      "60m_pct": 29.011786038077968,
+      "240m_pct": 29.011786038077968,
+      "1440m_pct": 48.29095456440182
     },
     "mode": "PAPER_ONLY",
     "onchain_checks": {
@@ -921,7 +644,170 @@
     "risk_status": "UNKNOWN"
   },
   {
-    "timestamp": "2026-11-27T10:51:08.330731+00:00",
+    "timestamp": "2026-11-27T19:45:05.710083+00:00",
+    "chain": "bsc",
+    "address": "0xfa6D9B504848606Eb9aeC04CCc161D169B3f2159",
+    "name": "Unknown",
+    "symbol": "UNKNOWN",
+    "pair_address": "0x3eA3f9a7B7EDBfe0Ba3568BFc0f30Ba870B7553d",
+    "url": "https://dexscreener.com/bsc/0x3ea3f9a7b7edbfe0ba3568bfc0f30ba870b7553d",
+    "sources": [
+      "DexScreener"
+    ],
+    "score": 43,
+    "reasons": [
+      "Strong liquidity",
+      "Minimum volume reached",
+      "Buy activity stronger"
+    ],
+    "risks": [],
+    "metrics": {
+      "price_usd": 0.0006576,
+      "liquidity_usd": 110777.21,
+      "volume_24h_usd": 48552.6,
+      "volume_1h_usd": 1110.4,
+      "buys_1h": 22.0,
+      "sells_1h": 9.0,
+      "buys_24h": 340.0,
+      "sells_24h": 183.0,
+      "change_1h_pct": 2.0,
+      "change_24h_pct": -10.32,
+      "age_minutes": 119076.31183445638
+    },
+    "returns": {},
+    "mode": "PAPER_ONLY",
+    "onchain_checks": {
+      "skip": true,
+      "verified": false,
+      "hard_block": false,
+      "status": "UNKNOWN",
+      "reasons": [
+        "Developer/bundle checks are not configured for this chain"
+      ],
+      "developer_wallet": null,
+      "developer_holding_pct": null,
+      "bundle_pct": null
+    },
+    "paper_eligible": false,
+    "risk_status": "UNKNOWN"
+  },
+  {
+    "timestamp": "2026-11-27T19:45:07.063678+00:00",
+    "chain": "solana",
+    "address": "CvXQ9qEriGgTbMWyF8L1U7oqn9ev8A49N1dzNE8cpump",
+    "name": "Unknown",
+    "symbol": "UNKNOWN",
+    "pair_address": "YAuaVEoVUE4y2KPFNQht11c5jgwoyYiDqaZeagVgyG4",
+    "url": "https://dexscreener.com/solana/yauaveovue4y2kpfnqht11c5jgwoyyidqazeagvgyg4",
+    "sources": [
+      "DexScreener"
+    ],
+    "score": 43,
+    "reasons": [
+      "Good liquidity",
+      "Good 24h volume"
+    ],
+    "risks": [],
+    "metrics": {
+      "price_usd": 0.0002382,
+      "liquidity_usd": 44251.51,
+      "volume_24h_usd": 236445.11,
+      "volume_1h_usd": 6513.85,
+      "buys_1h": 66.0,
+      "sells_1h": 42.0,
+      "buys_24h": 2428.0,
+      "sells_24h": 2056.0,
+      "change_1h_pct": -3.98,
+      "change_24h_pct": 419.0,
+      "age_minutes": 1279.5510604573567
+    },
+    "returns": {
+      "5m_pct": 190.62957540263542,
+      "15m_pct": 190.62957540263542,
+      "30m_pct": 190.62957540263542,
+      "60m_pct": 190.62957540263542,
+      "240m_pct": 190.62957540263542
+    },
+    "mode": "PAPER_ONLY",
+    "onchain_checks": {
+      "skip": true,
+      "verified": false,
+      "hard_block": false,
+      "status": "UNKNOWN",
+      "developer_wallet": "Fra46JTHnKrNt7YD4PdHKPcAEBpKCzi5VF4jLzmatKK4",
+      "developer_holding_pct": null,
+      "bundle_pct": null,
+      "reasons": [
+        "Developer ownership UNKNOWN; no matching holder data",
+        "Bundle concentration UNKNOWN in provider report"
+      ],
+      "rugcheck_score": 1,
+      "rugcheck_risks": []
+    },
+    "paper_eligible": false,
+    "risk_status": "UNKNOWN"
+  },
+  {
+    "timestamp": "2026-11-27T19:45:00.995504+00:00",
+    "chain": "solana",
+    "address": "9msLfYfXBrSbrApCZAPuPMCNmPqNtEL1VPKh1AEYpump",
+    "name": "Unknown",
+    "symbol": "UNKNOWN",
+    "pair_address": "F8Ykd7drw4ytfNpG9L5r7XrRHwoYSNXFfR469U3LvjGp",
+    "url": "https://dexscreener.com/solana/f8ykd7drw4ytfnpg9l5r7xrrhwoysnxffr469u3lvjgp",
+    "sources": [
+      "DexScreener"
+    ],
+    "score": 43,
+    "reasons": [
+      "Good liquidity",
+      "Good 24h volume"
+    ],
+    "risks": [
+      "Negative 1h momentum"
+    ],
+    "metrics": {
+      "price_usd": 0.0002794,
+      "liquidity_usd": 41158.66,
+      "volume_24h_usd": 196968.17,
+      "volume_1h_usd": 46838.61,
+      "buys_1h": 564.0,
+      "sells_1h": 515.0,
+      "buys_24h": 2261.0,
+      "sells_24h": 2164.0,
+      "change_1h_pct": -14.64,
+      "change_24h_pct": 27.1,
+      "age_minutes": 11030.96659124349
+    },
+    "returns": {
+      "5m_pct": 54.706533776301235,
+      "15m_pct": 54.706533776301235,
+      "30m_pct": 54.706533776301235,
+      "60m_pct": 54.706533776301235,
+      "240m_pct": 54.706533776301235,
+      "1440m_pct": 54.706533776301235
+    },
+    "mode": "PAPER_ONLY",
+    "onchain_checks": {
+      "skip": true,
+      "verified": false,
+      "hard_block": false,
+      "status": "UNKNOWN",
+      "developer_wallet": "BLN3UFxNvsuotDjbsMX1BUBzSuengCsonvU8HeqjxsbD",
+      "developer_holding_pct": null,
+      "bundle_pct": null,
+      "reasons": [
+        "Developer ownership UNKNOWN; no matching holder data",
+        "Bundle concentration UNKNOWN in provider report"
+      ],
+      "rugcheck_score": 1,
+      "rugcheck_risks": []
+    },
+    "paper_eligible": false,
+    "risk_status": "UNKNOWN"
+  },
+  {
+    "timestamp": "2026-11-27T19:45:20.803343+00:00",
     "chain": "solana",
     "address": "3DrmQ144kzEx5ntNWbjGfH3D8NhGw2KeCNUCeUGUHM9C",
     "name": "Moonriver",
@@ -941,16 +827,16 @@
     ],
     "metrics": {
       "price_usd": 3.2,
-      "liquidity_usd": 3200023582.01,
-      "volume_24h_usd": 308619.55,
-      "volume_1h_usd": 12.95,
-      "buys_1h": 2.0,
-      "sells_1h": 2.0,
-      "buys_24h": 21.0,
-      "sells_24h": 21.0,
+      "liquidity_usd": 3200023594.45,
+      "volume_24h_usd": 301233.16,
+      "volume_1h_usd": 0.0,
+      "buys_1h": 0.0,
+      "sells_1h": 0.0,
+      "buys_24h": 24.0,
+      "sells_24h": 24.0,
       "change_1h_pct": 0.0,
       "change_24h_pct": 0.0,
-      "age_minutes": 81723.8388398763
+      "age_minutes": 82258.04671911214
     },
     "returns": {
       "5m_pct": 0.0,
@@ -991,7 +877,7 @@
         },
         {
           "name": "Low Liquidity",
-          "value": "$56.33",
+          "value": "$56.07",
           "description": "Low amount of liquidity in the token pool",
           "score": 2943,
           "level": "danger"
@@ -1009,160 +895,13 @@
     "risk_status": "UNKNOWN"
   },
   {
-    "timestamp": "2026-11-27T10:51:27.949516+00:00",
-    "chain": "ethereum",
-    "address": "0x45804880de22913dafe09f4980848ece6ecbaf78",
-    "name": "PAXG / XAUt 0.01%",
-    "symbol": "PAXG",
-    "pair_address": "0x9C4Fe5FFD9A9fC5678cFBd93Aa2D4FD684b67C4C",
-    "url": "https://dexscreener.com/ethereum/0x9c4fe5ffd9a9fc5678cfbd93aa2d4fd684b67c4c",
-    "sources": [
-      "GeckoTerminal"
-    ],
-    "score": 40,
-    "reasons": [
-      "Strong liquidity",
-      "High 24h volume"
-    ],
-    "risks": [
-      "Limited transaction data"
-    ],
-    "metrics": {
-      "price_usd": 3672.84,
-      "liquidity_usd": 12187603.72,
-      "volume_24h_usd": 327028.69,
-      "volume_1h_usd": 9518.34,
-      "buys_1h": 2.0,
-      "sells_1h": 1.0,
-      "buys_24h": 126.0,
-      "sells_24h": 102.0,
-      "change_1h_pct": -0.01,
-      "change_24h_pct": 2.77,
-      "age_minutes": 3429323.632491581
-    },
-    "returns": {},
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "reasons": [
-        "Developer/bundle checks are not configured for this chain"
-      ],
-      "developer_wallet": null,
-      "developer_holding_pct": null,
-      "bundle_pct": null
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:51:27.644673+00:00",
-    "chain": "ethereum",
-    "address": "0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9",
-    "name": "AAVE / WETH 0.3%",
-    "symbol": "AAVE",
-    "pair_address": "0x5aB53EE1d50eeF2C1DD3d5402789cd27bB52c1bB",
-    "url": "https://dexscreener.com/ethereum/0x5ab53ee1d50eef2c1dd3d5402789cd27bb52c1bb",
-    "sources": [
-      "GeckoTerminal"
-    ],
-    "score": 40,
-    "reasons": [
-      "Strong liquidity",
-      "High 24h volume"
-    ],
-    "risks": [
-      "Limited transaction data"
-    ],
-    "metrics": {
-      "price_usd": 97.24,
-      "liquidity_usd": 5209859.92,
-      "volume_24h_usd": 1072440.94,
-      "volume_1h_usd": 7138.23,
-      "buys_1h": 2.0,
-      "sells_1h": 1.0,
-      "buys_24h": 174.0,
-      "sells_24h": 190.0,
-      "change_1h_pct": -0.26,
-      "change_24h_pct": 1.79,
-      "age_minutes": 2925667.727410893
-    },
-    "returns": {},
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "reasons": [
-        "Developer/bundle checks are not configured for this chain"
-      ],
-      "developer_wallet": null,
-      "developer_holding_pct": null,
-      "bundle_pct": null
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:51:27.332025+00:00",
-    "chain": "ethereum",
-    "address": "0xfaba6f8e4a5e8ab82f62fe7c39859fa577269be3",
-    "name": "ONDO / WETH 0.3%",
-    "symbol": "ONDO",
-    "pair_address": "0x7b1E5D984A43eE732de195628d20d05CFaBc3cC7",
-    "url": "https://dexscreener.com/ethereum/0x7b1e5d984a43ee732de195628d20d05cfabc3cc7",
-    "sources": [
-      "GeckoTerminal"
-    ],
-    "score": 40,
-    "reasons": [
-      "Strong liquidity",
-      "High 24h volume"
-    ],
-    "risks": [
-      "Limited transaction data"
-    ],
-    "metrics": {
-      "price_usd": 0.2961,
-      "liquidity_usd": 1374157.3,
-      "volume_24h_usd": 325176.43,
-      "volume_1h_usd": 7630.86,
-      "buys_1h": 1.0,
-      "sells_1h": 5.0,
-      "buys_24h": 116.0,
-      "sells_24h": 94.0,
-      "change_1h_pct": -0.31,
-      "change_24h_pct": 3.32,
-      "age_minutes": 1503260.272200061
-    },
-    "returns": {},
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "reasons": [
-        "Developer/bundle checks are not configured for this chain"
-      ],
-      "developer_wallet": null,
-      "developer_holding_pct": null,
-      "bundle_pct": null
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:51:07.760966+00:00",
+    "timestamp": "2026-11-27T19:45:20.371080+00:00",
     "chain": "solana",
-    "address": "12aK2Xz5n7yaFZNAxoNTSS3nAJy3yuUjX41b2cQSpump",
-    "name": "GODF",
-    "symbol": "GODF",
-    "pair_address": "5AnhFUWmc1eTNEcKELvNEWbRWudnJJgmUd9Z8tSWoYtG",
-    "url": "https://dexscreener.com/solana/5anhfuwmc1etneckelvnewbrwudnjjgmud9z8tswoytg",
+    "address": "Xsf9mBktVB9BSU5kf4nHxPq5hCBJ2j2ui3ecFGxPRGc",
+    "name": "Gamestop xStock",
+    "symbol": "GMEx",
+    "pair_address": "hSQxf9L7Tpwf1PKjWWSbnew2vyTPpGrfWwNa4gq2n2x",
+    "url": "https://dexscreener.com/solana/hsqxf9l7tpwf1pkjwwsbnew2vytppgrfwwna4gq2n2x",
     "sources": [
       "DexScreener"
     ],
@@ -1173,537 +912,25 @@
     ],
     "risks": [],
     "metrics": {
-      "price_usd": 0.02391,
-      "liquidity_usd": 352781.38,
-      "volume_24h_usd": 130514.6,
-      "volume_1h_usd": 5485.23,
-      "buys_1h": 177.0,
-      "sells_1h": 116.0,
-      "buys_24h": 4268.0,
-      "sells_24h": 2835.0,
-      "change_1h_pct": 0.83,
-      "change_24h_pct": 13.69,
-      "age_minutes": 10542.27934482015
-    },
-    "returns": {
-      "5m_pct": 5.516328331862308,
-      "15m_pct": 5.516328331862308,
-      "30m_pct": 5.516328331862308,
-      "60m_pct": 5.516328331862308,
-      "240m_pct": 5.516328331862308,
-      "1440m_pct": 14.128878281622924
-    },
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "developer_wallet": "7ntX6j7zzVgPyjt45QAFqiWrdmfpWWP2Da4Hd2hAZ5MR",
-      "developer_holding_pct": null,
-      "bundle_pct": null,
-      "reasons": [
-        "Developer ownership UNKNOWN; no matching holder data",
-        "Bundle concentration UNKNOWN in provider report"
-      ],
-      "rugcheck_score": 2901,
-      "rugcheck_risks": [
-        {
-          "name": "High holder correlation",
-          "value": "(19)",
-          "description": "The top users hold similar supply amounts",
-          "score": 2900,
-          "level": "warn"
-        }
-      ]
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:51:26.755161+00:00",
-    "chain": "ethereum",
-    "address": "0xa1313eb9f3a445606d9583bcac3ebeb56a858279",
-    "name": "TAC / SPX",
-    "symbol": "TAC",
-    "pair_address": "0x6104d61fdf3e4370cb1b0b530dafa9673b18c8bd537e55912a341bd3a1be976a",
-    "url": "https://dexscreener.com/ethereum/0x6104d61fdf3e4370cb1b0b530dafa9673b18c8bd537e55912a341bd3a1be976a",
-    "sources": [
-      "GeckoTerminal"
-    ],
-    "score": 38,
-    "reasons": [
-      "Good liquidity",
-      "Good 24h volume"
-    ],
-    "risks": [
-      "Limited transaction data"
-    ],
-    "metrics": {
-      "price_usd": 0.7637,
-      "liquidity_usd": 66922.09,
-      "volume_24h_usd": 68733.03,
-      "volume_1h_usd": 1814.99,
-      "buys_1h": 2.0,
-      "sells_1h": 1.0,
-      "buys_24h": 97.0,
-      "sells_24h": 52.0,
-      "change_1h_pct": -4.49,
-      "change_24h_pct": -17.08,
-      "age_minutes": 14936.462585290526
-    },
-    "returns": {
-      "5m_pct": 22.781350482315112,
-      "15m_pct": 22.781350482315112,
-      "30m_pct": 22.781350482315112,
-      "60m_pct": 22.781350482315112,
-      "240m_pct": 22.781350482315112,
-      "1440m_pct": 22.781350482315112
-    },
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "reasons": [
-        "Developer/bundle checks are not configured for this chain"
-      ],
-      "developer_wallet": null,
-      "developer_holding_pct": null,
-      "bundle_pct": null
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:50:59.587937+00:00",
-    "chain": "solana",
-    "address": "CvXQ9qEriGgTbMWyF8L1U7oqn9ev8A49N1dzNE8cpump",
-    "name": "Unknown",
-    "symbol": "UNKNOWN",
-    "pair_address": "YAuaVEoVUE4y2KPFNQht11c5jgwoyYiDqaZeagVgyG4",
-    "url": "https://dexscreener.com/solana/yauaveovue4y2kpfnqht11c5jgwoyyidqazeagvgyg4",
-    "sources": [
-      "DexScreener"
-    ],
-    "score": 37,
-    "reasons": [
-      "Minimum liquidity reached",
-      "Good 24h volume"
-    ],
-    "risks": [
-      "Negative 1h momentum"
-    ],
-    "metrics": {
-      "price_usd": 8.196e-05,
-      "liquidity_usd": 24758.7,
-      "volume_24h_usd": 198709.46,
-      "volume_1h_usd": 8161.47,
-      "buys_1h": 68.0,
-      "sells_1h": 47.0,
-      "buys_24h": 2038.0,
-      "sells_24h": 1701.0,
-      "change_1h_pct": -40.75,
-      "change_24h_pct": 78.59,
-      "age_minutes": 745.4264650105795
-    },
-    "returns": {
-      "5m_pct": -39.690949227373075,
-      "15m_pct": -39.690949227373075,
-      "30m_pct": -39.690949227373075,
-      "60m_pct": -39.690949227373075,
-      "240m_pct": -39.690949227373075
-    },
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "developer_wallet": "Fra46JTHnKrNt7YD4PdHKPcAEBpKCzi5VF4jLzmatKK4",
-      "developer_holding_pct": null,
-      "bundle_pct": null,
-      "reasons": [
-        "Developer ownership UNKNOWN; no matching holder data",
-        "Bundle concentration UNKNOWN in provider report"
-      ],
-      "rugcheck_score": 1,
-      "rugcheck_risks": []
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:50:56.300691+00:00",
-    "chain": "solana",
-    "address": "6W3H5nEzuLUpTbcMrhRfMiDPCZ4QuBmZPBkeAMzypump",
-    "name": "Unknown",
-    "symbol": "UNKNOWN",
-    "pair_address": "3NNdU4sniU59ZoPc1JeBZ2SPDxCxzeA5ffG5NwKzdach",
-    "url": "https://dexscreener.com/solana/3nndu4sniu59zopc1jebz2spdxcxzea5ffg5nwkzdach",
-    "sources": [
-      "DexScreener"
-    ],
-    "score": 37,
-    "reasons": [
-      "Minimum liquidity reached",
-      "Good 24h volume"
-    ],
-    "risks": [],
-    "metrics": {
-      "price_usd": 5.793e-05,
-      "liquidity_usd": 16772.52,
-      "volume_24h_usd": 143442.68,
-      "volume_1h_usd": 2597.71,
-      "buys_1h": 50.0,
-      "sells_1h": 37.0,
-      "buys_24h": 2470.0,
-      "sells_24h": 2096.0,
-      "change_1h_pct": -8.49,
-      "change_24h_pct": -33.48,
-      "age_minutes": 3778.8216774902344
-    },
-    "returns": {
-      "5m_pct": 56.99186991869918,
-      "15m_pct": 56.99186991869918,
-      "30m_pct": 56.99186991869918,
-      "60m_pct": 56.99186991869918,
-      "240m_pct": 56.99186991869918,
-      "1440m_pct": -20.524077376869254
-    },
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "developer_wallet": "9jm5MiPbPT7k1Pxaw9SKuyU39NQ3knxCcd3nLvQ8NMQS",
-      "developer_holding_pct": null,
-      "bundle_pct": null,
-      "reasons": [
-        "Developer ownership UNKNOWN; no matching holder data",
-        "Bundle concentration UNKNOWN in provider report"
-      ],
-      "rugcheck_score": 1,
-      "rugcheck_risks": []
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:50:50.610276+00:00",
-    "chain": "bsc",
-    "address": "0xDDFB23315c6F2EbF4b6A004B8F99D59392887777",
-    "name": "Unknown",
-    "symbol": "UNKNOWN",
-    "pair_address": "0x5705e2baEB76d8a9667Faa7873F6e6fa4393fBf4",
-    "url": "https://dexscreener.com/bsc/0x5705e2baeb76d8a9667faa7873f6e6fa4393fbf4",
-    "sources": [
-      "DexScreener"
-    ],
-    "score": 37,
-    "reasons": [
-      "Minimum liquidity reached",
-      "Good 24h volume"
-    ],
-    "risks": [
-      "Negative 1h momentum"
-    ],
-    "metrics": {
-      "price_usd": 2.747e-05,
-      "liquidity_usd": 14927.93,
-      "volume_24h_usd": 122766.36,
-      "volume_1h_usd": 5137.52,
-      "buys_1h": 32.0,
-      "sells_1h": 25.0,
-      "buys_24h": 793.0,
-      "sells_24h": 683.0,
-      "change_1h_pct": -33.8,
-      "change_24h_pct": -55.8,
-      "age_minutes": 10207.1935041097
-    },
-    "returns": {},
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "reasons": [
-        "Developer/bundle checks are not configured for this chain"
-      ],
-      "developer_wallet": null,
-      "developer_holding_pct": null,
-      "bundle_pct": null
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:51:08.649736+00:00",
-    "chain": "solana",
-    "address": "Ap7P8D58T3Z7QL6wg1zs9YQJbffJyjvwBRnEwLGDg4mQ",
-    "name": "Eastern Oil Supply",
-    "symbol": "EOS",
-    "pair_address": "Ftcvuw4oYBwC93nZbp49Kz2RYM4QtrUbCHE5uQoTVk14",
-    "url": "https://dexscreener.com/solana/ftcvuw4oybwc93nzbp49kz2rym4qtrubche5uqotvk14",
-    "sources": [
-      "DexScreener"
-    ],
-    "score": 34,
-    "reasons": [
-      "Strong liquidity",
-      "Good 24h volume"
-    ],
-    "risks": [
-      "Limited transaction data"
-    ],
-    "metrics": {
-      "price_usd": 0.0002099,
-      "liquidity_usd": 209773930.68,
-      "volume_24h_usd": 187539.27,
-      "volume_1h_usd": 0.0,
-      "buys_1h": 0.0,
-      "sells_1h": 0.0,
-      "buys_24h": 10.0,
-      "sells_24h": 10.0,
+      "price_usd": 26.32,
+      "liquidity_usd": 392120.89,
+      "volume_24h_usd": 91146.42,
+      "volume_1h_usd": 2666.71,
+      "buys_1h": 8.0,
+      "sells_1h": 10.0,
+      "buys_24h": 408.0,
+      "sells_24h": 485.0,
       "change_1h_pct": 0.0,
-      "change_24h_pct": 0.0,
-      "age_minutes": 256384.44415705974
+      "change_24h_pct": -1.77,
+      "age_minutes": 158802.92284805907
     },
     "returns": {
-      "5m_pct": 0.0,
-      "15m_pct": 0.0,
-      "30m_pct": 0.0,
-      "60m_pct": 0.0,
-      "240m_pct": 0.0,
-      "1440m_pct": 0.0
-    },
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "developer_wallet": "FaympCmBFSDPuhTK39i94Jon4W61Rh6FChTQ7voVPQK4",
-      "developer_holding_pct": null,
-      "bundle_pct": null,
-      "reasons": [
-        "Developer ownership UNKNOWN; no matching holder data",
-        "Bundle concentration UNKNOWN in provider report"
-      ],
-      "rugcheck_score": 24482,
-      "rugcheck_risks": [
-        {
-          "name": "Large Amount of LP Unlocked",
-          "value": "100.00%",
-          "description": "A large amount of LP tokens are unlocked, allowing the owner to remove liquidity at any point.",
-          "score": 11000,
-          "level": "danger"
-        },
-        {
-          "name": "High market cap per holder",
-          "value": "",
-          "description": "The token's market cap is very high relative to its number of holders",
-          "score": 10000,
-          "level": "warn"
-        },
-        {
-          "name": "Low Liquidity",
-          "value": "$18.37",
-          "description": "Low amount of liquidity in the token pool",
-          "score": 2981,
-          "level": "danger"
-        },
-        {
-          "name": "Low amount of LP Providers",
-          "value": "",
-          "description": "Only a few users are providing liquidity",
-          "score": 500,
-          "level": "warn"
-        }
-      ]
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:51:02.650197+00:00",
-    "chain": "solana",
-    "address": "9593dFjsLKKRAaz4LX1eK2DDEgrzfu3idb6yvMysD6A1",
-    "name": "Pump.fun",
-    "symbol": "PUMP",
-    "pair_address": "7q2dQbjtxxP4DqmHEC2nsGXWSytQ8jaxdyGswmAg3PFP",
-    "url": "https://dexscreener.com/solana/7q2dqbjtxxp4dqmhec2nsgxwsytq8jaxdygswmag3pfp",
-    "sources": [
-      "DexScreener"
-    ],
-    "score": 34,
-    "reasons": [
-      "Strong liquidity",
-      "Good 24h volume"
-    ],
-    "risks": [
-      "Limited transaction data"
-    ],
-    "metrics": {
-      "price_usd": 0.002255,
-      "liquidity_usd": 2050322.14,
-      "volume_24h_usd": 187539.06,
-      "volume_1h_usd": 0.0,
-      "buys_1h": 0.0,
-      "sells_1h": 0.0,
-      "buys_24h": 9.0,
-      "sells_24h": 9.0,
-      "change_1h_pct": 0.0,
-      "change_24h_pct": -0.25,
-      "age_minutes": 168808.86083041993
-    },
-    "returns": {
-      "5m_pct": 0.0,
-      "15m_pct": 0.0,
-      "30m_pct": 0.0,
-      "60m_pct": 0.0,
-      "240m_pct": 0.0,
-      "1440m_pct": 0.0
-    },
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "developer_wallet": "HCcMWboU1UGeS2VT93foKnCGsnwviQmX3Px1UXJu8HhD",
-      "developer_holding_pct": null,
-      "bundle_pct": null,
-      "reasons": [
-        "Developer ownership UNKNOWN; no matching holder data",
-        "Bundle concentration UNKNOWN in provider report"
-      ],
-      "rugcheck_score": 14983,
-      "rugcheck_risks": [
-        {
-          "name": "High market cap per holder",
-          "value": "",
-          "description": "The token's market cap is very high relative to its number of holders",
-          "score": 10000,
-          "level": "warn"
-        },
-        {
-          "name": "Low Liquidity",
-          "value": "$17.84",
-          "description": "Low amount of liquidity in the token pool",
-          "score": 2982,
-          "level": "danger"
-        },
-        {
-          "name": "Copycat token",
-          "value": "PUMP5uDeJKMQ54HXS32iy2emn8pbhZDULViaqST23WS",
-          "description": "This token is using a verified tokens symbol",
-          "score": 2000,
-          "level": "warn"
-        }
-      ]
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:51:13.220937+00:00",
-    "chain": "bsc",
-    "address": "0x5C097b1043E2Ea5b247f56D4e1a01d1DA31E9fEc",
-    "name": "Depend New Dawn V3",
-    "symbol": "DNDV3",
-    "pair_address": "0xe0A96F9EBe6CAC754f078BF1c1D515FB74B8246E",
-    "url": "https://dexscreener.com/bsc/0xe0a96f9ebe6cac754f078bf1c1d515fb74b8246e",
-    "sources": [
-      "DexScreener"
-    ],
-    "score": 34,
-    "reasons": [
-      "Strong liquidity",
-      "Good 24h volume"
-    ],
-    "risks": [
-      "Limited transaction data"
-    ],
-    "metrics": {
-      "price_usd": 30.93,
-      "liquidity_usd": 698632.09,
-      "volume_24h_usd": 167207.79,
-      "volume_1h_usd": 6806.58,
-      "buys_1h": 1.0,
-      "sells_1h": 2.0,
-      "buys_24h": 44.0,
-      "sells_24h": 98.0,
-      "change_1h_pct": 1.76,
-      "change_24h_pct": 0.05,
-      "age_minutes": 37010.08701142171
-    },
-    "returns": {
-      "5m_pct": 1.2107329842931946,
-      "15m_pct": 1.2107329842931946,
-      "30m_pct": 1.2107329842931946,
-      "60m_pct": 1.2107329842931946,
-      "240m_pct": 1.2107329842931946,
-      "1440m_pct": 3.0072934359076875
-    },
-    "mode": "PAPER_ONLY",
-    "onchain_checks": {
-      "skip": true,
-      "verified": false,
-      "hard_block": false,
-      "status": "UNKNOWN",
-      "reasons": [
-        "Developer/bundle checks are not configured for this chain"
-      ],
-      "developer_wallet": null,
-      "developer_holding_pct": null,
-      "bundle_pct": null
-    },
-    "paper_eligible": false,
-    "risk_status": "UNKNOWN"
-  },
-  {
-    "timestamp": "2026-11-27T10:51:07.915748+00:00",
-    "chain": "solana",
-    "address": "Xsf9mBktVB9BSU5kf4nHxPq5hCBJ2j2ui3ecFGxPRGc",
-    "name": "Gamestop xStock",
-    "symbol": "GMEx",
-    "pair_address": "hSQxf9L7Tpwf1PKjWWSbnew2vyTPpGrfWwNa4gq2n2x",
-    "url": "https://dexscreener.com/solana/hsqxf9l7tpwf1pkjwwsbnew2vytppgrfwwna4gq2n2x",
-    "sources": [
-      "DexScreener"
-    ],
-    "score": 28,
-    "reasons": [
-      "Strong liquidity",
-      "Minimum volume reached"
-    ],
-    "risks": [
-      "Limited transaction data"
-    ],
-    "metrics": {
-      "price_usd": 26.89,
-      "liquidity_usd": 380466.47,
-      "volume_24h_usd": 45722.74,
-      "volume_1h_usd": 0.0,
-      "buys_1h": 0.0,
-      "sells_1h": 0.0,
-      "buys_24h": 447.0,
-      "sells_24h": 379.0,
-      "change_1h_pct": 0.0,
-      "change_24h_pct": -0.91,
-      "age_minutes": 158268.71525708007
-    },
-    "returns": {
-      "5m_pct": -0.8480825958702032,
-      "15m_pct": -0.8480825958702032,
-      "30m_pct": -0.8480825958702032,
-      "60m_pct": -0.8480825958702032,
-      "240m_pct": -0.8480825958702032,
-      "1440m_pct": -0.9211495946941817
+      "5m_pct": -2.1197471178876937,
+      "15m_pct": -2.1197471178876937,
+      "30m_pct": -2.1197471178876937,
+      "60m_pct": -2.1197471178876937,
+      "240m_pct": -2.1197471178876937,
+      "1440m_pct": -3.0213706705969012
     },
     "mode": "PAPER_ONLY",
     "onchain_checks": {
@@ -1783,7 +1010,489 @@
     "risk_status": "FLAGGED"
   },
   {
-    "timestamp": "2026-11-27T10:50:59.225717+00:00",
+    "timestamp": "2026-11-27T19:45:20.078912+00:00",
+    "chain": "solana",
+    "address": "12aK2Xz5n7yaFZNAxoNTSS3nAJy3yuUjX41b2cQSpump",
+    "name": "GODF",
+    "symbol": "GODF",
+    "pair_address": "5AnhFUWmc1eTNEcKELvNEWbRWudnJJgmUd9Z8tSWoYtG",
+    "url": "https://dexscreener.com/solana/5anhfuwmc1etneckelvnewbrwudnjjgmud9z8tswoytg",
+    "sources": [
+      "DexScreener"
+    ],
+    "score": 39,
+    "reasons": [
+      "Strong liquidity",
+      "Good 24h volume"
+    ],
+    "risks": [],
+    "metrics": {
+      "price_usd": 0.02422,
+      "liquidity_usd": 352650.34,
+      "volume_24h_usd": 131519.98,
+      "volume_1h_usd": 5376.54,
+      "buys_1h": 177.0,
+      "sells_1h": 117.0,
+      "buys_24h": 4269.0,
+      "sells_24h": 2839.0,
+      "change_1h_pct": 1.19,
+      "change_24h_pct": 10.31,
+      "age_minutes": 11076.484645951334
+    },
+    "returns": {
+      "5m_pct": 1.2965286491007921,
+      "15m_pct": 1.2965286491007921,
+      "30m_pct": 1.2965286491007921,
+      "60m_pct": 1.2965286491007921,
+      "240m_pct": 1.2965286491007921,
+      "1440m_pct": 10.492700729927007
+    },
+    "mode": "PAPER_ONLY",
+    "onchain_checks": {
+      "skip": true,
+      "verified": false,
+      "hard_block": false,
+      "status": "UNKNOWN",
+      "developer_wallet": "7ntX6j7zzVgPyjt45QAFqiWrdmfpWWP2Da4Hd2hAZ5MR",
+      "developer_holding_pct": null,
+      "bundle_pct": null,
+      "reasons": [
+        "Developer ownership UNKNOWN; no matching holder data",
+        "Bundle concentration UNKNOWN in provider report"
+      ],
+      "rugcheck_score": 2901,
+      "rugcheck_risks": [
+        {
+          "name": "High holder correlation",
+          "value": "(19)",
+          "description": "The top users hold similar supply amounts",
+          "score": 2900,
+          "level": "warn"
+        }
+      ]
+    },
+    "paper_eligible": false,
+    "risk_status": "UNKNOWN"
+  },
+  {
+    "timestamp": "2026-11-27T19:44:59.821502+00:00",
+    "chain": "solana",
+    "address": "85cQsFgbi8mBZxiPppbpPXuV7j1hA8tBwhjF4gKW6mHg",
+    "name": "Unknown",
+    "symbol": "UNKNOWN",
+    "pair_address": "HGRvEZF83Hm2x5HoVx9ec2cBiAjTmWFHK6VCUPLH4yDY",
+    "url": "https://dexscreener.com/solana/hgrvezf83hm2x5hovx9ec2cbiajtmwfhk6vcuplh4ydy",
+    "sources": [
+      "DexScreener",
+      "GeckoTerminal"
+    ],
+    "score": 39,
+    "reasons": [
+      "Strong liquidity",
+      "Good 24h volume"
+    ],
+    "risks": [
+      "Negative 1h momentum"
+    ],
+    "metrics": {
+      "price_usd": 1.354e-06,
+      "liquidity_usd": 227454.61,
+      "volume_24h_usd": 125605.34,
+      "volume_1h_usd": 4412.42,
+      "buys_1h": 43.0,
+      "sells_1h": 27.0,
+      "buys_24h": 1063.0,
+      "sells_24h": 1284.0,
+      "change_1h_pct": -12.25,
+      "change_24h_pct": 5.13,
+      "age_minutes": 1539458.797024772
+    },
+    "returns": {},
+    "mode": "PAPER_ONLY",
+    "onchain_checks": {
+      "skip": true,
+      "verified": false,
+      "hard_block": false,
+      "status": "UNKNOWN",
+      "developer_wallet": "72x3Eo99X44zweqUZNFJh9NzXPL462dxK1WbiE8ZJ8CS",
+      "developer_holding_pct": null,
+      "bundle_pct": null,
+      "reasons": [
+        "Developer ownership UNKNOWN; no matching holder data",
+        "Bundle concentration UNKNOWN in provider report"
+      ],
+      "rugcheck_score": 101,
+      "rugcheck_risks": [
+        {
+          "name": "Mutable metadata",
+          "value": "",
+          "description": "Token metadata can be changed by the owner",
+          "score": 100,
+          "level": "warn"
+        }
+      ]
+    },
+    "paper_eligible": false,
+    "risk_status": "UNKNOWN"
+  },
+  {
+    "timestamp": "2026-11-27T19:45:03.503002+00:00",
+    "chain": "solana",
+    "address": "RecRFwNXRbTuDwDnvokNv5h4hLQubaDZMJwKfshpump",
+    "name": "Unknown",
+    "symbol": "UNKNOWN",
+    "pair_address": "6mBVQnyJf3Unm3WSL2NcJNA9ijRe7TfrCT6yhDMD7qvr",
+    "url": "https://dexscreener.com/solana/6mbvqnyjf3unm3wsl2ncjna9ijre7tfrct6yhdmd7qvr",
+    "sources": [
+      "DexScreener"
+    ],
+    "score": 37,
+    "reasons": [
+      "Minimum liquidity reached",
+      "Good 24h volume"
+    ],
+    "risks": [],
+    "metrics": {
+      "price_usd": 2.7e-05,
+      "liquidity_usd": 10487.91,
+      "volume_24h_usd": 64798.34,
+      "volume_1h_usd": 4051.87,
+      "buys_1h": 115.0,
+      "sells_1h": 73.0,
+      "buys_24h": 1382.0,
+      "sells_24h": 1094.0,
+      "change_1h_pct": -3.6,
+      "change_24h_pct": -13.44,
+      "age_minutes": 707.3917164388021
+    },
+    "returns": {},
+    "mode": "PAPER_ONLY",
+    "onchain_checks": {
+      "skip": true,
+      "verified": false,
+      "hard_block": false,
+      "status": "UNKNOWN",
+      "developer_wallet": "5YGoPGKCwGzyFxDoeNiFYeZa6MD9jCASbRR1UcCLrpW",
+      "developer_holding_pct": null,
+      "bundle_pct": null,
+      "reasons": [
+        "Developer ownership UNKNOWN; no matching holder data",
+        "Bundle concentration UNKNOWN in provider report"
+      ],
+      "rugcheck_score": 1,
+      "rugcheck_risks": []
+    },
+    "paper_eligible": false,
+    "risk_status": "UNKNOWN"
+  },
+  {
+    "timestamp": "2026-11-27T19:45:21.132454+00:00",
+    "chain": "solana",
+    "address": "Ap7P8D58T3Z7QL6wg1zs9YQJbffJyjvwBRnEwLGDg4mQ",
+    "name": "Eastern Oil Supply",
+    "symbol": "EOS",
+    "pair_address": "Ftcvuw4oYBwC93nZbp49Kz2RYM4QtrUbCHE5uQoTVk14",
+    "url": "https://dexscreener.com/solana/ftcvuw4oybwc93nzbp49kz2rym4qtrubche5uqotvk14",
+    "sources": [
+      "DexScreener"
+    ],
+    "score": 34,
+    "reasons": [
+      "Strong liquidity",
+      "Good 24h volume"
+    ],
+    "risks": [
+      "Limited transaction data"
+    ],
+    "metrics": {
+      "price_usd": 0.0002099,
+      "liquidity_usd": 209777536.89,
+      "volume_24h_usd": 153503.57,
+      "volume_1h_usd": 11024.0,
+      "buys_1h": 1.0,
+      "sells_1h": 0.0,
+      "buys_24h": 10.0,
+      "sells_24h": 9.0,
+      "change_1h_pct": 0.0,
+      "change_24h_pct": 0.0,
+      "age_minutes": 256918.6522043091
+    },
+    "returns": {
+      "5m_pct": 0.0,
+      "15m_pct": 0.0,
+      "30m_pct": 0.0,
+      "60m_pct": 0.0,
+      "240m_pct": 0.0,
+      "1440m_pct": 0.0
+    },
+    "mode": "PAPER_ONLY",
+    "onchain_checks": {
+      "skip": true,
+      "verified": false,
+      "hard_block": false,
+      "status": "UNKNOWN",
+      "developer_wallet": "FaympCmBFSDPuhTK39i94Jon4W61Rh6FChTQ7voVPQK4",
+      "developer_holding_pct": null,
+      "bundle_pct": null,
+      "reasons": [
+        "Developer ownership UNKNOWN; no matching holder data",
+        "Bundle concentration UNKNOWN in provider report"
+      ],
+      "rugcheck_score": 21501,
+      "rugcheck_risks": [
+        {
+          "name": "Large Amount of LP Unlocked",
+          "value": "100.00%",
+          "description": "A large amount of LP tokens are unlocked, allowing the owner to remove liquidity at any point.",
+          "score": 11000,
+          "level": "danger"
+        },
+        {
+          "name": "High market cap per holder",
+          "value": "",
+          "description": "The token's market cap is very high relative to its number of holders",
+          "score": 10000,
+          "level": "warn"
+        },
+        {
+          "name": "Low amount of LP Providers",
+          "value": "",
+          "description": "Only a few users are providing liquidity",
+          "score": 500,
+          "level": "warn"
+        }
+      ]
+    },
+    "paper_eligible": false,
+    "risk_status": "UNKNOWN"
+  },
+  {
+    "timestamp": "2026-11-27T19:45:37.867228+00:00",
+    "chain": "solana",
+    "address": "47fwKU1UvbtatYoFYp7ThLkYjqBudAv8UbuhBLf2CK4G",
+    "name": "Gensyn",
+    "symbol": "AI",
+    "pair_address": "57rXsAM2DAoyzbbcwHqGMxsjxC2X4EjBEhJ6oWJ4yL1P",
+    "url": "https://dexscreener.com/solana/57rxsam2daoyzbbcwhqgmxsjxc2x4ejbehj6owj4yl1p",
+    "sources": [
+      "DexScreener"
+    ],
+    "score": 34,
+    "reasons": [
+      "Strong liquidity",
+      "Good 24h volume"
+    ],
+    "risks": [
+      "Limited transaction data"
+    ],
+    "metrics": {
+      "price_usd": 0.0341,
+      "liquidity_usd": 33901064.02,
+      "volume_24h_usd": 164526.23,
+      "volume_1h_usd": 22046.87,
+      "buys_1h": 1.0,
+      "sells_1h": 1.0,
+      "buys_24h": 9.0,
+      "sells_24h": 9.0,
+      "change_1h_pct": 0.0,
+      "change_24h_pct": -0.02,
+      "age_minutes": 214895.14778636882
+    },
+    "returns": {
+      "5m_pct": 0.0,
+      "15m_pct": 0.0,
+      "30m_pct": 0.0,
+      "60m_pct": 0.0,
+      "240m_pct": 0.0,
+      "1440m_pct": 0.0
+    },
+    "mode": "PAPER_ONLY",
+    "onchain_checks": {
+      "skip": true,
+      "verified": false,
+      "hard_block": false,
+      "status": "UNKNOWN",
+      "developer_wallet": "E3UoKyex8msmNMNH1yd2X6w1Z6zQ9uaqGwxtqp2XQpZT",
+      "developer_holding_pct": 0.000403665608656069,
+      "bundle_pct": null,
+      "reasons": [
+        "Reported developer holding: 0.00%",
+        "Bundle concentration UNKNOWN in provider report"
+      ],
+      "rugcheck_score": 24477,
+      "rugcheck_risks": [
+        {
+          "name": "Large Amount of LP Unlocked",
+          "value": "100.00%",
+          "description": "A large amount of LP tokens are unlocked, allowing the owner to remove liquidity at any point.",
+          "score": 11000,
+          "level": "danger"
+        },
+        {
+          "name": "High market cap per holder",
+          "value": "",
+          "description": "The token's market cap is very high relative to its number of holders",
+          "score": 10000,
+          "level": "warn"
+        },
+        {
+          "name": "Low Liquidity",
+          "value": "$23.51",
+          "description": "Low amount of liquidity in the token pool",
+          "score": 2976,
+          "level": "danger"
+        },
+        {
+          "name": "Low amount of LP Providers",
+          "value": "",
+          "description": "Only a few users are providing liquidity",
+          "score": 500,
+          "level": "warn"
+        }
+      ]
+    },
+    "paper_eligible": false,
+    "risk_status": "UNKNOWN"
+  },
+  {
+    "timestamp": "2026-11-27T19:45:10.231356+00:00",
+    "chain": "solana",
+    "address": "9593dFjsLKKRAaz4LX1eK2DDEgrzfu3idb6yvMysD6A1",
+    "name": "Pump.fun",
+    "symbol": "PUMP",
+    "pair_address": "7q2dQbjtxxP4DqmHEC2nsGXWSytQ8jaxdyGswmAg3PFP",
+    "url": "https://dexscreener.com/solana/7q2dqbjtxxp4dqmhec2nsgxwsytq8jaxdygswmag3pfp",
+    "sources": [
+      "DexScreener"
+    ],
+    "score": 34,
+    "reasons": [
+      "Strong liquidity",
+      "Good 24h volume"
+    ],
+    "risks": [
+      "Limited transaction data"
+    ],
+    "metrics": {
+      "price_usd": 0.002255,
+      "liquidity_usd": 2050328.51,
+      "volume_24h_usd": 164526.23,
+      "volume_1h_usd": 0.0,
+      "buys_1h": 0.0,
+      "sells_1h": 0.0,
+      "buys_24h": 9.0,
+      "sells_24h": 9.0,
+      "change_1h_pct": 0.0,
+      "change_24h_pct": -0.25,
+      "age_minutes": 169342.98718567708
+    },
+    "returns": {
+      "5m_pct": 0.0,
+      "15m_pct": 0.0,
+      "30m_pct": 0.0,
+      "60m_pct": 0.0,
+      "240m_pct": 0.0,
+      "1440m_pct": 0.0
+    },
+    "mode": "PAPER_ONLY",
+    "onchain_checks": {
+      "skip": true,
+      "verified": false,
+      "hard_block": false,
+      "status": "UNKNOWN",
+      "developer_wallet": "HCcMWboU1UGeS2VT93foKnCGsnwviQmX3Px1UXJu8HhD",
+      "developer_holding_pct": null,
+      "bundle_pct": null,
+      "reasons": [
+        "Developer ownership UNKNOWN; no matching holder data",
+        "Bundle concentration UNKNOWN in provider report"
+      ],
+      "rugcheck_score": 14979,
+      "rugcheck_risks": [
+        {
+          "name": "High market cap per holder",
+          "value": "",
+          "description": "The token's market cap is very high relative to its number of holders",
+          "score": 10000,
+          "level": "warn"
+        },
+        {
+          "name": "Low Liquidity",
+          "value": "$21.07",
+          "description": "Low amount of liquidity in the token pool",
+          "score": 2978,
+          "level": "danger"
+        },
+        {
+          "name": "Copycat token",
+          "value": "PUMP5uDeJKMQ54HXS32iy2emn8pbhZDULViaqST23WS",
+          "description": "This token is using a verified tokens symbol",
+          "score": 2000,
+          "level": "warn"
+        }
+      ]
+    },
+    "paper_eligible": false,
+    "risk_status": "UNKNOWN"
+  },
+  {
+    "timestamp": "2026-11-27T19:45:27.244421+00:00",
+    "chain": "bsc",
+    "address": "0x5C097b1043E2Ea5b247f56D4e1a01d1DA31E9fEc",
+    "name": "Depend New Dawn V3",
+    "symbol": "DNDV3",
+    "pair_address": "0xe0A96F9EBe6CAC754f078BF1c1D515FB74B8246E",
+    "url": "https://dexscreener.com/bsc/0xe0a96f9ebe6cac754f078bf1c1d515fb74b8246e",
+    "sources": [
+      "DexScreener"
+    ],
+    "score": 34,
+    "reasons": [
+      "Strong liquidity",
+      "Good 24h volume"
+    ],
+    "risks": [
+      "Limited transaction data"
+    ],
+    "metrics": {
+      "price_usd": 31.11,
+      "liquidity_usd": 701919.7,
+      "volume_24h_usd": 186810.74,
+      "volume_1h_usd": 966.02,
+      "buys_1h": 0.0,
+      "sells_1h": 1.0,
+      "buys_24h": 45.0,
+      "sells_24h": 122.0,
+      "change_1h_pct": -0.55,
+      "change_24h_pct": -3.3,
+      "age_minutes": 37544.32073791911
+    },
+    "returns": {
+      "5m_pct": 0.5819592628516057,
+      "15m_pct": 0.5819592628516057,
+      "30m_pct": 0.5819592628516057,
+      "60m_pct": 0.5819592628516057,
+      "240m_pct": 0.5819592628516057,
+      "1440m_pct": -0.8604206500956058
+    },
+    "mode": "PAPER_ONLY",
+    "onchain_checks": {
+      "skip": true,
+      "verified": false,
+      "hard_block": false,
+      "status": "UNKNOWN",
+      "reasons": [
+        "Developer/bundle checks are not configured for this chain"
+      ],
+      "developer_wallet": null,
+      "developer_holding_pct": null,
+      "bundle_pct": null
+    },
+    "paper_eligible": false,
+    "risk_status": "UNKNOWN"
+  },
+  {
+    "timestamp": "2026-11-27T19:45:05.926728+00:00",
     "chain": "solana",
     "address": "6C9r2gzu8Pr54hTevHo3x5gSj9JqtpApj7obJnrtpump",
     "name": "Unknown",
@@ -1800,25 +1509,25 @@
     ],
     "risks": [],
     "metrics": {
-      "price_usd": 0.0008532,
-      "liquidity_usd": 89629.88,
-      "volume_24h_usd": 39563.29,
-      "volume_1h_usd": 1216.64,
-      "buys_1h": 1980.0,
-      "sells_1h": 1949.0,
-      "buys_24h": 40779.0,
-      "sells_24h": 39890.0,
-      "change_1h_pct": 0.52,
-      "change_24h_pct": 8.6,
-      "age_minutes": 8589.853758024088
+      "price_usd": 0.0008496,
+      "liquidity_usd": 87966.9,
+      "volume_24h_usd": 36358.85,
+      "volume_1h_usd": 1317.24,
+      "buys_1h": 1756.0,
+      "sells_1h": 1694.0,
+      "buys_24h": 46697.0,
+      "sells_24h": 45620.0,
+      "change_1h_pct": -1.47,
+      "change_24h_pct": -4.08,
+      "age_minutes": 9123.965442610677
     },
     "returns": {
-      "5m_pct": 0.6963295172902173,
-      "15m_pct": 0.6963295172902173,
-      "30m_pct": 0.6963295172902173,
-      "60m_pct": 0.6963295172902173,
-      "240m_pct": 0.6963295172902173,
-      "1440m_pct": 12.901945216355703
+      "5m_pct": -0.42194092827003704,
+      "15m_pct": -0.42194092827003704,
+      "30m_pct": -0.42194092827003704,
+      "60m_pct": -0.42194092827003704,
+      "240m_pct": -0.42194092827003704,
+      "1440m_pct": 3.825003055114262
     },
     "mode": "PAPER_ONLY",
     "onchain_checks": {
